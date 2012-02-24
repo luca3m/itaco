@@ -125,64 +125,34 @@ SingleCharacter = [^\r\n\'\\]
 <YYINITIAL> {
 
   /* keywords */
-  "abstract"                     { return symbol(ABSTRACT); }
-  "boolean"                      { return symbol(BOOLEAN); }
-  "break"                        { return symbol(BREAK); }
-  "byte"                         { return symbol(BYTE); }
-  "case"                         { return symbol(CASE); }
-  "catch"                        { return symbol(CATCH); }
+  "booleano"                      { return symbol(BOOLEAN); }
+  "interrompi"                   { return symbol(BREAK); }
   "char"                         { return symbol(CHAR); }
-  "class"                        { return symbol(CLASS); }
-  "const"                        { return symbol(CONST); }
-  "continue"                     { return symbol(CONTINUE); }
+  "salta"                        { return symbol(CONTINUE); }
   "do"                           { return symbol(DO); }
   "double"                       { return symbol(DOUBLE); }
-  "else"                         { return symbol(ELSE); }
-  "extends"                      { return symbol(EXTENDS); }
-  "final"                        { return symbol(FINAL); }
-  "finally"                      { return symbol(FINALLY); }
+  "altrimenti"                   { return symbol(ELSE); }
   "float"                        { return symbol(FLOAT); }
-  "for"                          { return symbol(FOR); }
-  "default"                      { return symbol(DEFAULT); }
-  "implements"                   { return symbol(IMPLEMENTS); }
-  "import"                       { return symbol(IMPORT); }
-  "instanceof"                   { return symbol(INSTANCEOF); }
-  "int"                          { return symbol(INT); }
-  "interface"                    { return symbol(INTERFACE); }
-  "long"                         { return symbol(LONG); }
-  "native"                       { return symbol(NATIVE); }
-  "new"                          { return symbol(NEW); }
-  "goto"                         { return symbol(GOTO); }
-  "if"                           { return symbol(IF); }
-  "public"                       { return symbol(PUBLIC); }
-  "short"                        { return symbol(SHORT); }
-  "super"                        { return symbol(SUPER); }
-  "switch"                       { return symbol(SWITCH); }
-  "synchronized"                 { return symbol(SYNCHRONIZED); }
-  "package"                      { return symbol(PACKAGE); }
+  "per"                          { return symbol(FOR); }
+  "importa"                       { return symbol(IMPORT); }
+  "intero"                          { return symbol(INT); }
+  "se"                           { return symbol(IF); }
+  "pacchetto"                      { return symbol(PACKAGE); }
   "private"                      { return symbol(PRIVATE); }
   "protected"                    { return symbol(PROTECTED); }
-  "transient"                    { return symbol(TRANSIENT); }
-  "return"                       { return symbol(RETURN); }
-  "void"                         { return symbol(VOID); }
-  "static"                       { return symbol(STATIC); }
-  "while"                        { return symbol(WHILE); }
-  "this"                         { return symbol(THIS); }
-  "throw"                        { return symbol(THROW); }
-  "throws"                       { return symbol(THROWS); }
-  "try"                          { return symbol(TRY); }
-  "volatile"                     { return symbol(VOLATILE); }
-  "strictfp"                     { return symbol(STRICTFP); }
+  "ritorna"                       { return symbol(RETURN); }
+  "finché"                        { return symbol(WHILE); }
   
   /* boolean literals */
-  "true"                         { return symbol(BOOLEAN_LITERAL, new Boolean(true)); }
-  "false"                        { return symbol(BOOLEAN_LITERAL, new Boolean(false)); }
+  "vero"                         { return symbol(BOOLEAN_LITERAL, new Boolean(true)); }
+  "falso"                        { return symbol(BOOLEAN_LITERAL, new Boolean(false)); }
   
   /* null literal */
   "null"                         { return symbol(NULL_LITERAL); }
   
   
   /* separators */
+  ":"							 { return symbol(COLON); }
   "("                            { return symbol(LPAREN); }
   ")"                            { return symbol(RPAREN); }
   "{"                            { return symbol(LBRACE); }
