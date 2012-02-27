@@ -29,22 +29,17 @@
    For a production quality application (e.g. a Java compiler) 
    this could be optimized */
 
-
-import java_cup.runtime.*;
+package itaco;
 
 %%
 
 %public
 %class Scanner
-%implements sym
 
 %unicode
 
 %line
 %column
-
-%cup
-%cupdebug
 
 %{
   StringBuffer string = new StringBuffer();
@@ -125,107 +120,38 @@ SingleCharacter = [^\r\n\'\\]
 <YYINITIAL> {
 
   /* keywords */
-  "booleano"                      { return symbol(BOOLEAN); }
-  "interrompi"                   { return symbol(BREAK); }
-  "char"                         { return symbol(CHAR); }
-  "salta"                        { return symbol(CONTINUE); }
-  "do"                           { return symbol(DO); }
-  "double"                       { return symbol(DOUBLE); }
-  "altrimenti"                   { return symbol(ELSE); }
-  "float"                        { return symbol(FLOAT); }
-  "per"                          { return symbol(FOR); }
-  "importa"                       { return symbol(IMPORT); }
-  "intero"                          { return symbol(INT); }
-  "se"                           { return symbol(IF); }
-  "pacchetto"                      { return symbol(PACKAGE); }
-  "private"                      { return symbol(PRIVATE); }
-  "protected"                    { return symbol(PROTECTED); }
-  "ritorna"                       { return symbol(RETURN); }
-  "finchŽ"                        { return symbol(WHILE); }
-  
-  /* boolean literals */
-  "vero"                         { return symbol(BOOLEAN_LITERAL, new Boolean(true)); }
-  "falso"                        { return symbol(BOOLEAN_LITERAL, new Boolean(false)); }
-  
-  /* null literal */
-  "null"                         { return symbol(NULL_LITERAL); }
-  
+  "altrimenti"                   { return Symbol.ALTRIMENTI; }
+  "intero"                          { return Symbol.INTERO; }
+  "se"                           { return Symbol.SE; }
+  "finchŽ"                        { return Symbol.FINCHE; }
   
   /* separators */
-  ":"							 { return symbol(COLON); }
-  "("                            { return symbol(LPAREN); }
-  ")"                            { return symbol(RPAREN); }
-  "{"                            { return symbol(LBRACE); }
-  "}"                            { return symbol(RBRACE); }
-  "["                            { return symbol(LBRACK); }
-  "]"                            { return symbol(RBRACK); }
-  ";"                            { return symbol(SEMICOLON); }
-  ","                            { return symbol(COMMA); }
-  "."                            { return symbol(DOT); }
+  ":"							 { return Symbol.DUE_PUNTI; }
+  "("                            { return Symbol.PARENTESI_TONDA_APERTA; }
+  ")"                            { return Symbol.PARENTESI_TONDA_CHIUSA; }
+  "["                            { return Symbol.PARENTESI_QUADRA_APERTA; }
+  "]"                            { return Symbol.PARENTESI_QUADRA_CHIUSA; }
+  ","                            { return Symbol.VIRGOLA; }
+  "."                            { return Symbol.PUNTO; }
   
   /* operators */
-  "="                            { return symbol(EQ); }
-  ">"                            { return symbol(GT); }
-  "<"                            { return symbol(LT); }
-  "!"                            { return symbol(NOT); }
-  "~"                            { return symbol(COMP); }
-  "?"                            { return symbol(QUESTION); }
-  ":"                            { return symbol(COLON); }
-  "=="                           { return symbol(EQEQ); }
-  "<="                           { return symbol(LTEQ); }
-  ">="                           { return symbol(GTEQ); }
-  "!="                           { return symbol(NOTEQ); }
-  "&&"                           { return symbol(ANDAND); }
-  "||"                           { return symbol(OROR); }
-  "++"                           { return symbol(PLUSPLUS); }
-  "--"                           { return symbol(MINUSMINUS); }
-  "+"                            { return symbol(PLUS); }
-  "-"                            { return symbol(MINUS); }
-  "*"                            { return symbol(MULT); }
-  "/"                            { return symbol(DIV); }
-  "&"                            { return symbol(AND); }
-  "|"                            { return symbol(OR); }
-  "^"                            { return symbol(XOR); }
-  "%"                            { return symbol(MOD); }
-  "<<"                           { return symbol(LSHIFT); }
-  ">>"                           { return symbol(RSHIFT); }
-  ">>>"                          { return symbol(URSHIFT); }
-  "+="                           { return symbol(PLUSEQ); }
-  "-="                           { return symbol(MINUSEQ); }
-  "*="                           { return symbol(MULTEQ); }
-  "/="                           { return symbol(DIVEQ); }
-  "&="                           { return symbol(ANDEQ); }
-  "|="                           { return symbol(OREQ); }
-  "^="                           { return symbol(XOREQ); }
-  "%="                           { return symbol(MODEQ); }
-  "<<="                          { return symbol(LSHIFTEQ); }
-  ">>="                          { return symbol(RSHIFTEQ); }
-  ">>>="                         { return symbol(URSHIFTEQ); }
+  "<-"                            { return Symbol.ASSEGNAZIONE; }
+  "+"							 { return Symbol.SOMMA; }
+  "-"                            { return Symbol.SOTTRAZIONE; }
+  "="                           { return Symbol.UGUALE; }  
   
   /* string literal */
   \"                             { yybegin(STRING); string.setLength(0); }
-
-  /* character literal */
-  \'                             { yybegin(CHARLITERAL); }
 
   /* numeric literals */
 
   /* This is matched together with the minus, because the number is too big to 
      be represented by a positive integer. */
-  "-2147483648"                  { return symbol(INTEGER_LITERAL, new Integer(Integer.MIN_VALUE)); }
+  /*"-2147483648"                  { return symbol(INTEGER_LITERAL, new Integer(Integer.MIN_VALUE)); }
   
   {DecIntegerLiteral}            { return symbol(INTEGER_LITERAL, new Integer(yytext())); }
-  {DecLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(yytext().substring(0,yylength()-1))); }
-  
-  {HexIntegerLiteral}            { return symbol(INTEGER_LITERAL, new Integer((int) parseLong(2, yylength(), 16))); }
-  {HexLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(parseLong(2, yylength()-1, 16))); }
- 
-  {OctIntegerLiteral}            { return symbol(INTEGER_LITERAL, new Integer((int) parseLong(0, yylength(), 8))); }  
-  {OctLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(parseLong(0, yylength()-1, 8))); }
-  
-  {FloatLiteral}                 { return symbol(FLOATING_POINT_LITERAL, new Float(yytext().substring(0,yylength()-1))); }
-  {DoubleLiteral}                { return symbol(FLOATING_POINT_LITERAL, new Double(yytext())); }
-  {DoubleLiteral}[dD]            { return symbol(FLOATING_POINT_LITERAL, new Double(yytext().substring(0,yylength()-1))); }
+  {DecLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(yytext().substring(0,yylength()-1))); }*/
+  {DecIntegerLiteral}            { return Symbol.NUMERO_INTERO; }
   
   /* comments */
   {Comment}                      { /* ignore */ }
@@ -234,7 +160,7 @@ SingleCharacter = [^\r\n\'\\]
   {WhiteSpace}                   { /* ignore */ }
 
   /* identifiers */ 
-  {Identifier}                   { return symbol(IDENTIFIER, yytext()); }  
+  {Identifier}                   { return Symbol.IDENTIFICATORE; }  
 }
 
 <STRING> {
@@ -242,7 +168,6 @@ SingleCharacter = [^\r\n\'\\]
   
   {StringCharacter}+             { string.append( yytext() ); }
   
-  /* escape sequences */
   "\\b"                          { string.append( '\b' ); }
   "\\t"                          { string.append( '\t' ); }
   "\\n"                          { string.append( '\n' ); }
@@ -254,33 +179,11 @@ SingleCharacter = [^\r\n\'\\]
   \\[0-3]?{OctDigit}?{OctDigit}  { char val = (char) Integer.parseInt(yytext().substring(1),8);
                         				   string.append( val ); }
   
-  /* error cases */
   \\.                            { throw new RuntimeException("Illegal escape sequence \""+yytext()+"\""); }
   {LineTerminator}               { throw new RuntimeException("Unterminated string at end of line"); }
-}
-
-<CHARLITERAL> {
-  {SingleCharacter}\'            { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, new Character(yytext().charAt(0))); }
-  
-  /* escape sequences */
-  "\\b"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, new Character('\b'));}
-  "\\t"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, new Character('\t'));}
-  "\\n"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, new Character('\n'));}
-  "\\f"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, new Character('\f'));}
-  "\\r"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, new Character('\r'));}
-  "\\\""\'                       { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, new Character('\"'));}
-  "\\'"\'                        { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, new Character('\''));}
-  "\\\\"\'                       { yybegin(YYINITIAL); return symbol(CHARACTER_LITERAL, new Character('\\')); }
-  \\[0-3]?{OctDigit}?{OctDigit}\' { yybegin(YYINITIAL); 
-			                              int val = Integer.parseInt(yytext().substring(1,yylength()-1),8);
-			                            return symbol(CHARACTER_LITERAL, new Character((char)val)); }
-  
-  /* error cases */
-  \\.                            { throw new RuntimeException("Illegal escape sequence \""+yytext()+"\""); }
-  {LineTerminator}               { throw new RuntimeException("Unterminated character literal at end of line"); }
 }
 
 /* error fallback */
 .|\n                             { throw new RuntimeException("Illegal character \""+yytext()+
                                                               "\" at line "+yyline+", column "+yycolumn); }
-<<EOF>>                          { return symbol(EOF); }
+<<EOF>>                          { return Symbol.FINE_FILE; }
