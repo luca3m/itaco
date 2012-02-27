@@ -29,7 +29,7 @@
    For a production quality application (e.g. a Java compiler) 
    this could be optimized */
 
-package itaco;
+package main;
 
 %%
 
@@ -44,14 +44,6 @@ package itaco;
 %{
   StringBuffer string = new StringBuffer();
   
-  private Symbol symbol(int type) {
-    return new JavaSymbol(type, yyline+1, yycolumn+1);
-  }
-
-  private Symbol symbol(int type, Object value) {
-    return new JavaSymbol(type, yyline+1, yycolumn+1, value);
-  }
-
   /** 
    * assumes correct representation of a long value for 
    * specified radix in scanner buffer from <code>start</code> 
@@ -91,14 +83,6 @@ Identifier = [:jletter:][:jletterdigit:]*
 /* integer literals */
 DecIntegerLiteral = 0 | [1-9][0-9]*
 DecLongLiteral    = {DecIntegerLiteral} [lL]
-
-HexIntegerLiteral = 0 [xX] 0* {HexDigit} {1,8}
-HexLongLiteral    = 0 [xX] 0* {HexDigit} {1,16} [lL]
-HexDigit          = [0-9a-fA-F]
-
-OctIntegerLiteral = 0+ [1-3]? {OctDigit} {1,15}
-OctLongLiteral    = 0+ 1? {OctDigit} {1,21} [lL]
-OctDigit          = [0-7]
     
 /* floating point literals */        
 FloatLiteral  = ({FLit1}|{FLit2}|{FLit3}) {Exponent}? [fF]
@@ -113,7 +97,7 @@ Exponent = [eE] [+-]? [0-9]+
 StringCharacter = [^\r\n\"\\]
 SingleCharacter = [^\r\n\'\\]
 
-%state STRING, CHARLITERAL
+%state STRING
 
 %%
 
@@ -123,7 +107,9 @@ SingleCharacter = [^\r\n\'\\]
   "altrimenti"                   { return Symbol.ALTRIMENTI; }
   "intero"                          { return Symbol.INTERO; }
   "se"                           { return Symbol.SE; }
-  "finch�"                        { return Symbol.FINCHE; }
+  "finché"                        { return Symbol.FINCHE; }
+  "leggi"						 { return Symbol.LEGGI; }
+  "scrivi"						 { return Symbol.SCRIVI; }
   
   /* separators */
   ":"							 { return Symbol.DUE_PUNTI; }
