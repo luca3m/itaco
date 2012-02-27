@@ -123,7 +123,7 @@ SingleCharacter = [^\r\n\'\\]
   "altrimenti"                   { return Symbol.ALTRIMENTI; }
   "intero"                          { return Symbol.INTERO; }
   "se"                           { return Symbol.SE; }
-  "finchŽ"                        { return Symbol.FINCHE; }
+  "finchï¿½"                        { return Symbol.FINCHE; }
   
   /* separators */
   ":"							 { return Symbol.DUE_PUNTI; }
