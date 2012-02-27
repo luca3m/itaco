@@ -9,38 +9,159 @@ import static main.ParserSpec.NonTerminals.*;
 public class ParserSpec extends CUP2Specification {
 
 	public enum Terminals implements Terminal {
-		SE, ALTRIMENTI, FINCHE, INTERO, PARENTESI_QUADRA_APERTA,
-		PARENTESI_QUADRA_CHIUSA, DUE_PUNTI, PUNTO, VIRGOLA, PARENTESI_TONDA_APERTA,
-		PARENTESI_TONDA_CHIUSA, UGUALE, LEGGI, SCRIVI, COMMENTO, IDENTIFICATORE,
-		NUMERO_INTERO, SOMMA, SOTTRAZIONE, ASSEGNAZIONE, FINE_FILE, STRINGA;
+		SE, ALTRIMENTI, FINCHE, INTERO, PARENTESI_QUADRA_APERTA, PARENTESI_QUADRA_CHIUSA, DUE_PUNTI, PUNTO, VIRGOLA, PARENTESI_TONDA_APERTA, PARENTESI_TONDA_CHIUSA, UGUALE, LEGGI, SCRIVI, COMMENTO, IDENTIFICATORE, NUMERO_INTERO, SOMMA, SOTTRAZIONE, ASSEGNAZIONE, FINE_FILE, STRINGA;
 	}
 
 	// non-terminals
 	public enum NonTerminals implements NonTerminal {
 		S, A, I, D, C, B, E;
 	}
-	
+
 	public class S extends SymbolValue<String> {
 	};
 
-	public ParserSpec() {
+	public class A extends SymbolValue<String> {
+	};
+
+	public class I extends SymbolValue<String> {
+	};
+
+	public class D extends SymbolValue<String> {
+	};
+
+	public class C extends SymbolValue<String> {
+	};
+
+	public class B extends SymbolValue<String> {
+	};
+
+	public class E extends SymbolValue<String> {
+	};
+
+	public ParserSpec(final ParserDelegate delegate) {
 
 		// grammar
 		grammar(
-				prod(S, rhs(I,S), rhs()),
-				prod(A, rhs(INTERO, IDENTIFICATORE, ASSEGNAZIONE, NUMERO_INTERO),
-						rhs(INTERO, IDENTIFICATORE, ASSEGNAZIONE, IDENTIFICATORE),
+				
+				prod(S, rhs(I, S), new Action() {
+									public String a(String I, String S) {
+										delegate.scriviTarget("Trovata riduzione S-> IS");
+										return "OK";
+									}
+								},
+				
+						rhs(), new Action() {
+							public String a() {
+								delegate.scriviTarget("Trovata riduzione S-> epsilon");
+								return "OK";
+							}
+						}),
+				prod(A,
+						rhs(INTERO, IDENTIFICATORE, ASSEGNAZIONE, NUMERO_INTERO),
+						new Action() {
+							public String a(String I, String S) {
+								delegate.scriviTarget("Trovata riduzione S-> IS");
+								return "OK";
+							}
+						},
+						rhs(INTERO, IDENTIFICATORE, ASSEGNAZIONE,
+								IDENTIFICATORE),
+						new Action() {
+							public String a(String I, String S) {
+								delegate.scriviTarget("Trovata riduzione S-> IS");
+								return "OK";
+							}
+						},
 						rhs(IDENTIFICATORE, ASSEGNAZIONE, IDENTIFICATORE, D),
-						rhs(IDENTIFICATORE, ASSEGNAZIONE, NUMERO_INTERO, D),
-						rhs(SCRIVI, IDENTIFICATORE),
-						rhs(SCRIVI, NUMERO_INTERO)
-						),
-				prod(I, rhs(A, VIRGOLA),
-						rhs(SE, PARENTESI_TONDA_APERTA, C, PARENTESI_TONDA_CHIUSA, DUE_PUNTI, B, PUNTO)),
-				prod(B, rhs(), rhs(A, VIRGOLA, B), rhs(A)),
-				prod(C, rhs(IDENTIFICATORE, E)),
-				prod(E, rhs(), rhs(UGUALE, IDENTIFICATORE)),
-				prod(D, rhs(SOMMA, IDENTIFICATORE), rhs(SOMMA, NUMERO_INTERO), rhs())
+						new Action() {
+							public String a(String I, String S) {
+								delegate.scriviTarget("Trovata riduzione S-> IS");
+								return "OK";
+							}
+						}, rhs(IDENTIFICATORE, ASSEGNAZIONE, NUMERO_INTERO, D),
+						new Action() {
+							public String a(String I, String S) {
+								delegate.scriviTarget("Trovata riduzione S-> IS");
+								return "OK";
+							}
+						}, rhs(SCRIVI, IDENTIFICATORE), new Action() {
+							public String a(String I, String S) {
+								delegate.scriviTarget("Trovata riduzione S-> IS");
+								return "OK";
+							}
+						}, rhs(SCRIVI, NUMERO_INTERO), new Action(){
+					public String a(String I, String S) {
+						delegate.scriviTarget("Trovata riduzione S-> IS");
+						return "OK";
+					}
+				}),
+				prod(I,
+						rhs(A, VIRGOLA),
+						new Action() {
+							public String a(String I, String S) {
+								delegate.scriviTarget("Trovata riduzione S-> IS");
+								return "OK";
+							}
+						},
+						rhs(SE, PARENTESI_TONDA_APERTA, C,
+								PARENTESI_TONDA_CHIUSA, DUE_PUNTI, B, PUNTO), new Action(){
+							public String a(String I, String S) {
+								delegate.scriviTarget("Trovata riduzione S-> IS");
+								return "OK";
+							}
+						}),
+				prod(B, rhs(), new Action() {
+					public String a(String I, String S) {
+						delegate.scriviTarget("Trovata riduzione S-> IS");
+						return "OK";
+					}
+				}, rhs(A, VIRGOLA, B), new Action() {
+					public String a(String I, String S) {
+						delegate.scriviTarget("Trovata riduzione S-> IS");
+						return "OK";
+					}
+				}, rhs(A), new Action() {
+					public String a(String I, String S) {
+						delegate.scriviTarget("Trovata riduzione S-> IS");
+						return "OK";
+					}
+				}), 
+			
+				prod(C, rhs(IDENTIFICATORE, E), new Action() {
+					public String a(String I, String S) {
+						delegate.scriviTarget("Trovata riduzione S-> IS");
+						return "OK";
+					}
+				}),
+				
+				prod(E, rhs(), new Action() {
+					public String a(String I, String S) {
+						delegate.scriviTarget("Trovata riduzione S-> IS");
+						return "OK";
+					}
+				}, rhs(UGUALE, IDENTIFICATORE), new Action() {
+					public String a(String I, String S) {
+						delegate.scriviTarget("Trovata riduzione S-> IS");
+						return "OK";
+					}
+				}),
+				
+				prod(D, rhs(SOMMA, IDENTIFICATORE), new Action() {
+					public String a(String I, String S) {
+						delegate.scriviTarget("Trovata riduzione S-> IS");
+						return "OK";
+					}
+				}, rhs(SOMMA, NUMERO_INTERO), new Action() {
+					public String a(String I, String S) {
+						delegate.scriviTarget("Trovata riduzione S-> IS");
+						return "OK";
+					}
+				}, rhs(), new Action(){
+					public String a(String I, String S) {
+						delegate.scriviTarget("Trovata riduzione S-> IS");
+						return "OK";
+					}
+				})
 		);
 
 	}
