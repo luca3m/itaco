@@ -164,7 +164,7 @@ SingleCharacter = [^\r\n\'\\]
 }
 
 <STRING> {
-  \"                             { yybegin(YYINITIAL); return symbol(STRING_LITERAL, string.toString()); }
+  \"                             { yybegin(YYINITIAL); return Symbol.STRINGA; }
   
   {StringCharacter}+             { string.append( yytext() ); }
   
