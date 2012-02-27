@@ -17,18 +17,30 @@ public class ParserSpec extends CUP2Specification {
 
 	// non-terminals
 	public enum NonTerminals implements NonTerminal {
-		s;
+		S, A, I, D, C, B, E;
 	}
 	
-	public class s extends SymbolValue<String> {
+	public class S extends SymbolValue<String> {
 	};
 
 	public ParserSpec() {
 
 		// grammar
 		grammar(
-				prod(s, rhs(INTERO, IDENTIFICATORE,
-						ASSEGNAZIONE, NUMERO_INTERO, VIRGOLA))
+				prod(S, rhs(I,S), rhs()),
+				prod(A, rhs(INTERO, IDENTIFICATORE, ASSEGNAZIONE, NUMERO_INTERO),
+						rhs(INTERO, IDENTIFICATORE, ASSEGNAZIONE, IDENTIFICATORE),
+						rhs(IDENTIFICATORE, ASSEGNAZIONE, IDENTIFICATORE, D),
+						rhs(IDENTIFICATORE, ASSEGNAZIONE, NUMERO_INTERO, D),
+						rhs(SCRIVI, IDENTIFICATORE),
+						rhs(SCRIVI, NUMERO_INTERO)
+						),
+				prod(I, rhs(A, VIRGOLA),
+						rhs(SE, PARENTESI_TONDA_APERTA, C, PARENTESI_TONDA_CHIUSA, DUE_PUNTI, B, PUNTO)),
+				prod(B, rhs(), rhs(A, VIRGOLA, B), rhs(A)),
+				prod(C, rhs(IDENTIFICATORE, E)),
+				prod(E, rhs(), rhs(UGUALE, IDENTIFICATORE)),
+				prod(D, rhs(SOMMA, IDENTIFICATORE), rhs(SOMMA, NUMERO_INTERO), rhs())
 		);
 
 	}

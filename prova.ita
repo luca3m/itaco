@@ -1,1 +1,6 @@
 intero ciao <- 2,
+intero ciao2 <- 4,
+se ( ciao = ciao2):
+	ciao2 <- 5,
+	scrivi 3,
+	scrivi ciao.
