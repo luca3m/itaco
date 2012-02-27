@@ -31,10 +31,17 @@
 
 package main;
 
+import edu.tum.cup2.grammar.SpecialTerminals;
+import edu.tum.cup2.scanner.ScannerToken;
+import static main.ParserSpec.Terminals.*;
+
 %%
 
 %public
 %class Scanner
+%implements edu.tum.cup2.scanner.Scanner
+%function readNextTerminal
+%type ScannerToken<Object>
 
 %unicode
 
@@ -44,23 +51,6 @@ package main;
 %{
   StringBuffer string = new StringBuffer();
   
-  /** 
-   * assumes correct representation of a long value for 
-   * specified radix in scanner buffer from <code>start</code> 
-   * to <code>end</code> 
-   */
-  private long parseLong(int start, int end, int radix) {
-    long result = 0;
-    long digit;
-
-    for (int i = start; i < end; i++) {
-      digit  = Character.digit(yycharat(i),radix);
-      result*= radix;
-      result+= digit;
-    }
-
-    return result;
-  }
 %}
 
 /* main character classes */
@@ -84,15 +74,6 @@ Identifier = [:jletter:][:jletterdigit:]*
 DecIntegerLiteral = 0 | [1-9][0-9]*
 DecLongLiteral    = {DecIntegerLiteral} [lL]
     
-/* floating point literals */        
-FloatLiteral  = ({FLit1}|{FLit2}|{FLit3}) {Exponent}? [fF]
-DoubleLiteral = ({FLit1}|{FLit2}|{FLit3}) {Exponent}?
-
-FLit1    = [0-9]+ \. [0-9]* 
-FLit2    = \. [0-9]+ 
-FLit3    = [0-9]+ 
-Exponent = [eE] [+-]? [0-9]+
-
 /* string and character literals */
 StringCharacter = [^\r\n\"\\]
 SingleCharacter = [^\r\n\'\\]
@@ -104,27 +85,29 @@ SingleCharacter = [^\r\n\'\\]
 <YYINITIAL> {
 
   /* keywords */
-  "altrimenti"                   { return Symbol.ALTRIMENTI; }
-  "intero"                          { return Symbol.INTERO; }
-  "se"                           { return Symbol.SE; }
-  "finché"                        { return Symbol.FINCHE; }
-  "leggi"						 { return Symbol.LEGGI; }
-  "scrivi"						 { return Symbol.SCRIVI; }
+  "altrimenti"                   { return new ScannerToken<Object>(ALTRIMENTI); }
+  "intero"                          { return new ScannerToken<Object>(INTERO); }
+  "se"                           { return new ScannerToken<Object>(SE); }
+  "finché"                        { return new ScannerToken<Object>(FINCHE); }
+  "leggi"						 { return new ScannerToken<Object>(LEGGI); }
+  "scrivi"						 { return new ScannerToken<Object>(SCRIVI); }
   
   /* separators */
-  ":"							 { return Symbol.DUE_PUNTI; }
-  "("                            { return Symbol.PARENTESI_TONDA_APERTA; }
-  ")"                            { return Symbol.PARENTESI_TONDA_CHIUSA; }
-  "["                            { return Symbol.PARENTESI_QUADRA_APERTA; }
-  "]"                            { return Symbol.PARENTESI_QUADRA_CHIUSA; }
-  ","                            { return Symbol.VIRGOLA; }
-  "."                            { return Symbol.PUNTO; }
+  ":"							 { return new ScannerToken<Object>(DUE_PUNTI); }
+  "("                            { return new ScannerToken<Object>(PARENTESI_TONDA_APERTA); }
+  ")"                            { return new ScannerToken<Object>(PARENTESI_TONDA_CHIUSA); }
+  "["                            { return new ScannerToken<Object>(PARENTESI_QUADRA_APERTA); }
+  "]"                            { return new ScannerToken<Object>(PARENTESI_QUADRA_CHIUSA); }
+  ","                            { return new ScannerToken<Object>(VIRGOLA); }
+  "."                            { return new ScannerToken<Object>(PUNTO); }
   
   /* operators */
-  "<-"                            { return Symbol.ASSEGNAZIONE; }
-  "+"							 { return Symbol.SOMMA; }
-  "-"                            { return Symbol.SOTTRAZIONE; }
-  "="                           { return Symbol.UGUALE; }  
+  "<-"                            { return new ScannerToken<Object>(ASSEGNAZIONE); }
+  "+"							 { return new ScannerToken<Object>(SOMMA); }
+  "-"                            { return new ScannerToken<Object>(SOTTRAZIONE); }
+  "="                           { return new ScannerToken<Object>(UGUALE); }  
+  "<"							{ return new ScannerToken<Object>(MINORE);}
+  ">" 							{ return new ScannerToken<Object>(MAGGIORE);}
   
   /* string literal */
   \"                             { yybegin(STRING); string.setLength(0); }
@@ -133,11 +116,8 @@ SingleCharacter = [^\r\n\'\\]
 
   /* This is matched together with the minus, because the number is too big to 
      be represented by a positive integer. */
-  /*"-2147483648"                  { return symbol(INTEGER_LITERAL, new Integer(Integer.MIN_VALUE)); }
-  
-  {DecIntegerLiteral}            { return symbol(INTEGER_LITERAL, new Integer(yytext())); }
-  {DecLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(yytext().substring(0,yylength()-1))); }*/
-  {DecIntegerLiteral}            { return Symbol.NUMERO_INTERO; }
+     
+  {DecIntegerLiteral}            { return new ScannerToken<Object>(NUMERO_INTERO, Integer.valueOf(yytext())); }
   
   /* comments */
   {Comment}                      { /* ignore */ }
@@ -146,11 +126,11 @@ SingleCharacter = [^\r\n\'\\]
   {WhiteSpace}                   { /* ignore */ }
 
   /* identifiers */ 
-  {Identifier}                   { return Symbol.IDENTIFICATORE; }  
+  {Identifier}                   { return new ScannerToken<Object>(IDENTIFICATORE, yytext()); }  
 }
 
 <STRING> {
-  \"                             { yybegin(YYINITIAL); return Symbol.STRINGA; }
+  \"                             { yybegin(YYINITIAL); return new ScannerToken<Object>(STRINGA, string.toString()); }
   
   {StringCharacter}+             { string.append( yytext() ); }
   
@@ -170,4 +150,4 @@ SingleCharacter = [^\r\n\'\\]
 /* error fallback */
 .|\n                             { throw new RuntimeException("Illegal character \""+yytext()+
                                                               "\" at line "+yyline+", column "+yycolumn); }
-<<EOF>>                          { return Symbol.FINE_FILE; }
+<<EOF>>                          { return new ScannerToken<Object>(SpecialTerminals.EndOfInputStream); }

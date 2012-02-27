@@ -1,5 +1,6 @@
 package main;
 
-public interface ParserDelegate {
+public abstract class ScrittoreTarget {
+	private 
 	public void scriviTarget(String target);
 }
