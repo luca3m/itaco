@@ -1,8 +1,10 @@
 package main;
 
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 
+import edu.tum.cup2.generator.LALR1Generator;
 import edu.tum.cup2.generator.LR0Generator;
 import edu.tum.cup2.generator.LR1Generator;
 import edu.tum.cup2.generator.exceptions.GeneratorException;
@@ -20,10 +22,10 @@ public class Runner {
 	 */
 	public static void main(String[] args) throws IOException, GeneratorException, LRParserException {
 		// TODO Auto-generated method stub
-		Scanner scanner = new Scanner(new FileInputStream("prova.ita"));
-		LRParsingTable table = new LR0Generator(new ParserSpec()).getParsingTable(); //here, we use the LR(1) generator
-		LRParser parser = new LRParser(table);
-		parser.parse(scanner); //contains "13+25*23+4/2*((4+3)*2)*5"
+		LR0Generator generator = new LR0Generator(new ParserSpec()); //we want to use LALR(1)
+	    LRParsingTable table = generator.getParsingTable(); //get the resulting parsing table
+	    LRParser parser = new LRParser(table); //create a new LR parser using our table
+	    Object result = parser.parse(new Scanner(new FileReader("prova.ita"))); //apply parser to a token stream
 	}
 
 }
