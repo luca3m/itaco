@@ -1,5 +1,7 @@
 package main;
 
+import istruzioni.Istruzione;
+
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,7 +27,7 @@ public class Runner {
 		LALR1Generator generator = new LALR1Generator(new ParserSpec()); //we want to use LALR(1)
 	    LRParsingTable table = generator.getParsingTable(); //get the resulting parsing table
 	    LRParser parser = new LRParser(table); //create a new LR parser using our table
-	    Object result = parser.parse(new Scanner(new FileReader("prova.ita"))); //apply parser to a token stream
+	    Istruzione result = (Istruzione) parser.parse(new Scanner(new FileReader("prova.ita"))); //apply parser to a token stream
 	}
 
 }

@@ -1,5 +1,6 @@
 package main;
 
+import istruzioni.Istruzione;
 import edu.tum.cup2.grammar.*;
 import edu.tum.cup2.semantics.*;
 import edu.tum.cup2.spec.CUP2Specification;
@@ -21,42 +22,40 @@ public class ParserSpec extends CUP2Specification {
 		S, A, I, D, C, B, E;
 	}
 
-	public class S extends SymbolValue<String> {
+	public class S extends SymbolValue<Istruzione> {
 	};
 
-	public class A extends SymbolValue<String> {
+	public class A extends SymbolValue<Istruzione> {
 	};
 
-	public class I extends SymbolValue<String> {
+	public class I extends SymbolValue<Istruzione> {
 	};
 
-	public class D extends SymbolValue<String> {
+	public class D extends SymbolValue<Istruzione> {
 	};
 
-	public class C extends SymbolValue<String> {
+	public class C extends SymbolValue<Istruzione> {
 	};
 
-	public class B extends SymbolValue<String> {
+	public class B extends SymbolValue<Istruzione> {
 	};
 
-	public class E extends SymbolValue<String> {
+	public class E extends SymbolValue<Istruzione> {
 	};
 
-	public ParserSpec(final ParserDelegate delegate) {
+	public ParserSpec() {
 
 		// grammar
 		grammar(
 				
 				prod(S, rhs(I, S), new Action() {
 									public String a(String I, String S) {
-										delegate.scriviTarget("Trovata riduzione S-> IS");
 										return "OK";
 									}
 								},
 				
 						rhs(), new Action() {
 							public String a() {
-								delegate.scriviTarget("Trovata riduzione S-> epsilon");
 								return "OK";
 							}
 						}),
