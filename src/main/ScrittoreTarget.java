@@ -1,0 +1,94 @@
+package main;
+
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+abstract class ScrittoreTarget {
+	private Map<String,Integer> tabellaSimboli = new HashMap<String, Integer>();
+	
+	public boolean registraVariabile(String nome) {
+		return false;
+	}
+	
+	protected int idVariabile(String nome) {
+		return 1;
+	}
+	
+	protected String labelInizioBlocco(String nome) {
+		return "";
+	}
+	
+	protected String labelFineBlocco(String nome) {
+		return "";
+	}
+	
+	/**
+	 * Scrivi l'istruzione per fare la somma nel linguaggio target
+	 */
+	public abstract void scriviSomma();
+
+	/**
+	 * Scrivi l'istruzione per caricare il valore della variabile
+	 * nello stack
+	 * @param nome nome della variabile
+	 */
+	public abstract void scriviVariabile(String nome);
+	
+	/**
+	 * Scrivi l'istruzione per caricare una costante nello stack
+	 * @param costante
+	 */
+	public abstract void scriviCostante(int costante);
+	
+	/**
+	 * Scrivi l'istruzione per fare la sottrazione nel linguaggio target
+	 */
+	public abstract void scriviSottrazione();
+	
+	/**
+	 * Scrivi l'istruzione per fare la moltiplicazione nel linguaggio target
+	 */
+	public abstract void scriviMoltiplicazione();
+	
+	/**
+	 * Scrivi l'istruzione per fare la divisione nel linguaggio target
+	 */
+	public abstract void scriviDivisione();
+	
+	/**
+	 * Scrivi l'istruzione per operatore maggiore >
+	 */
+	public abstract void scriviMaggiore();
+	
+	/**
+	 * Scrivi l'istruzione per operatore minore <
+	 */
+	public abstract void scriviMinore();
+	
+	/**
+	 * Scrivi l'istruzione per operatore uguaglianza =
+	 */
+	public abstract void scriviUguaglianza();
+	
+	/**
+	 * Scrivi istruzione per stampare a schermo
+	 */
+	public abstract void scriviStampa();
+	
+	/**
+	 * Scrivi l'istruzione per leggere un intero da tastiera
+	 */
+	public abstract void scriviLetturaStandard();
+
+	/**
+	 * Scrivi l'istruzione per l'accesso al vettore
+	 * @param nome
+	 */
+	public abstract void scriviAccessoVettore(String nome);
+
+	/**
+	 * Scrivi l'istruzione condizionale "se"
+	 */
+	public abstract void scriviCondizionaleSe();
+}

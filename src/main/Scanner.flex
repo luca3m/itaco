@@ -72,7 +72,6 @@ Identifier = [:jletter:][:jletterdigit:]*
 
 /* integer literals */
 DecIntegerLiteral = 0 | [1-9][0-9]*
-DecLongLiteral    = {DecIntegerLiteral} [lL]
     
 /* string and character literals */
 StringCharacter = [^\r\n\"\\]
@@ -91,6 +90,7 @@ SingleCharacter = [^\r\n\'\\]
   "finché"                        { return new ScannerToken<Object>(FINCHE); }
   "leggi"						 { return new ScannerToken<Object>(LEGGI); }
   "scrivi"						 { return new ScannerToken<Object>(SCRIVI); }
+  "vettore"						 { return new ScannerToken<Object>(VETTORE); }
   
   /* separators */
   ":"							 { return new ScannerToken<Object>(DUE_PUNTI); }

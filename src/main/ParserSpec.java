@@ -14,12 +14,12 @@ public class ParserSpec extends CUP2Specification {
 		PARENTESI_QUADRA_CHIUSA, DUE_PUNTI, PUNTO, VIRGOLA,
 		PARENTESI_TONDA_APERTA, PARENTESI_TONDA_CHIUSA, UGUALE, LEGGI,
 		SCRIVI, COMMENTO, IDENTIFICATORE, NUMERO_INTERO, SOMMA,
-		SOTTRAZIONE, ASSEGNAZIONE, STRINGA, MINORE, MAGGIORE;
+		SOTTRAZIONE, ASSEGNAZIONE, STRINGA, MINORE, MAGGIORE, VETTORE;
 	}
 
 	// non-terminals
 	public enum NonTerminals implements NonTerminal {
-		S, A, I, D, C, B, E;
+		N, E, T, F, B, L, I;
 	}
 
 	public class S extends SymbolValue<Istruzione> {
@@ -45,7 +45,16 @@ public class ParserSpec extends CUP2Specification {
 
 	public ParserSpec() {
 
-		// grammar
+		/*
+		 * Definisco la grammatica
+		 * la funzione grammar() è definita nella classe madre, accetta un numero
+		 * variabile di argomenti che sono le produzioni
+		 * Le produzioni si definiscono con la funzione prod(), essa accetta come primo
+		 * parametro un non terminale e poi una serie di rhs() e oggetti Action
+		 * la funzione rhs() rappresenta la parte destra della produzione e accetta come parametri
+		 * caratteri terminali o non terminali, l'oggetto di tipo action deve definire il metodo a()
+		 * che viene chiamato appena viene fatta la riduzione
+		 */
 		grammar(
 				
 				prod(S, rhs(I, S), new Action() {
