@@ -11,6 +11,8 @@ public class Divisione implements T {
 	}
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
+		dividendo.scriviCodice(sc);
+		divisore.scriviCodice(sc);
 		sc.scriviDivisione();
 	}
 	

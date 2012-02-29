@@ -2,5 +2,8 @@ intero x <- 0,
 leggi x,
 x <- x + 5,
 intero y <- x,
+y <- ((y + 2)*x*6)/x,
+intero z <- 7,
+z <- z + y - 2,
 scrivi x,
 scrivi y
