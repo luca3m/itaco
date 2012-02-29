@@ -1,6 +1,6 @@
 package istruzioni.espressioni;
 
-public class Prodotto extends T {
+public class Prodotto implements T {
 	private T fattoreSinistro;
 	private F fattoreDestro;
 	

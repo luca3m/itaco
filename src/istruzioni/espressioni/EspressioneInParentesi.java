@@ -1,6 +1,6 @@
 package istruzioni.espressioni;
 
-public class EspressioneInParentesi extends F {
+public class EspressioneInParentesi implements F {
 	private E espressione;
 
 	public EspressioneInParentesi(E espressione) {

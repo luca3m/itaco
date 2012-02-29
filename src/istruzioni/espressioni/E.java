@@ -1,5 +1,7 @@
 package istruzioni.espressioni;
 
-public abstract class E {
+import istruzioni.logiche.L;
+
+public interface E extends L {
 
 }

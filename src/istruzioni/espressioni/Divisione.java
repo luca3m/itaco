@@ -1,6 +1,6 @@
 package istruzioni.espressioni;
 
-public class Divisione extends T {
+public class Divisione implements T {
 	private T dividendo;
 	private F divisore;
 	public Divisione(T dividendo, F divisore) {

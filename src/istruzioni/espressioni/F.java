@@ -1,5 +1,5 @@
 package istruzioni.espressioni;
 
-public abstract class F extends T {
+public interface F extends T {
 
 }

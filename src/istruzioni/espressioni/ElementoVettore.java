@@ -1,6 +1,6 @@
 package istruzioni.espressioni;
 
-public class ElementoVettore extends F {
+public class ElementoVettore implements F {
 	private String nomeVettore;
 	private E indice;
 		
