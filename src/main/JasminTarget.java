@@ -1,9 +1,39 @@
 package main;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 public class JasminTarget extends ScrittoreTarget {
+	PrintStream output;
+
+	public JasminTarget(String className, OutputStream output)
+			throws IOException {
+		this.output = new PrintStream(output);
+		this.output.println(".class public " + className);
+		writeContentOfStub("preMainStub.j");
+	}
+
+	private void writeContentOfStub(String stubFileName) throws IOException {
+		// Copio il contenuto dello stub nel file di output
+		File stubFile = new File(stubFileName);
+		FileInputStream stub = new FileInputStream(stubFile);
+		int copiedBytes = 0;
+		long fileSizeInBytes = stubFile.length();
+		int bytesRead = 0;
+		byte[] fileData = new byte[1024];
+
+		while (copiedBytes < fileSizeInBytes) {
+			bytesRead = stub.read(fileData);
+			output.write(fileData, 0, bytesRead);
+			copiedBytes += bytesRead;
+		}
+	}
+
 	@Override
 	public void scriviSomma() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -88,7 +118,10 @@ public class JasminTarget extends ScrittoreTarget {
 	@Override
 	public void scriviCicloFinche() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	public void endFile() throws IOException {
+		writeContentOfStub("postMainStub.j");
+	}
 }
