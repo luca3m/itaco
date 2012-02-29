@@ -1,5 +1,5 @@
 package istruzioni;
 
-public interface N extends I {
+public interface N {
 
 }

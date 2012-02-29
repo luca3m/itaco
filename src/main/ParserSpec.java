@@ -1,7 +1,26 @@
 package main;
 
+import istruzioni.Assegnamento;
+import istruzioni.AssegnamentoVettore;
+import istruzioni.CicloFinche;
+import istruzioni.CondizionaleSe;
+import istruzioni.DefinizioneAssegnamento;
+import istruzioni.DefinizioneVettore;
+import istruzioni.LetturaDaTastiera;
+import istruzioni.Stampa;
+import istruzioni.SuccessioneIstruzioni;
 import istruzioni.espressioni.Costante;
+import istruzioni.espressioni.Divisione;
+import istruzioni.espressioni.ElementoVettore;
+import istruzioni.espressioni.EspressioneInParentesi;
 import istruzioni.espressioni.Identificatore;
+import istruzioni.espressioni.Prodotto;
+import istruzioni.espressioni.Somma;
+import istruzioni.espressioni.Sottrazione;
+import istruzioni.logiche.EspressioneLogicaInParentesi;
+import istruzioni.logiche.Maggiore;
+import istruzioni.logiche.Minore;
+import istruzioni.logiche.Uguaglianza;
 import edu.tum.cup2.grammar.*;
 import edu.tum.cup2.semantics.*;
 import edu.tum.cup2.spec.CUP2Specification;
@@ -64,123 +83,149 @@ public class ParserSpec extends CUP2Specification {
 		 */
 		grammar(
 				
-				prod(S, rhs(I, S), new Action() {
-									public String a(String I, String S) {
-										return "OK";
+				prod(N, rhs(I), new Action() {
+									public istruzioni.N a(istruzioni.I i) {
+										return i;
 									}
 								},
-				
-						rhs(), new Action() {
-							public String a() {
-								return "OK";
+						rhs(I, N), new Action() {
+							public istruzioni.N a(istruzioni.I i, istruzioni.N n) {
+								return new SuccessioneIstruzioni(i, n);
 							}
 						}),
-				prod(A,
-						rhs(INTERO, IDENTIFICATORE, ASSEGNAZIONE, NUMERO_INTERO),
-						new Action() {
-							public String a(String I, String S) {
-								delegate.scriviTarget("Trovata riduzione S-> IS");
-								return "OK";
+			   prod(I,
+					   rhs(INTERO, IDENTIFICATORE, ASSEGNAZIONE, E), new Action() {
+							public istruzioni.I a(String id, istruzioni.espressioni.E e) {
+								return new DefinizioneAssegnamento(id, e);
 							}
 						},
-						rhs(INTERO, IDENTIFICATORE, ASSEGNAZIONE,
-								IDENTIFICATORE),
-						new Action() {
-							public String a(String I, String S) {
-								delegate.scriviTarget("Trovata riduzione S-> IS");
-								return "OK";
+						rhs(IDENTIFICATORE, ASSEGNAZIONE, E), new Action() {
+							public istruzioni.I a(String id, istruzioni.espressioni.E e) {
+								return new Assegnamento(id, e);
 							}
 						},
-						rhs(IDENTIFICATORE, ASSEGNAZIONE, IDENTIFICATORE, D),
-						new Action() {
-							public String a(String I, String S) {
-								delegate.scriviTarget("Trovata riduzione S-> IS");
-								return "OK";
-							}
-						}, rhs(IDENTIFICATORE, ASSEGNAZIONE, NUMERO_INTERO, D),
-						new Action() {
-							public String a(String I, String S) {
-								delegate.scriviTarget("Trovata riduzione S-> IS");
-								return "OK";
-							}
-						}, rhs(SCRIVI, IDENTIFICATORE), new Action() {
-							public String a(String I, String S) {
-								delegate.scriviTarget("Trovata riduzione S-> IS");
-								return "OK";
-							}
-						}, rhs(SCRIVI, NUMERO_INTERO), new Action(){
-					public String a(String I, String S) {
-						delegate.scriviTarget("Trovata riduzione S-> IS");
-						return "OK";
-					}
-				}),
-				prod(I,
-						rhs(A, VIRGOLA),
-						new Action() {
-							public String a(String I, String S) {
-								delegate.scriviTarget("Trovata riduzione S-> IS");
-								return "OK";
+						rhs(VETTORE, IDENTIFICATORE, PARENTESI_QUADRA_APERTA, NUMERO_INTERO, PARENTESI_QUADRA_CHIUSA), new Action() {
+							public istruzioni.I a(String id, Integer i) {
+								return new DefinizioneVettore(id, new Costante(i));
 							}
 						},
-						rhs(SE, PARENTESI_TONDA_APERTA, C,
-								PARENTESI_TONDA_CHIUSA, DUE_PUNTI, B, PUNTO), new Action(){
-							public String a(String I, String S) {
-								delegate.scriviTarget("Trovata riduzione S-> IS");
-								return "OK";
+						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA, E, PARENTESI_QUADRA_CHIUSA, ASSEGNAZIONE, E), new Action() {
+							public istruzioni.I a(String id, istruzioni.espressioni.E indice, istruzioni.espressioni.E e) {
+								return new AssegnamentoVettore(id, indice, e);
 							}
-						}),
-				prod(B, rhs(), new Action() {
-					public String a(String I, String S) {
-						delegate.scriviTarget("Trovata riduzione S-> IS");
-						return "OK";
-					}
-				}, rhs(A, VIRGOLA, B), new Action() {
-					public String a(String I, String S) {
-						delegate.scriviTarget("Trovata riduzione S-> IS");
-						return "OK";
-					}
-				}, rhs(A), new Action() {
-					public String a(String I, String S) {
-						delegate.scriviTarget("Trovata riduzione S-> IS");
-						return "OK";
-					}
-				}), 
-			
-				prod(C, rhs(IDENTIFICATORE, E), new Action() {
-					public String a(String I, String S) {
-						delegate.scriviTarget("Trovata riduzione S-> IS");
-						return "OK";
-					}
-				}),
-				
-				prod(E, rhs(), new Action() {
-					public String a(String I, String S) {
-						delegate.scriviTarget("Trovata riduzione S-> IS");
-						return "OK";
-					}
-				}, rhs(UGUALE, IDENTIFICATORE), new Action() {
-					public String a(String I, String S) {
-						delegate.scriviTarget("Trovata riduzione S-> IS");
-						return "OK";
-					}
-				}),
-				
-				prod(D, rhs(SOMMA, IDENTIFICATORE), new Action() {
-					public String a(String I, String S) {
-						delegate.scriviTarget("Trovata riduzione S-> IS");
-						return "OK";
-					}
-				}, rhs(SOMMA, NUMERO_INTERO), new Action() {
-					public String a(String I, String S) {
-						delegate.scriviTarget("Trovata riduzione S-> IS");
-						return "OK";
-					}
-				}, rhs(), new Action(){
-					public String a(String I, String S) {
-						delegate.scriviTarget("Trovata riduzione S-> IS");
-						return "OK";
-					}
-				})
+						},
+						rhs(SCRIVI, E), new Action() {
+							public istruzioni.I a(istruzioni.espressioni.E e) {
+								return new Stampa(e);
+							}
+						},
+						rhs(LEGGI, IDENTIFICATORE), new Action() {
+							public istruzioni.I a(String id) {
+								// FIXME: forse devo usare Identificatore() e non la stringa
+								return new LetturaDaTastiera(id);
+							}
+						},
+						rhs(SE, B, DUE_PUNTI, N, PUNTO), new Action() {
+							public istruzioni.I a(istruzioni.logiche.B b, istruzioni.N n) {
+								return new CondizionaleSe(b, n);
+							}
+						},
+						rhs(FINCHE, B, DUE_PUNTI, N, PUNTO), new Action() {
+							public istruzioni.I a(istruzioni.logiche.B b, istruzioni.N n) {
+								return new CicloFinche(b, n);
+							}
+						}
+			   ),
+			   prod(E,
+					   rhs(E, SOMMA, T), new Action() {
+							public istruzioni.espressioni.E a(istruzioni.espressioni.E e, istruzioni.espressioni.T t) {
+								return new Somma(e, t);
+							}
+						},
+						rhs(E, SOTTRAZIONE, T), new Action() {
+							public istruzioni.espressioni.E a(istruzioni.espressioni.E e, istruzioni.espressioni.T t) {
+								return new Sottrazione(e, t);
+							}
+						},
+						rhs(T), new Action() {
+							public istruzioni.espressioni.E a(istruzioni.espressioni.T t) {
+								return t;
+							}
+						}
+				),
+				prod(T,
+					   rhs(T, PRODOTTO, F), new Action() {
+							public istruzioni.espressioni.T a(istruzioni.espressioni.T t, istruzioni.espressioni.F f) {
+								return new Prodotto(t, f);
+							}
+						},
+						rhs(T, DIVISIONE, F), new Action() {
+							public istruzioni.espressioni.T a(istruzioni.espressioni.T t, istruzioni.espressioni.F f) {
+								return new Divisione(t, f);
+							}
+						},
+						rhs(F), new Action() {
+							public istruzioni.espressioni.T a(istruzioni.espressioni.F f) {
+								return f;
+							}
+						}
+				),
+				prod(F,
+					   rhs(IDENTIFICATORE), new Action() {
+							public istruzioni.espressioni.F a(String id) {
+								return new Identificatore(id);
+							}
+						},
+						rhs(NUMERO_INTERO), new Action() {
+							public istruzioni.espressioni.F a(Integer numero) {
+								return new Costante(numero);
+							}
+						},
+						rhs(PARENTESI_TONDA_APERTA, E, PARENTESI_TONDA_CHIUSA), new Action() {
+							public istruzioni.espressioni.F a(istruzioni.espressioni.E espressione) {
+								return new EspressioneInParentesi(espressione);
+							}
+						},
+						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA, E, PARENTESI_QUADRA_CHIUSA), new Action() {
+							public istruzioni.espressioni.F a(String id, istruzioni.espressioni.E e) {
+								return new ElementoVettore(id, e);
+							}
+						}
+					),
+					prod(B,
+							   rhs(B, MAGGIORE, L), new Action() {
+									public istruzioni.logiche.B a(istruzioni.logiche.B b, istruzioni.logiche.L l) {
+										return new Maggiore(b, l);
+									}
+								},
+								rhs(B, MINORE, L), new Action() {
+									public istruzioni.logiche.B a(istruzioni.logiche.B b, istruzioni.logiche.L l) {
+										return new Minore(b, l);
+									}
+								},
+								rhs(B, UGUALE, L), new Action() {
+									public istruzioni.logiche.B a(istruzioni.logiche.B b, istruzioni.logiche.L l) {
+										return new Uguaglianza(b, l);
+									}
+								},
+								rhs(L), new Action() {
+									public istruzioni.logiche.B a(istruzioni.logiche.L l) {
+										return l;
+									}
+								}
+						),
+						prod(L,
+								   rhs(PARENTESI_TONDA_APERTA, B, PARENTESI_TONDA_CHIUSA), new Action() {
+										public istruzioni.logiche.L a(istruzioni.logiche.B b) {
+											return new EspressioneLogicaInParentesi(b);
+										}
+									},
+									rhs(E), new Action() {
+										public istruzioni.logiche.L a(istruzioni.espressioni.E e) {
+											return e;
+										}
+									}
+						)
 		);
 
 	}
