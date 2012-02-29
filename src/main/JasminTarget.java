@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import javax.swing.text.TabExpander;
+
 public class JasminTarget extends ScrittoreTarget {
 	PrintStream output;
 
@@ -82,19 +84,17 @@ public class JasminTarget extends ScrittoreTarget {
 	@Override
 	public void scriviUguaglianza() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void scriviStampa() {
-		// TODO Auto-generated method stub
-
+		output.println("invokestatic"+ nomeClasse+"/writeInt(I)V");
 	}
 
 	@Override
 	public void scriviLetturaStandard() {
 		// TODO Auto-generated method stub
-
+		output.println("invokestatic "+className+"/readInt()I");
 	}
 
 	@Override
@@ -111,8 +111,8 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void scriviStoreInVariabile(String identificatore) {
-		// TODO Auto-generated method stub
-
+		int idVar=this.idVariabile(identificatore);
+		output.println("istore "+idVar);
 	}
 
 	@Override
