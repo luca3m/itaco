@@ -5,9 +5,19 @@ import java.util.Map;
 
 public abstract class ScrittoreTarget {
 	private Map<String, Integer> tabellaSimboli = new HashMap<String, Integer>();
+	/**
+	 * Inizio del contatore per identificare le variabili
+	 */
+	private static final int START_ID = 1;
 
+	private static int contatoreVariabili = START_ID;
+	
 	public boolean registraVariabile(String nome) {
-		return false;
+		if(tabellaSimboli.containsKey(nome)){
+			return false;
+		}
+		tabellaSimboli.put(nome, contatoreVariabili++);
+		return true;
 	}
 
 	protected int idVariabile(String nome) {
@@ -97,7 +107,14 @@ public abstract class ScrittoreTarget {
 	 */
 	public abstract void scriviCondizionaleSe();
 
+	/**
+	 * Scrivi l'istruzione ciclo finche
+	 */
 	public abstract void scriviCicloFinche();
-
+	
+	/**
+	 * Prepara il valore della variabile a essere usato
+	 * @param identificatore
+	 */
 	public abstract void scriviStoreInVariabile(String identificatore);
 }
