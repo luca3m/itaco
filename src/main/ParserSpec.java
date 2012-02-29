@@ -1,6 +1,7 @@
 package main;
 
-import istruzioni.Istruzione;
+import istruzioni.espressioni.Costante;
+import istruzioni.espressioni.Identificatore;
 import edu.tum.cup2.grammar.*;
 import edu.tum.cup2.semantics.*;
 import edu.tum.cup2.spec.CUP2Specification;
@@ -13,36 +14,42 @@ public class ParserSpec extends CUP2Specification {
 		SE, ALTRIMENTI, FINCHE, INTERO, PARENTESI_QUADRA_APERTA,
 		PARENTESI_QUADRA_CHIUSA, DUE_PUNTI, PUNTO, VIRGOLA,
 		PARENTESI_TONDA_APERTA, PARENTESI_TONDA_CHIUSA, UGUALE, LEGGI,
-		SCRIVI, COMMENTO, IDENTIFICATORE, NUMERO_INTERO, SOMMA,
-		SOTTRAZIONE, ASSEGNAZIONE, STRINGA, MINORE, MAGGIORE, VETTORE;
+		SCRIVI, IDENTIFICATORE, NUMERO_INTERO, SOMMA,
+		SOTTRAZIONE, PRODOTTO, DIVISIONE, ASSEGNAZIONE, STRINGA, MINORE, MAGGIORE, VETTORE;
 	}
 
 	// non-terminals
 	public enum NonTerminals implements NonTerminal {
-		N, E, T, F, B, L, I;
+		N, I, E, T, F, B, L;
 	}
 
-	public class S extends SymbolValue<Istruzione> {
+	public class N extends SymbolValue<istruzioni.N> {
 	};
 
-	public class A extends SymbolValue<Istruzione> {
+	public class I extends SymbolValue<istruzioni.I> {
 	};
 
-	public class I extends SymbolValue<Istruzione> {
+	public class E extends SymbolValue<istruzioni.espressioni.E> {
 	};
 
-	public class D extends SymbolValue<Istruzione> {
+	public class T extends SymbolValue<istruzioni.espressioni.T> {
 	};
 
-	public class C extends SymbolValue<Istruzione> {
+	public class F extends SymbolValue<istruzioni.espressioni.F> {
 	};
 
-	public class B extends SymbolValue<Istruzione> {
+	public class B extends SymbolValue<istruzioni.logiche.B> {
 	};
 
-	public class E extends SymbolValue<Istruzione> {
+	public class L extends SymbolValue<istruzioni.logiche.L> {
 	};
 
+	public class NUMERO_INTERO extends SymbolValue<Integer> {
+	};
+	
+	public class IDENTIFICATORE extends SymbolValue<String> {
+	};
+	
 	public ParserSpec() {
 
 		/*

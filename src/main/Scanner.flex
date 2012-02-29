@@ -60,12 +60,9 @@ InputCharacter = [^\r\n]
 WhiteSpace = {LineTerminator} | [ \t\f]
 
 /* comments */
-Comment = {TraditionalComment} | {EndOfLineComment} | 
-          {DocumentationComment}
+Comment = {EndOfLineComment}
 
-TraditionalComment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
-EndOfLineComment = "//" {InputCharacter}* {LineTerminator}?
-DocumentationComment = "/*" "*"+ [^/*] ~"*/"
+EndOfLineComment = "#" {InputCharacter}* {LineTerminator}?
 
 /* identifiers */
 Identifier = [:jletter:][:jletterdigit:]*
@@ -105,6 +102,8 @@ SingleCharacter = [^\r\n\'\\]
   "<-"                            { return new ScannerToken<Object>(ASSEGNAZIONE); }
   "+"							 { return new ScannerToken<Object>(SOMMA); }
   "-"                            { return new ScannerToken<Object>(SOTTRAZIONE); }
+  "*"                            { return new ScannerToken<Object>(PRODOTTO); }
+  "/"                            { return new ScannerToken<Object>(DIVISIONE); }
   "="                           { return new ScannerToken<Object>(UGUALE); }  
   "<"							{ return new ScannerToken<Object>(MINORE);}
   ">" 							{ return new ScannerToken<Object>(MAGGIORE);}
