@@ -12,5 +12,6 @@ public class LetturaDaTastiera implements I {
 	public void scriviCodice(ScrittoreTarget sc) {
 		// TODO Auto-generated method stub
 		sc.scriviLetturaStandard();
+		sc.scriviStoreInVariabile(identificatore);
 	}
 }
