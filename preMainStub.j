@@ -46,3 +46,4 @@
     aload 1
     putstatic HelloWorld/scanner Ljava/util/Scanner;
     ; Fine inizializzazione scanner
+    

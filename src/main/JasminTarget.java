@@ -86,7 +86,7 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void scriviStampa() {
-		output.println("invokestatic"+ nomeClasse+"/writeInt(I)V");
+		output.println("invokestatic "+ className +"/writeInt(I)V");
 	}
 
 	@Override
