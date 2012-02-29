@@ -3,6 +3,7 @@ package main;
 import istruzioni.N;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -28,6 +29,7 @@ public class Runner {
 	    LRParsingTable table = generator.getParsingTable(); //get the resulting parsing table
 	    LRParser parser = new LRParser(table); //create a new LR parser using our table
 	    N result = (N) parser.parse(new Scanner(new FileReader("prova.ita"))); //apply parser to a token stream
+	    result.scriviCodice(new TestTarget(new FileOutputStream("prova.debug")));
 	}
 
 }
