@@ -1,5 +1,7 @@
 package istruzioni.espressioni;
 
+import main.ScrittoreTarget;
+
 public class ElementoVettore implements F {
 	private String nomeVettore;
 	private E indice;
@@ -7,5 +9,10 @@ public class ElementoVettore implements F {
 	public ElementoVettore(String nomeVettore, E indice) {
 		this.indice = indice;
 		this.nomeVettore = nomeVettore;
+	}
+
+	@Override
+	public void scriviCodice(ScrittoreTarget sc) {
+		// FIXME: da implementare
 	}
 }

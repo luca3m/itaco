@@ -1,5 +1,6 @@
 package istruzioni;
 
+import main.ScrittoreTarget;
 import istruzioni.espressioni.E;
 
 public class Assegnamento implements I {
@@ -9,6 +10,12 @@ public class Assegnamento implements I {
 	public Assegnamento(String identificatore, E espressione) {
 		this.identificatore = identificatore;
 		this.espressione = espressione;
+	}
+
+	@Override
+	public void scriviCodice(ScrittoreTarget sc) {
+		espressione.scriviCodice(sc);
+		sc.scriviStoreInVariabile(identificatore);
 	}
 	
 }

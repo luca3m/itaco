@@ -1,5 +1,6 @@
 package istruzioni;
 
+import main.ScrittoreTarget;
 import istruzioni.espressioni.E;
 
 public class AssegnamentoVettore implements I {
@@ -11,6 +12,11 @@ public class AssegnamentoVettore implements I {
 		this.identificatore = identificatore;
 		this.indice = indice;
 		this.espressione = espressione;
+	}
+
+	@Override
+	public void scriviCodice(ScrittoreTarget sc) {
+		// FIXME: da implementare
 	}
 	
 }

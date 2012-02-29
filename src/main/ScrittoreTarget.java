@@ -91,4 +91,6 @@ public abstract class ScrittoreTarget {
 	 * Scrivi l'istruzione condizionale "se"
 	 */
 	public abstract void scriviCondizionaleSe();
+
+	public abstract void scriviStoreInVariabile(String identificatore);
 }
