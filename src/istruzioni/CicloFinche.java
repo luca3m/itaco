@@ -2,7 +2,7 @@ package istruzioni;
 
 import istruzioni.logiche.B;
 
-public class CicloFinche extends Object implements I {
+public class CicloFinche extends Object implements C {
 	private B condizione;
 	private N blocco;
 	

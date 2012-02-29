@@ -1,6 +1,16 @@
 intero ciao <- 2,
 intero ciao2 <- 4,
-se ( ciao = ciao2):
+vettore ciao3[10],
+ciao3[3] <- 1,
+se ciao = ciao2:
 	ciao2 <- 5,
 	scrivi 3,
 	scrivi ciao.
+scrivi 3+4,
+scrivi ciao3[9],
+leggi ciao2,
+finche ciao2 < 3:
+	ciao <- ciao + 1,
+	se ciao2 > 4:
+		scrivi 5.
+	.

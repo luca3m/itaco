@@ -1,6 +1,8 @@
 package istruzioni.espressioni;
 
-public class Costante implements F {
+import istruzioni.logiche.L;
+
+public class Costante implements F,L {
 	private int valore;
 	
 	public Costante(int valore) {

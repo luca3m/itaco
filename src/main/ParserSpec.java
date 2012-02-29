@@ -9,6 +9,7 @@ import istruzioni.DefinizioneVettore;
 import istruzioni.LetturaDaTastiera;
 import istruzioni.LetturaTastieraElementoVettore;
 import istruzioni.Stampa;
+import istruzioni.SuccessioneCN;
 import istruzioni.SuccessioneIstruzioni;
 import istruzioni.espressioni.Costante;
 import istruzioni.espressioni.Divisione;
@@ -40,7 +41,7 @@ public class ParserSpec extends CUP2Specification {
 
 	// non-terminals
 	public enum NonTerminals implements NonTerminal {
-		N, I, E, T, F, B, L;
+		N, I, E, T, F, B, L, C;
 	}
 
 	public class N extends SymbolValue<istruzioni.N> {
@@ -62,6 +63,9 @@ public class ParserSpec extends CUP2Specification {
 	};
 
 	public class L extends SymbolValue<istruzioni.logiche.L> {
+	};
+	
+	public class C extends SymbolValue<istruzioni.C> {
 	};
 
 	public class NUMERO_INTERO extends SymbolValue<Integer> {
@@ -89,9 +93,19 @@ public class ParserSpec extends CUP2Specification {
 										return i;
 									}
 								},
-						rhs(I, N), new Action() {
+						rhs(I, VIRGOLA, N), new Action() {
 							public istruzioni.N a(istruzioni.I i, istruzioni.N n) {
 								return new SuccessioneIstruzioni(i, n);
+							}
+						},
+						rhs(C, PUNTO, N), new Action() {
+							public istruzioni.N a(istruzioni.C c, istruzioni.N n) {
+								return new SuccessioneCN(c, n);
+							}
+						},
+						rhs(C, PUNTO), new Action() {
+							public istruzioni.N a(istruzioni.C c) {
+								return c;
 							}
 						}),
 			   prod(I,
@@ -131,14 +145,15 @@ public class ParserSpec extends CUP2Specification {
 								// FIXME: forse devo usare Identificatore() e non la stringa
 								return new LetturaTastieraElementoVettore(id, indice);
 							}
-						},
-						rhs(SE, B, DUE_PUNTI, N, PUNTO), new Action() {
-							public istruzioni.I a(istruzioni.logiche.B b, istruzioni.N n) {
+						}),
+					prod(C,
+						rhs(SE, B, DUE_PUNTI, N), new Action() {
+							public istruzioni.C a(istruzioni.logiche.B b, istruzioni.N n) {
 								return new CondizionaleSe(b, n);
 							}
 						},
-						rhs(FINCHE, B, DUE_PUNTI, N, PUNTO), new Action() {
-							public istruzioni.I a(istruzioni.logiche.B b, istruzioni.N n) {
+						rhs(FINCHE, B, DUE_PUNTI, N), new Action() {
+							public istruzioni.C a(istruzioni.logiche.B b, istruzioni.N n) {
 								return new CicloFinche(b, n);
 							}
 						}
@@ -227,9 +242,19 @@ public class ParserSpec extends CUP2Specification {
 											return new EspressioneLogicaInParentesi(b);
 										}
 									},
-									rhs(E), new Action() {
+									/*rhs(E), new Action() {
 										public istruzioni.logiche.L a(istruzioni.espressioni.E e) {
 											return e;
+										}
+									}*/
+									rhs(IDENTIFICATORE), new Action() {
+										public istruzioni.logiche.L a(String id) {
+											return new Identificatore(id);
+										}
+									},
+									rhs(NUMERO_INTERO), new Action() {
+										public istruzioni.logiche.L a(Integer numero) {
+											return new Costante(numero);
 										}
 									}
 						)

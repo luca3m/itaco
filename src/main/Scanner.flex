@@ -84,7 +84,7 @@ SingleCharacter = [^\r\n\'\\]
   "altrimenti"                   { return new ScannerToken<Object>(ALTRIMENTI); }
   "intero"                          { return new ScannerToken<Object>(INTERO); }
   "se"                           { return new ScannerToken<Object>(SE); }
-  "finché"                        { return new ScannerToken<Object>(FINCHE); }
+  "finche"                        { return new ScannerToken<Object>(FINCHE); }
   "leggi"						 { return new ScannerToken<Object>(LEGGI); }
   "scrivi"						 { return new ScannerToken<Object>(SCRIVI); }
   "vettore"						 { return new ScannerToken<Object>(VETTORE); }

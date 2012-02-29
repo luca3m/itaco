@@ -2,7 +2,7 @@ package istruzioni;
 
 import istruzioni.logiche.B;
 
-public class CondizionaleSe implements I {
+public class CondizionaleSe implements C {
 	private B condizione;
 	private N blocco;
 	

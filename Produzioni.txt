@@ -1,9 +1,10 @@
 #Assioma
 N -> I | I,N
+N -> C. | C.N
 I -> intero id ass E | id ass E
 I -> vettore id[costante] | id[E] ass E
 I -> stampa E | leggi id | leggi id[E]
-I -> se B:N. | finché B:N.
+C -> se B:N | finché B:N
 
 #Espressioni
 E -> E+T | E-T | T
@@ -12,5 +13,5 @@ F -> id | costante | (E) | id[E]
 
 #Logica
 B -> B*L | L
-L -> (B) | E
+L -> (B) | id | costante | id[E]
 				*= {">","<","="}
