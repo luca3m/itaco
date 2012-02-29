@@ -11,5 +11,10 @@ public class LetturaTastieraElementoVettore implements I {
 		this.identificatore = identificatore;
 		this.indice = indice;
 	}
+
+	@Override
+	public void scriviCodice(ScrittoreTarget sc) {
+		// FIXME: da implementare
+	}
 	
 }

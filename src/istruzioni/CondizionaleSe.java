@@ -1,5 +1,6 @@
 package istruzioni;
 
+import main.ScrittoreTarget;
 import istruzioni.logiche.B;
 
 public class CondizionaleSe implements C {
@@ -9,5 +10,10 @@ public class CondizionaleSe implements C {
 	public CondizionaleSe(B condizione, N blocco) {
 		this.condizione = condizione;
 		this.blocco = blocco;
+	}
+
+	@Override
+	public void scriviCodice(ScrittoreTarget sc) {
+		// FIXME: da implementare
 	}
 }

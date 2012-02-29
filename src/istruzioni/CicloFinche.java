@@ -1,5 +1,6 @@
 package istruzioni;
 
+import main.ScrittoreTarget;
 import istruzioni.logiche.B;
 
 public class CicloFinche extends Object implements C {
@@ -9,6 +10,12 @@ public class CicloFinche extends Object implements C {
 	public CicloFinche(B condizione, N blocco) {
 		this.condizione = condizione;
 		this.blocco = blocco;
+	}
+
+	@Override
+	public void scriviCodice(ScrittoreTarget sc) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
