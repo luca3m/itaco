@@ -2,7 +2,7 @@
 N -> I | I,N
 I -> intero id ass E | id ass E
 I -> vettore id[costante] | id[E] ass E
-I -> stampa E | leggi id
+I -> stampa E | leggi id | leggi id[E]
 I -> se B:N. | finché B:N.
 
 #Espressioni
