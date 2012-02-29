@@ -1,5 +1,5 @@
 package istruzioni;
 
-public interface N, Produzione  {
+public interface N extends Produzione  {
 
 }

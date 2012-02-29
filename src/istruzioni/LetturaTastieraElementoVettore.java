@@ -1,5 +1,6 @@
 package istruzioni;
 
+import main.ScrittoreTarget;
 import istruzioni.espressioni.E;
 
 public class LetturaTastieraElementoVettore implements I {
@@ -9,5 +10,10 @@ public class LetturaTastieraElementoVettore implements I {
 	public LetturaTastieraElementoVettore(String identificatore, E indice) {
 		this.identificatore = identificatore;
 		this.indice = indice;
+	}
+	@Override
+	public void scriviCodice(ScrittoreTarget sc) {
+		// TODO Auto-generated method stub
+		sc.scriviLetturaStandard();
 	}
 }

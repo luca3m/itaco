@@ -1,5 +1,7 @@
 package istruzioni;
 
+import main.ScrittoreTarget;
+
 public class SuccessioneIstruzioni implements N {
 
 	private I istruzionePrecedente;
@@ -8,5 +10,10 @@ public class SuccessioneIstruzioni implements N {
 		this.istruzionePrecedente = istruzionePrecedente;
 		this.istruzioneSuccessiva = istruzioneSuccessiva;
 	}
-	
+	@Override
+	public void scriviCodice(ScrittoreTarget sc) {
+		// TODO Auto-generated method stub
+		istruzionePrecedente.scriviCodice(sc);
+		istruzioneSuccessiva.scriviCodice(sc);
+	}
 }
