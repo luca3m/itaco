@@ -1,5 +1,5 @@
 package istruzioni.espressioni;
 
-public interface T {
+public interface T extends E{
 
 }
