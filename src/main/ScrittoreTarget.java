@@ -4,7 +4,7 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-abstract class ScrittoreTarget {
+public abstract class ScrittoreTarget {
 	private Map<String,Integer> tabellaSimboli = new HashMap<String, Integer>();
 	
 	public boolean registraVariabile(String nome) {

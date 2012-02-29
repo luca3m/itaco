@@ -1,5 +1,7 @@
 package istruzioni.logiche;
 
-public interface B {
+import istruzioni.Produzione;
+
+public interface B, Produzione  {
 
 }

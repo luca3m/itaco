@@ -12,5 +12,4 @@ leggi ciao2,
 finche ciao2 < 3:
 	ciao <- ciao + 1,
 	se ciao2 > 4:
-		scrivi 5.
-	.
+		scrivi 5..

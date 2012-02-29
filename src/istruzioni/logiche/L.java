@@ -1,5 +1,7 @@
 package istruzioni.logiche;
 
-public interface L extends B {
+import istruzioni.Produzione;
+
+public interface L extends B, Produzione  {
 
 }

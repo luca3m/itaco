@@ -1,5 +1,7 @@
 package istruzioni.espressioni;
 
-public interface F extends T {
+import istruzioni.Produzione;
+
+public interface F extends T, Produzione  {
 
 }
