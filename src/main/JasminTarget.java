@@ -8,10 +8,12 @@ import java.io.PrintStream;
 
 public class JasminTarget extends ScrittoreTarget {
 	PrintStream output;
-
+	String className;
+	
 	public JasminTarget(String className, OutputStream output)
 			throws IOException {
 		this.output = new PrintStream(output);
+		this.className = className;
 		this.output.println(".class public " + className);
 		writeContentOfStub("preMainStub.j");
 	}
@@ -34,37 +36,33 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void scriviSomma() {
-
+		output.println("iadd");
 	}
 
 	@Override
 	public void scriviVariabile(String nome) {
-		// TODO Auto-generated method stub
-
+		int id = idVariabile(nome);
+		output.println("iload " + id);
 	}
 
 	@Override
 	public void scriviCostante(int costante) {
-		// TODO Auto-generated method stub
-
+		output.println("ldc " + costante);
 	}
 
 	@Override
 	public void scriviSottrazione() {
-		// TODO Auto-generated method stub
-
+		output.println("isub");
 	}
-
+	
 	@Override
 	public void scriviMoltiplicazione() {
-		// TODO Auto-generated method stub
-
+		output.println("imul");
 	}
 
 	@Override
 	public void scriviDivisione() {
-		// TODO Auto-generated method stub
-
+		output.println("idiv");
 	}
 
 	@Override
