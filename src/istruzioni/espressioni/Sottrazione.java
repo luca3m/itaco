@@ -2,11 +2,11 @@ package istruzioni.espressioni;
 
 import main.ScrittoreTarget;
 
-public class Sottrazione implements E {
-	private E parteSinistra;
+public class Sottrazione implements B {
+	private B parteSinistra;
 	private T parteDestra;
 	
-	public Sottrazione(E parteSinistra, T parteDestra) {
+	public Sottrazione(B parteSinistra, T parteDestra) {
 		this.parteSinistra = parteSinistra;
 		this.parteDestra = parteDestra;
 	}

@@ -1,9 +1,8 @@
 package istruzioni.espressioni;
 
 import main.ScrittoreTarget;
-import istruzioni.logiche.L;
 
-public class Identificatore implements F,L {
+public class Identificatore implements F {
 	
 	String nome;
 	public Identificatore(String nome) {

@@ -1,13 +1,13 @@
 package istruzioni;
 
 import main.ScrittoreTarget;
-import istruzioni.logiche.B;
+import istruzioni.espressioni.E;
 
 public class CondizionaleSe implements C {
-	private B condizione;
+	private E condizione;
 	private N blocco;
 	
-	public CondizionaleSe(B condizione, N blocco) {
+	public CondizionaleSe(E condizione, N blocco) {
 		this.condizione = condizione;
 		this.blocco = blocco;
 	}

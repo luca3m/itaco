@@ -1,13 +1,13 @@
 package istruzioni;
 
 import main.ScrittoreTarget;
-import istruzioni.logiche.B;
+import istruzioni.espressioni.E;
 
 public class CicloFinche extends Object implements C {
-	private B condizione;
+	private E condizione;
 	private N blocco;
 	
-	public CicloFinche(B condizione, N blocco) {
+	public CicloFinche(E condizione, N blocco) {
 		this.condizione = condizione;
 		this.blocco = blocco;
 	}

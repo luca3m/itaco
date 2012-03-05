@@ -1,9 +1,8 @@
 package istruzioni.espressioni;
 
 import main.ScrittoreTarget;
-import istruzioni.logiche.L;
 
-public class Costante implements F,L {
+public class Costante implements F {
 	private int valore;
 	
 	public Costante(int valore) {

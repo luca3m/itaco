@@ -16,13 +16,12 @@ import istruzioni.espressioni.Divisione;
 import istruzioni.espressioni.ElementoVettore;
 import istruzioni.espressioni.EspressioneInParentesi;
 import istruzioni.espressioni.Identificatore;
+import istruzioni.espressioni.Maggiore;
+import istruzioni.espressioni.Minore;
 import istruzioni.espressioni.Prodotto;
 import istruzioni.espressioni.Somma;
 import istruzioni.espressioni.Sottrazione;
-import istruzioni.logiche.EspressioneLogicaInParentesi;
-import istruzioni.logiche.Maggiore;
-import istruzioni.logiche.Minore;
-import istruzioni.logiche.Uguaglianza;
+import istruzioni.espressioni.Uguaglianza;
 import edu.tum.cup2.grammar.*;
 import edu.tum.cup2.semantics.*;
 import edu.tum.cup2.spec.CUP2Specification;
@@ -41,7 +40,7 @@ public class ParserSpec extends CUP2Specification {
 
 	// non-terminals
 	public enum NonTerminals implements NonTerminal {
-		N, I, E, T, F, B, L, C;
+		N, I, E, T, F, B, C;
 	}
 
 	public class N extends SymbolValue<istruzioni.N> {
@@ -59,10 +58,7 @@ public class ParserSpec extends CUP2Specification {
 	public class F extends SymbolValue<istruzioni.espressioni.F> {
 	};
 
-	public class B extends SymbolValue<istruzioni.logiche.B> {
-	};
-
-	public class L extends SymbolValue<istruzioni.logiche.L> {
+	public class B extends SymbolValue<istruzioni.espressioni.B> {
 	};
 	
 	public class C extends SymbolValue<istruzioni.C> {
@@ -74,6 +70,7 @@ public class ParserSpec extends CUP2Specification {
 	public class IDENTIFICATORE extends SymbolValue<String> {
 	};
 	
+	@SuppressWarnings("unused")
 	public ParserSpec() {
 
 		/*
@@ -135,6 +132,7 @@ public class ParserSpec extends CUP2Specification {
 							}
 						},
 						rhs(LEGGI, IDENTIFICATORE), new Action() {
+							
 							public istruzioni.I a(String id) {
 								// FIXME: forse devo usare Identificatore() e non la stringa
 								return new LetturaDaTastiera(id);
@@ -147,30 +145,53 @@ public class ParserSpec extends CUP2Specification {
 							}
 						}),
 					prod(C,
-						rhs(SE, B, DUE_PUNTI, N), new Action() {
-							public istruzioni.C a(istruzioni.logiche.B b, istruzioni.N n) {
-								return new CondizionaleSe(b, n);
+						rhs(SE, E, DUE_PUNTI, N), new Action() {
+							public istruzioni.C a(istruzioni.espressioni.E e, istruzioni.N n) {
+								return new CondizionaleSe(e, n);
 							}
 						},
-						rhs(FINCHE, B, DUE_PUNTI, N), new Action() {
-							public istruzioni.C a(istruzioni.logiche.B b, istruzioni.N n) {
-								return new CicloFinche(b, n);
+						rhs(FINCHE, E, DUE_PUNTI, N), new Action() {
+							public istruzioni.C a(istruzioni.espressioni.E e, istruzioni.N n) {
+								return new CicloFinche(e, n);
 							}
 						}
 			   ),
+			   // Espressioni
 			   prod(E,
-					   rhs(E, SOMMA, T), new Action() {
-							public istruzioni.espressioni.E a(istruzioni.espressioni.E e, istruzioni.espressioni.T t) {
-								return new Somma(e, t);
+					   rhs(E, MAGGIORE, B), new Action() {
+							public istruzioni.espressioni.E a(istruzioni.espressioni.E e, istruzioni.espressioni.B b) {
+								return new Maggiore(e, b);
 							}
 						},
-						rhs(E, SOTTRAZIONE, T), new Action() {
-							public istruzioni.espressioni.E a(istruzioni.espressioni.E e, istruzioni.espressioni.T t) {
-								return new Sottrazione(e, t);
+						rhs(E, MINORE, B), new Action() {
+							public istruzioni.espressioni.E a(istruzioni.espressioni.E e, istruzioni.espressioni.B b) {
+								return new Minore(e, b);
+							}
+						},
+						rhs(E, UGUALE, B), new Action() {
+							public istruzioni.espressioni.E a(istruzioni.espressioni.E e, istruzioni.espressioni.B b) {
+								return new Uguaglianza(e, b);
+							}
+						},
+						rhs(B), new Action() {
+							public istruzioni.espressioni.E a(istruzioni.espressioni.B b) {
+								return b;
+							}
+						}
+				),
+			   prod(B,
+					   rhs(B, SOMMA, T), new Action() {
+							public istruzioni.espressioni.B a(istruzioni.espressioni.B b, istruzioni.espressioni.T t) {
+								return new Somma(b, t);
+							}
+						},
+						rhs(B, SOTTRAZIONE, T), new Action() {
+							public istruzioni.espressioni.B a(istruzioni.espressioni.B b, istruzioni.espressioni.T t) {
+								return new Sottrazione(b, t);
 							}
 						},
 						rhs(T), new Action() {
-							public istruzioni.espressioni.E a(istruzioni.espressioni.T t) {
+							public istruzioni.espressioni.B a(istruzioni.espressioni.T t) {
 								return t;
 							}
 						}
@@ -213,51 +234,7 @@ public class ParserSpec extends CUP2Specification {
 								return new ElementoVettore(id, e);
 							}
 						}
-					),
-					prod(B,
-							   rhs(B, MAGGIORE, L), new Action() {
-									public istruzioni.logiche.B a(istruzioni.logiche.B b, istruzioni.logiche.L l) {
-										return new Maggiore(b, l);
-									}
-								},
-								rhs(B, MINORE, L), new Action() {
-									public istruzioni.logiche.B a(istruzioni.logiche.B b, istruzioni.logiche.L l) {
-										return new Minore(b, l);
-									}
-								},
-								rhs(B, UGUALE, L), new Action() {
-									public istruzioni.logiche.B a(istruzioni.logiche.B b, istruzioni.logiche.L l) {
-										return new Uguaglianza(b, l);
-									}
-								},
-								rhs(L), new Action() {
-									public istruzioni.logiche.B a(istruzioni.logiche.L l) {
-										return l;
-									}
-								}
-						),
-						prod(L,
-								   rhs(PARENTESI_TONDA_APERTA, B, PARENTESI_TONDA_CHIUSA), new Action() {
-										public istruzioni.logiche.L a(istruzioni.logiche.B b) {
-											return new EspressioneLogicaInParentesi(b);
-										}
-									},
-									/*rhs(E), new Action() {
-										public istruzioni.logiche.L a(istruzioni.espressioni.E e) {
-											return e;
-										}
-									}*/
-									rhs(IDENTIFICATORE), new Action() {
-										public istruzioni.logiche.L a(String id) {
-											return new Identificatore(id);
-										}
-									},
-									rhs(NUMERO_INTERO), new Action() {
-										public istruzioni.logiche.L a(Integer numero) {
-											return new Costante(numero);
-										}
-									}
-						)
+					)
 		);
 
 	}
