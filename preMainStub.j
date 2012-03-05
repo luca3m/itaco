@@ -34,6 +34,18 @@
     
 .end method
 
+; Funzione che scrive un intero da standard input
+.method public static writeString(Ljava/lang/String;)V
+    .limit locals 1
+    .limit stack 3
+    
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    aload 0
+    invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V
+    return
+    
+.end method
+
 .method public static main([Ljava/lang/String;)V
     .limit locals 100
     .limit stack 3
