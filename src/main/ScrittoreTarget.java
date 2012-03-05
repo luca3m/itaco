@@ -27,6 +27,9 @@ public abstract class ScrittoreTarget {
 			return -1;
 	}
 
+	protected int numeroVariabili() {
+		return tabellaSimboli.size();
+	}
 	protected String labelInizioBlocco(String nome) {
 		return "";
 	}
