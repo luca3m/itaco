@@ -1,4 +1,4 @@
-#Assioma
+# Assioma
 N -> I | I,N
 N -> C. | C.N
 I -> intero id ass E | id ass E
@@ -6,7 +6,7 @@ I -> vettore id[costante] | id[E] ass E
 I -> stampa E | leggi id | leggi id[E]
 C -> se E:N | finché E:N
 
-#Espressioni
+# Espressioni
 E -> E = B | E < B | E > B| B
 B -> B + T | B - T | T
 T -> T • F | T / F | F

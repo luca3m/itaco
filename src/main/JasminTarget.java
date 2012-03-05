@@ -113,11 +113,7 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void scriviStampa() {
-<<<<<<< HEAD
 		output.println("invokestatic "+ className +"/writeInt(I)V");
-=======
-		output.println("invokestatic"+ className +"/writeInt(I)V");
->>>>>>> unificazione_espressioni
 	}
 
 	@Override
