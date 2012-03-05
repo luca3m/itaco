@@ -1,9 +1,15 @@
+# Calcolo area rettangolo
 intero x <- 0,
 leggi x,
+intero y <- 0,
+leggi y,
+scrivi x*y,
+
+# Altri calcoli di esempio
 x <- x + 5,
-intero y <- x,
+y <- x,
 y <- ((y + 2)*x*6)/x,
-intero z <- 7,
+intero z <- x,
 z <- z + y - 2,
 scrivi x,
 scrivi y
