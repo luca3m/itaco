@@ -10,8 +10,6 @@ public class CicloFinche extends Object implements C {
 	public CicloFinche(E condizione, N blocco) {
 		this.condizione = condizione;
 		this.blocco = blocco;
-		
-		
 	}
 
 	@Override
