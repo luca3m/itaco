@@ -120,4 +120,8 @@ public abstract class ScrittoreTarget {
 	 * @param identificatore
 	 */
 	public abstract void scriviStoreInVariabile(String identificatore);
+
+	public abstract void scriviCostante(String stringa);
+
+	public abstract void scriviStampaStringa();
 }

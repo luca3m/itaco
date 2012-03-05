@@ -197,4 +197,14 @@ public class JasminTarget extends ScrittoreTarget {
 		classFile.write(classFOut);
 		classFOut.close();
 	}
+
+	@Override
+	public void scriviCostante(String stringa) {
+		output.printf("ldc \"%s\"\n", stringa);
+	}
+
+	@Override
+	public void scriviStampaStringa() {
+		output.println("invokestatic "+ className +"/writeString(Ljava/lang/String;)V");
+	}
 }

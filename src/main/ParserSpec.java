@@ -9,6 +9,7 @@ import istruzioni.DefinizioneVettore;
 import istruzioni.LetturaDaTastiera;
 import istruzioni.LetturaTastieraElementoVettore;
 import istruzioni.Stampa;
+import istruzioni.StampaStringa;
 import istruzioni.SuccessioneCN;
 import istruzioni.SuccessioneIstruzioni;
 import istruzioni.espressioni.Costante;
@@ -70,6 +71,9 @@ public class ParserSpec extends CUP2Specification {
 	public class IDENTIFICATORE extends SymbolValue<String> {
 	};
 	
+	public class STRINGA extends SymbolValue<String> {
+	};
+	
 	@SuppressWarnings("unused")
 	public ParserSpec() {
 
@@ -114,6 +118,11 @@ public class ParserSpec extends CUP2Specification {
 						rhs(IDENTIFICATORE, ASSEGNAZIONE, E), new Action() {
 							public istruzioni.I a(String id, istruzioni.espressioni.E e) {
 								return new Assegnamento(id, e);
+							}
+						},
+						rhs(SCRIVI, STRINGA), new Action() {
+							public istruzioni.I a(String s) {
+								return new StampaStringa(s);
 							}
 						},
 						rhs(VETTORE, IDENTIFICATORE, PARENTESI_QUADRA_APERTA, NUMERO_INTERO, PARENTESI_QUADRA_CHIUSA), new Action() {
