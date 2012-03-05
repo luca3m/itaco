@@ -85,4 +85,16 @@ public class TestTarget extends ScrittoreTarget {
 		output.println("finché");
 	}
 
+	@Override
+	public void scriviCostante(String stringa) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void scriviStampaStringa() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
