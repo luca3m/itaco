@@ -40,12 +40,13 @@ public class JasminTarget extends ScrittoreTarget {
 
 		while (copiedBytes < fileSizeInBytes) {
 			charsRead = stub.read(fileData);
-			sb.append(charsRead);
+			sb.append(fileData, 0,  charsRead);
 			copiedBytes += charsRead;
 		}
 		String stubReplaced = sb.toString().replaceAll(replacePattern, replaceString);
 		output.print(stubReplaced);
 	}
+	
 	private void writeContentOfStub(String stubFileName) throws IOException {
 		// Copio il contenuto dello stub nel file di output
 		File stubFile = new File(stubFileName);
@@ -146,7 +147,7 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	public void endFile() throws IOException {
-		output.printf(".limit locals " + numeroVariabili());
+		
 		writeContentOfStub("postMainStub.j");
 	}
 	
