@@ -13,7 +13,7 @@ public class Divisione implements T {
 	public void scriviCodice(ScrittoreTarget sc) {
 		dividendo.scriviCodice(sc);
 		divisore.scriviCodice(sc);
-		sc.scriviDivisione();
+		sc.divisione(null, null);
 	}
 	
 }

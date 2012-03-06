@@ -14,6 +14,6 @@ public class Maggiore implements E {
 		// TODO Auto-generated method stub
 		parteSinistra.scriviCodice(sc);
 		parteDestra.scriviCodice(sc);
-		sc.scriviMaggiore();
+		sc.maggiore(null, null);
 	}
 }

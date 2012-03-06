@@ -1,5 +1,11 @@
 package main;
 
+import istruzioni.espressioni.B;
+import istruzioni.espressioni.Costante;
+import istruzioni.espressioni.E;
+import istruzioni.espressioni.F;
+import istruzioni.espressioni.T;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,8 +46,10 @@ public abstract class ScrittoreTarget {
 
 	/**
 	 * Scrivi l'istruzione per fare la somma nel linguaggio target
+	 * @param addendo1 TODO
+	 * @param addendo2 TODO
 	 */
-	public abstract void scriviSomma();
+	public abstract void somma(B addendo1, T addendo2);
 
 	/**
 	 * Scrivi l'istruzione per caricare il valore della variabile nello stack
@@ -49,55 +57,74 @@ public abstract class ScrittoreTarget {
 	 * @param nome
 	 *            nome della variabile
 	 */
-	public abstract void scriviVariabile(String nome);
+	public abstract void caricaVariabile(String nome);
 
 	/**
 	 * Scrivi l'istruzione per caricare una costante nello stack
 	 * 
 	 * @param costante
 	 */
-	public abstract void scriviCostante(int costante);
+	public abstract void costante(int costante);
 
 	/**
 	 * Scrivi l'istruzione per fare la sottrazione nel linguaggio target
+	 * @param minuendo TODO
+	 * @param sottraendo TODO
 	 */
-	public abstract void scriviSottrazione();
+	public abstract void sottrazione(B minuendo, T sottraendo);
 
 	/**
 	 * Scrivi l'istruzione per fare la moltiplicazione nel linguaggio target
+	 * @param fattore1 TODO
+	 * @param fattore2 TODO
 	 */
-	public abstract void scriviMoltiplicazione();
+	public abstract void prodotto(T fattore1, F fattore2);
 
 	/**
 	 * Scrivi l'istruzione per fare la divisione nel linguaggio target
+	 * @param dividendo TODO
+	 * @param divisore TODO
 	 */
-	public abstract void scriviDivisione();
+	public abstract void divisione(T dividendo, F divisore);
 
 	/**
 	 * Scrivi l'istruzione per operatore maggiore >
+	 * @param parteSinistra TODO
+	 * @param parteDestra TODO
 	 */
-	public abstract void scriviMaggiore();
+	public abstract void maggiore(E parteSinistra, B parteDestra);
 
 	/**
 	 * Scrivi l'istruzione per operatore minore <
+	 * @param parteSinistra TODO
+	 * @param parteDestra TODO
 	 */
-	public abstract void scriviMinore();
+	public abstract void minore(E parteSinistra, B parteDestra);
 
 	/**
 	 * Scrivi l'istruzione per operatore uguaglianza =
+	 * @param parteSinistra TODO
+	 * @param parteDestra TODO
 	 */
-	public abstract void scriviUguaglianza();
+	public abstract void uguaglianza(E parteSinistra, B parteDestra);
 
 	/**
 	 * Scrivi istruzione per stampare a schermo
+	 * @param espressione TODO
 	 */
-	public abstract void scriviStampa();
+	public abstract void stampa(E espressione);
 
 	/**
 	 * Scrivi l'istruzione per leggere un intero da tastiera
+	 * @param identificatore TODO
 	 */
-	public abstract void scriviLetturaStandard();
+	public abstract void leggi(String identificatore);
 
+	/**
+	 * Scrivi l'istruzione per leggere un intero da tastiera
+	 * @param identificatore TODO
+	 */
+	public abstract void leggiElementoVettore(String identificatore, E indice);
 	/**
 	 * Scrivi l'istruzione per l'accesso al vettore
 	 * 
@@ -124,4 +151,6 @@ public abstract class ScrittoreTarget {
 	public abstract void scriviCostante(String stringa);
 
 	public abstract void scriviStampaStringa();
+
+	public abstract void scriviCreaVettore();
 }

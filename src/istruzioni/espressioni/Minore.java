@@ -15,6 +15,6 @@ public class Minore implements E {
 		// TODO Auto-generated method stub
 		parteSinistra.scriviCodice(sc);
 		parteDestra.scriviCodice(sc);
-		sc.scriviMinore();
+		sc.minore(null, null);
 	}
 }

@@ -1,6 +1,11 @@
 package main;
 
 import istruzioni.N;
+import istruzioni.espressioni.B;
+import istruzioni.espressioni.Costante;
+import istruzioni.espressioni.E;
+import istruzioni.espressioni.F;
+import istruzioni.espressioni.T;
 import jasmin.ClassFile;
 
 import java.io.ByteArrayOutputStream;
@@ -64,60 +69,60 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void scriviSomma() {
+	public void somma(B addendo1, T addendo2) {
 		output.println("iadd");
 	}
 
 	@Override
-	public void scriviVariabile(String nome) {
+	public void caricaVariabile(String nome) {
 		int id = idVariabile(nome);
 		output.println("iload " + id);
 	}
 
 	@Override
-	public void scriviCostante(int costante) {
+	public void costante(int costante) {
 		output.println("ldc " + costante);
 	}
 
 	@Override
-	public void scriviSottrazione() {
+	public void sottrazione(B minuendo, T sottraendo) {
 		output.println("isub");
 	}
 	
 	@Override
-	public void scriviMoltiplicazione() {
+	public void prodotto(T fattore1, F fattore2) {
 		output.println("imul");
 	}
 
 	@Override
-	public void scriviDivisione() {
+	public void divisione(T dividendo, F divisore) {
 		output.println("idiv");
 	}
 
 	@Override
-	public void scriviMaggiore() {
+	public void maggiore(E parteSinistra, B parteDestra) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void scriviMinore() {
+	public void minore(E parteSinistra, B parteDestra) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void scriviUguaglianza() {
+	public void uguaglianza(E parteSinistra, B parteDestra) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void scriviStampa() {
+	public void stampa(E espressione) {
 		output.println("invokestatic "+ className +"/writeInt(I)V");
 	}
 
 	@Override
-	public void scriviLetturaStandard() {
+	public void leggi(String identificatore) {
 		// TODO Auto-generated method stub
 		output.println("invokestatic "+className+"/readInt()I");
 	}
@@ -136,7 +141,7 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void scriviStoreInVariabile(String identificatore) {
-		int idVar=this.idVariabile(identificatore);
+		int idVar = this.idVariabile(identificatore);
 		output.println("istore "+idVar);
 	}
 
@@ -207,4 +212,18 @@ public class JasminTarget extends ScrittoreTarget {
 	public void scriviStampaStringa() {
 		output.println("invokestatic "+ className +"/writeString(Ljava/lang/String;)V");
 	}
+
+	@Override
+	public void definisciVettore(String identificatore, Costante dimensione) {
+		boolean status = registraVariabile(identificatore + "[]");
+		if (status == false) {
+			// FIXME: lanciare una eccezione
+		}
+		int id = idVariabile(identificatore + "[]");
+		dimensione.scriviCodice(this);
+	    output.println("newarray int");
+	    output.println("astore " + id);
+	}
+	
+	
 }

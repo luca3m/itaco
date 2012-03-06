@@ -16,7 +16,7 @@ public class AssegnamentoVettore implements I {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// FIXME: da implementare
+		
 	}
 	
 }

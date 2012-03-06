@@ -4,14 +4,14 @@ import main.ScrittoreTarget;
 
 public class Identificatore implements F {
 	
-	String nome;
+	private String nome;
 	public Identificatore(String nome) {
 		this.nome = nome;
 	}
 	
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		sc.scriviVariabile(nome);
+		sc.caricaVariabile(nome);
 	}
 	
 }

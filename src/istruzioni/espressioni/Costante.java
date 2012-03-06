@@ -11,6 +11,6 @@ public class Costante implements F {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		sc.scriviCostante(valore);
+		sc.costante(valore);
 	}
 }

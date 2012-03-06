@@ -16,6 +16,6 @@ public class Uguaglianza implements E {
 		// TODO Auto-generated method stub
 		parteSinistra.scriviCodice(sc);
 		parteDestra.scriviCodice(sc);
-		sc.scriviUguaglianza();
+		sc.uguaglianza(null, null);
 	}
 }

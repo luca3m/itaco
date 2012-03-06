@@ -13,7 +13,7 @@ public class Stampa implements I {
 	public void scriviCodice(ScrittoreTarget sc) {
 		// TODO Auto-generated method stub;
 		espressione.scriviCodice(sc);
-		sc.scriviStampa();
+		sc.stampa(null);
 	}
 	
 }

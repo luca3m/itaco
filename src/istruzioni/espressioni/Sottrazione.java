@@ -14,6 +14,6 @@ public class Sottrazione implements B {
 	public void scriviCodice(ScrittoreTarget sc) {
 		parteSinistra.scriviCodice(sc);
 		parteDestra.scriviCodice(sc);
-		sc.scriviSottrazione();
+		sc.sottrazione(null, null);
 	}
 }

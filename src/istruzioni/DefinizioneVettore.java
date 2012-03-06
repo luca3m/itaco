@@ -14,7 +14,10 @@ public class DefinizioneVettore implements I {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// FIXME: da implementare
+		sc.registraVariabile(identificatore + "[]");
+		dimensione.scriviCodice(sc);
+		sc.scriviCreaVettore();
+		sc.scriviStoreInVariabile(identificatore);
 	}
 	
 }

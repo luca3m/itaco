@@ -15,6 +15,6 @@ public class Prodotto implements T {
 	public void scriviCodice(ScrittoreTarget sc) {
 		fattoreSinistro.scriviCodice(sc);
 		fattoreDestro.scriviCodice(sc);
-		sc.scriviMoltiplicazione();
+		sc.prodotto(null, null);
 	}
 }

@@ -1,5 +1,10 @@
 package main;
 
+import istruzioni.espressioni.B;
+import istruzioni.espressioni.E;
+import istruzioni.espressioni.F;
+import istruzioni.espressioni.T;
+
 import java.io.OutputStream;
 import java.io.PrintStream;
 
@@ -11,57 +16,57 @@ public class TestTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void scriviSomma() {
+	public void somma(B addendo1, T addendo2) {
 		output.println("somma");
 	}
 
 	@Override
-	public void scriviVariabile(String nome) {
+	public void caricaVariabile(String nome) {
 		output.println("carico variabile " + nome);
 	}
 
 	@Override
-	public void scriviCostante(int costante) {
+	public void costante(int costante) {
 		output.println("carico costante " + costante);
 	}
 
 	@Override
-	public void scriviSottrazione() {
+	public void sottrazione(B minuendo, T sottraendo) {
 		output.println("sottrazione");
 		}
 
 	@Override
-	public void scriviMoltiplicazione() {
+	public void prodotto(T fattore1, F fattore2) {
 		output.println("prodotto");
 	}
 
 	@Override
-	public void scriviDivisione() {
+	public void divisione(T dividendo, F divisore) {
 		output.println("divido");
 	}
 
 	@Override
-	public void scriviMaggiore() {
+	public void maggiore(E parteSinistra, B parteDestra) {
 		output.println("maggiore");
 	}
 
 	@Override
-	public void scriviMinore() {
+	public void minore(E parteSinistra, B parteDestra) {
 		output.println("minore");
 	}
 
 	@Override
-	public void scriviUguaglianza() {
+	public void uguaglianza(E parteSinistra, B parteDestra) {
 		output.println("uguaglianza");
 	}
 
 	@Override
-	public void scriviStampa() {
+	public void stampa(E espressione) {
 		output.println("stampo");
 	}
 
 	@Override
-	public void scriviLetturaStandard() {
+	public void leggi(String identificatore) {
 		output.println("leggo");
 	}
 

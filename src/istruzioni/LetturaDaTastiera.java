@@ -11,7 +11,7 @@ public class LetturaDaTastiera implements I {
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
 		// TODO Auto-generated method stub
-		sc.scriviLetturaStandard();
+		sc.leggi(null);
 		sc.scriviStoreInVariabile(identificatore);
 	}
 }
