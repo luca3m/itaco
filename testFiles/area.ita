@@ -1,5 +1,5 @@
-intero base <- 0,
+intero base <- 4,
 leggi base,
-intero altezza <- 0,
+intero altezza <- 3,
 leggi altezza,
 scrivi base*altezza
