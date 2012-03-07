@@ -136,4 +136,10 @@ public class TestTarget extends ScrittoreTarget {
 		
 	}
 
+	@Override
+	public void espressioneInParentesi(Espressione ex) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

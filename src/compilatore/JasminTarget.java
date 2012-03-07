@@ -274,5 +274,10 @@ public class JasminTarget extends ScrittoreTarget {
 			Espressione elemento) {
 		// TODO Auto-generated method stub
 	}
+
+	@Override
+	public void espressioneInParentesi(Espressione ex) {
+		ex.scriviCodice(this);
+	}
 	
 }

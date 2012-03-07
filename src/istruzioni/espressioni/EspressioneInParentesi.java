@@ -11,7 +11,7 @@ public class EspressioneInParentesi implements F {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		espressione.scriviCodice(sc);
+		sc.espressioneInParentesi(espressione);
 	}
 	
 }

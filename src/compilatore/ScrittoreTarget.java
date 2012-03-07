@@ -83,6 +83,8 @@ public abstract class ScrittoreTarget {
 	 */
 	public abstract void uguaglianza(Espressione parteSinistra, Espressione parteDestra);
 
+	public abstract void espressioneInParentesi(Espressione ex);
+	
 	/**
 	 * Scrivi istruzione per stampare a schermo
 	 * @param espressione TODO
