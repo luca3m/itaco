@@ -1,6 +1,6 @@
 package istruzioni;
 
-import main.ScrittoreTarget;
+import compilatore.ScrittoreTarget;
 
 public class SuccessioneIstruzioni implements N {
 

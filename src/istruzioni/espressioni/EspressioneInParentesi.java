@@ -1,6 +1,6 @@
 package istruzioni.espressioni;
 
-import main.ScrittoreTarget;
+import compilatore.ScrittoreTarget;
 
 public class EspressioneInParentesi implements F {
 	private E espressione;

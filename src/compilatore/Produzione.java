@@ -1,6 +1,5 @@
-package istruzioni;
+package compilatore;
 
-import main.ScrittoreTarget;
 
 public interface Produzione {
 	public void scriviCodice(ScrittoreTarget sc);

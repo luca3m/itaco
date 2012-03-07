@@ -1,6 +1,6 @@
 package istruzioni;
 
-import main.ScrittoreTarget;
+import compilatore.ScrittoreTarget;
 
 public class SuccessioneCN implements N {
 	private C istruzionePrecedente;

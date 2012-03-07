@@ -1,6 +1,7 @@
 package istruzioni;
 
-import main.ScrittoreTarget;
+import compilatore.ScrittoreTarget;
+
 import istruzioni.espressioni.E;
 
 public class CicloFinche extends Object implements C {

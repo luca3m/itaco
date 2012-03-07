@@ -1,6 +1,7 @@
 package istruzioni;
 
-import main.ScrittoreTarget;
+import compilatore.ScrittoreTarget;
+
 import istruzioni.espressioni.Costante;
 
 public class DefinizioneVettore implements I {

@@ -1,4 +1,4 @@
-package main;
+package compilatore;
 
 import istruzioni.espressioni.B;
 import istruzioni.espressioni.E;

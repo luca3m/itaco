@@ -1,6 +1,6 @@
 package istruzioni.espressioni;
 
-import main.ScrittoreTarget;
+import compilatore.ScrittoreTarget;
 
 public class Minore implements E {
 	private E parteSinistra;

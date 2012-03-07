@@ -1,6 +1,6 @@
 package istruzioni.espressioni;
 
-import istruzioni.Produzione;
+import compilatore.Produzione;
 
 public interface F extends T, Produzione  {
 

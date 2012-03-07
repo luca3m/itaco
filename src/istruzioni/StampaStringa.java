@@ -1,7 +1,8 @@
 package istruzioni;
 
+import compilatore.ScrittoreTarget;
+
 import istruzioni.espressioni.E;
-import main.ScrittoreTarget;
 
 public class StampaStringa implements I {
 private String stringa;

@@ -1,5 +1,7 @@
 package main;
 
+import compilatore.JasminTarget;
+
 public class Runner {
 
 	/**

@@ -1,4 +1,4 @@
-package main;
+package compilatore;
 
 import istruzioni.N;
 import istruzioni.espressioni.B;
@@ -17,12 +17,45 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import main.ParserSpec;
+import main.Scanner;
 
 import edu.tum.cup2.generator.LALR1Generator;
 import edu.tum.cup2.parser.LRParser;
 import edu.tum.cup2.parser.tables.LRParsingTable;
 
 public class JasminTarget extends ScrittoreTarget {
+	
+	private Map<String, Integer> tabellaSimboli = new HashMap<String, Integer>();
+	/**
+	 * Inizio del contatore per identificare le variabili
+	 */
+	private static final int START_ID = 1;
+
+	private static int contatoreVariabili = START_ID;
+	
+	public boolean registraVariabile(String nome) {
+		if(tabellaSimboli.containsKey(nome)){
+			return false;
+		}
+		tabellaSimboli.put(nome, contatoreVariabili++);
+		return true;
+	}
+
+	protected int idVariabile(String nome) {
+		if (tabellaSimboli.containsKey(nome)) {
+			return tabellaSimboli.get(nome);
+		} else
+			return -1;
+	}
+
+	protected int numeroVariabili() {
+		return tabellaSimboli.size();
+	}
+	
 	PrintStream output;
 	String className;
 	
