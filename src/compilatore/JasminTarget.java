@@ -169,12 +169,6 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void scriviAccessoVettore(String nome) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void se(Espressione ex, Blocco b) {
 		// TODO Auto-generated method stub
 
@@ -256,20 +250,35 @@ public class JasminTarget extends ScrittoreTarget {
 	@Override
 	public void stampa(String stringa) {
 		costante(stringa);
-		output.println("invokestatic "+ className +"/writeString(Ljava/lang/String;)V");
+		output.println("invokestatic " + className + "/writeString(Ljava/lang/String;)V");
 	}
 
 	@Override
-	public void creaVettore(String identificatore, Costante dimensione) {
+	public void definisciVettore(String identificatore, Integer dimensione) {
 		boolean status = registraVariabile(identificatore + "[]");
 		if (status == false) {
 			// FIXME: lanciare una eccezione
 		}
 		int id = idVariabile(identificatore + "[]");
-		dimensione.scriviCodice(this);
+		costante(dimensione);
 	    output.println("newarray int");
 	    output.println("astore " + id);
 	}
-	
+
+	@Override
+	public void leggiElementoVettore(String identificatore, Espressione indice) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void caricaElementoVettore(String identificatore, Espressione indice) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void storeElementoVettore(String identificatore, Espressione indice,
+			Espressione elemento) {
+		// TODO Auto-generated method stub
+	}
 	
 }

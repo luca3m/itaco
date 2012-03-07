@@ -112,12 +112,9 @@ public abstract class ScrittoreTarget {
 	 */
 	public abstract void finche(Espressione ex, Blocco codice);
 
-	/**
-	 * Scrivi l'istruzione per l'accesso al vettore
-	 * 
-	 * @param nome
-	 */
-	public abstract void scriviAccessoVettore(String nome);
-	
-	public abstract void scriviCreaVettore();
+
+	// Operazioni sui vettori
+	public abstract void definisciVettore(String identificatore, Integer dimensione);
+	public abstract void caricaElementoVettore(String identificatore, Espressione indice);
+	public abstract void storeElementoVettore(String identificatore, Espressione indice, Espressione elemento);
 }

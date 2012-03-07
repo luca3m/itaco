@@ -1,7 +1,7 @@
 package istruzioni.espressioni;
 
-import compilatore.Produzione;
+import compilatore.Espressione;
 
-public interface E extends Produzione  {
+public interface E extends Espressione  {
 
 }

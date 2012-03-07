@@ -15,8 +15,7 @@ public class Assegnamento implements I {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		espressione.scriviCodice(sc);
-		sc.scriviStoreInVariabile(identificatore);
+		sc.storeInVariabile(identificatore, espressione);
 	}
 	
 }

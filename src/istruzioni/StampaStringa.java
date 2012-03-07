@@ -13,9 +13,7 @@ private String stringa;
 	}
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// TODO Auto-generated method stub;
-		sc.scriviCostante(stringa);
-		sc.scriviStampaStringa();
+		sc.stampa(stringa);
 	}
 
 }

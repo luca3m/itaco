@@ -1,7 +1,7 @@
 package istruzioni;
 
-import compilatore.Produzione;
+import compilatore.Blocco;
 
-public interface N extends Produzione  {
+public interface N extends Blocco  {
 
 }

@@ -1,10 +1,5 @@
 package compilatore;
 
-import istruzioni.espressioni.B;
-import istruzioni.espressioni.E;
-import istruzioni.espressioni.F;
-import istruzioni.espressioni.T;
-
 import java.io.OutputStream;
 import java.io.PrintStream;
 
@@ -16,88 +11,127 @@ public class TestTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void somma(B addendo1, T addendo2) {
-		output.println("somma");
+	public boolean registraVariabile(String nome) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	@Override
 	public void caricaVariabile(String nome) {
-		output.println("carico variabile " + nome);
+		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void costante(int costante) {
-		output.println("carico costante " + costante);
-	}
-
-	@Override
-	public void sottrazione(B minuendo, T sottraendo) {
-		output.println("sottrazione");
-		}
-
-	@Override
-	public void prodotto(T fattore1, F fattore2) {
-		output.println("prodotto");
-	}
-
-	@Override
-	public void divisione(T dividendo, F divisore) {
-		output.println("divido");
-	}
-
-	@Override
-	public void maggiore(E parteSinistra, B parteDestra) {
-		output.println("maggiore");
-	}
-
-	@Override
-	public void minore(E parteSinistra, B parteDestra) {
-		output.println("minore");
-	}
-
-	@Override
-	public void uguaglianza(E parteSinistra, B parteDestra) {
-		output.println("uguaglianza");
-	}
-
-	@Override
-	public void stampa(E espressione) {
-		output.println("stampo");
-	}
-
-	@Override
-	public void leggi(String identificatore) {
-		output.println("leggo");
-	}
-
-	@Override
-	public void scriviAccessoVettore(String nome) {
-		output.println("accedo a vettore");
-	}
-
-	@Override
-	public void scriviCondizionaleSe() {
-		output.println("se");
-	}
-
-	@Override
-	public void scriviStoreInVariabile(String identificatore) {
-		output.println("salvo in variabile " + identificatore);
-	}
-
-	@Override
-	public void scriviCicloFinche() {
-		output.println("finché");
-	}
-
-	@Override
-	public void scriviCostante(String stringa) {
+	public void storeInVariabile(String identificatore, Espressione valore) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void scriviStampaStringa() {
+	public void costante(int costante) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void costante(String stringa) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void somma(Espressione addendo1, Espressione addendo2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sottrazione(Espressione minuendo, Espressione sottraendo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void prodotto(Espressione fattore1, Espressione fattore2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void divisione(Espressione dividendo, Espressione divisore) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void maggiore(Espressione parteSinistra, Espressione parteDestra) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void minore(Espressione parteSinistra, Espressione parteDestra) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stampa(Espressione espressione) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stampa(String stringa) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void leggi(String identificatore) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void leggiElementoVettore(String identificatore, Espressione indice) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void se(Espressione ex, Blocco codice) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void finche(Espressione ex, Blocco codice) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void definisciVettore(String identificatore, Integer dimensione) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void caricaElementoVettore(String identificatore, Espressione indice) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void storeElementoVettore(String identificatore, Espressione indice,
+			Espressione elemento) {
 		// TODO Auto-generated method stub
 		
 	}

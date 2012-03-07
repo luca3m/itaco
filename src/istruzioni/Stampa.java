@@ -12,9 +12,7 @@ public class Stampa implements I {
 	}
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// TODO Auto-generated method stub;
-		espressione.scriviCodice(sc);
-		sc.stampa(null);
+		sc.stampa(espressione);
 	}
 	
 }

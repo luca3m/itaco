@@ -17,7 +17,6 @@ public class DefinizioneAssegnamento implements I {
 	public void scriviCodice(ScrittoreTarget sc) {
 		// FIXME: devo gestire il caso in cui la registrazione della variabile vada male
 		sc.registraVariabile(identificatore);
-		espressione.scriviCodice(sc);
-		sc.scriviStoreInVariabile(identificatore);
+		sc.storeInVariabile(identificatore, espressione);
 	}
 }
