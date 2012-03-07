@@ -58,5 +58,15 @@ public class IntegrationTest {
 		String[] outputPrevisto = { "12"};
 		testFile("area", datiIngresso, outputPrevisto);
 	}
+	
+	@Test
+	public void testEspressioneComplessa() {
+		String[] datiIngresso = { "4" };
+		String[] outputPrevisto = { "37"};
+		testFile("espressioneComplessa", datiIngresso, outputPrevisto);
+		String[] datiIngresso2 = { "45" };
+		String[] outputPrevisto2 = { "365"};
+		testFile("espressioneComplessa", datiIngresso2, outputPrevisto2);
+	}
 
 }

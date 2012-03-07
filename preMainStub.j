@@ -51,7 +51,7 @@
 
 .method public static main([Ljava/lang/String;)V
     .limit locals 100
-    .limit stack 3
+    .limit stack 30
     
     ; Inizializzo lo scanner ( serve alla funzione readInt)
     new java/util/Scanner

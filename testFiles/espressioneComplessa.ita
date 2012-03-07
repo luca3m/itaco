@@ -1,0 +1,3 @@
+intero ingresso <- 0,
+leggi ingresso,
+scrivi (ingresso*5)-4+3*(3+ingresso)
