@@ -102,7 +102,9 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void somma(B addendo1, T addendo2) {
+	public void somma(Espressione addendo1, Espressione addendo2) {
+		addendo1.scriviCodice(this);
+		addendo2.scriviCodice(this);
 		output.println("iadd");
 	}
 
@@ -118,46 +120,52 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void sottrazione(B minuendo, T sottraendo) {
+	public void sottrazione(Espressione minuendo, Espressione sottraendo) {
+		minuendo.scriviCodice(this);
+		sottraendo.scriviCodice(this);
 		output.println("isub");
 	}
 	
 	@Override
-	public void prodotto(T fattore1, F fattore2) {
+	public void prodotto(Espressione fattore1, Espressione fattore2) {
+		fattore1.scriviCodice(this);
+		fattore2.scriviCodice(this);
 		output.println("imul");
 	}
 
 	@Override
-	public void divisione(T dividendo, F divisore) {
+	public void divisione(Espressione dividendo, Espressione divisore) {
+		dividendo.scriviCodice(this);
+		divisore.scriviCodice(this);
 		output.println("idiv");
 	}
 
 	@Override
-	public void maggiore(E parteSinistra, B parteDestra) {
+	public void maggiore(Espressione parteSinistra, Espressione parteDestra) {
+		// TODO: da implementare
+	}
+
+	@Override
+	public void minore(Espressione parteSinistra, Espressione parteDestra) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void minore(E parteSinistra, B parteDestra) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void uguaglianza(E parteSinistra, B parteDestra) {
+	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void stampa(E espressione) {
+	public void stampa(Espressione espressione) {
+		espressione.scriviCodice(this);
 		output.println("invokestatic "+ className +"/writeInt(I)V");
 	}
 
 	@Override
 	public void leggi(String identificatore) {
-		// TODO Auto-generated method stub
 		output.println("invokestatic "+className+"/readInt()I");
+		storeInVariabile(identificatore);
 	}
 
 	@Override
@@ -167,25 +175,29 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void scriviCondizionaleSe() {
+	public void se(Espressione ex, Blocco b) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public void scriviStoreInVariabile(String identificatore) {
+	private void storeInVariabile(String identificatore) {
 		int idVar = this.idVariabile(identificatore);
 		output.println("istore "+idVar);
 	}
 
 	@Override
-	public void scriviCicloFinche() {
+	public void storeInVariabile(String identificatore, Espressione ex) {
+		ex.scriviCodice(this);
+		storeInVariabile(identificatore);
+	}
+	
+	@Override
+	public void finche(Espressione ex, Blocco b) {
 		// TODO Auto-generated method stub
 
 	}
 
 	public void endFile() throws IOException {
-		
 		writeContentOfStub("postMainStub.j");
 	}
 	
@@ -237,17 +249,18 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void scriviCostante(String stringa) {
+	public void costante(String stringa) {
 		output.printf("ldc \"%s\"\n", stringa);
 	}
 
 	@Override
-	public void scriviStampaStringa() {
+	public void stampa(String stringa) {
+		costante(stringa);
 		output.println("invokestatic "+ className +"/writeString(Ljava/lang/String;)V");
 	}
 
 	@Override
-	public void definisciVettore(String identificatore, Costante dimensione) {
+	public void creaVettore(String identificatore, Costante dimensione) {
 		boolean status = registraVariabile(identificatore + "[]");
 		if (status == false) {
 			// FIXME: lanciare una eccezione
