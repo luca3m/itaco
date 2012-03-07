@@ -13,8 +13,6 @@ public class Prodotto implements T {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		fattoreSinistro.scriviCodice(sc);
-		fattoreDestro.scriviCodice(sc);
-		sc.prodotto(null, null);
+		sc.prodotto(fattoreSinistro, fattoreDestro);
 	}
 }

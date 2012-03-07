@@ -11,9 +11,6 @@ public class Maggiore implements E {
 	}
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// TODO Auto-generated method stub
-		parteSinistra.scriviCodice(sc);
-		parteDestra.scriviCodice(sc);
-		sc.maggiore(null, null);
+		sc.maggiore(parteSinistra, parteDestra);
 	}
 }

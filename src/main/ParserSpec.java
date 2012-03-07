@@ -127,7 +127,7 @@ public class ParserSpec extends CUP2Specification {
 						},
 						rhs(VETTORE, IDENTIFICATORE, PARENTESI_QUADRA_APERTA, NUMERO_INTERO, PARENTESI_QUADRA_CHIUSA), new Action() {
 							public istruzioni.I a(String id, Integer i) {
-								return new DefinizioneVettore(id, new Costante(i));
+								return new DefinizioneVettore(id, i);
 							}
 						},
 						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA, E, PARENTESI_QUADRA_CHIUSA, ASSEGNAZIONE, E), new Action() {

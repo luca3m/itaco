@@ -12,9 +12,6 @@ public class Minore implements E {
 	}
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// TODO Auto-generated method stub
-		parteSinistra.scriviCodice(sc);
-		parteDestra.scriviCodice(sc);
-		sc.minore(null, null);
+		sc.minore(parteSinistra, parteDestra);
 	}
 }

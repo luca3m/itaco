@@ -3,17 +3,15 @@ package istruzioni.espressioni;
 import compilatore.ScrittoreTarget;
 
 public class Sottrazione implements B {
-	private B parteSinistra;
-	private T parteDestra;
+	private B minuendo;
+	private T sottraendo;
 	
 	public Sottrazione(B parteSinistra, T parteDestra) {
-		this.parteSinistra = parteSinistra;
-		this.parteDestra = parteDestra;
+		this.minuendo = parteSinistra;
+		this.sottraendo = parteDestra;
 	}
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		parteSinistra.scriviCodice(sc);
-		parteDestra.scriviCodice(sc);
-		sc.sottrazione(null, null);
+		sc.sottrazione(minuendo, sottraendo);
 	}
 }

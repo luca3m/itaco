@@ -1,11 +1,6 @@
 package compilatore;
 
 import istruzioni.N;
-import istruzioni.espressioni.B;
-import istruzioni.espressioni.Costante;
-import istruzioni.espressioni.E;
-import istruzioni.espressioni.F;
-import istruzioni.espressioni.T;
 import jasmin.ClassFile;
 
 import java.io.ByteArrayOutputStream;
@@ -22,7 +17,6 @@ import java.util.Map;
 
 import main.ParserSpec;
 import main.Scanner;
-
 import edu.tum.cup2.generator.LALR1Generator;
 import edu.tum.cup2.parser.LRParser;
 import edu.tum.cup2.parser.tables.LRParsingTable;
@@ -214,7 +208,7 @@ public class JasminTarget extends ScrittoreTarget {
 	    if (salvaAssembly) {
 	    	String percorsoFileJ;
 	    	if (sorgenteFile.getParent() != null) {
-	    		percorsoFileJ =  sorgenteFile.getParent() + File.pathSeparator + nomeClasse + ".j";
+	    		percorsoFileJ =  sorgenteFile.getParent() + File.separator + nomeClasse + ".j";
 	    	} else {
 	    		percorsoFileJ =  nomeClasse + ".j";
 	    	}
@@ -227,7 +221,7 @@ public class JasminTarget extends ScrittoreTarget {
 	    // Genero il bytecode
 	    String percorsoFileClass;
     	if (sorgenteFile.getParent() != null) {
-    		percorsoFileClass =  sorgenteFile.getParent() + File.pathSeparator + nomeClasse + ".class";
+    		percorsoFileClass =  sorgenteFile.getParent() + File.separator + nomeClasse + ".class";
     	} else {
     		percorsoFileClass =  nomeClasse + ".class";
     	}

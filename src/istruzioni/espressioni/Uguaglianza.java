@@ -13,9 +13,6 @@ public class Uguaglianza implements E {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// TODO Auto-generated method stub
-		parteSinistra.scriviCodice(sc);
-		parteDestra.scriviCodice(sc);
-		sc.uguaglianza(null, null);
+		sc.uguaglianza(parteSinistra, parteDestra);
 	}
 }
