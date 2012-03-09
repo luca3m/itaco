@@ -235,8 +235,19 @@ public class JasminTarget extends ScrittoreTarget {
 	
 	@Override
 	public void finche(Espressione ex, Blocco b) {
-		// TODO Auto-generated method stub
-
+		String labelMaggiore1 = generaLabel();
+		String labelMaggiore2 = generaLabel();
+		String labelMaggiore3 = generaLabel();
+		output.println(labelMaggiore1+": ");
+		ex.scriviCodice(this);
+		String ifgt ="ifgt ";
+		ifgt = ifgt + labelMaggiore2;
+		output.println(ifgt);
+		output.println("goto "+ labelMaggiore3);
+		output.println(labelMaggiore2+": ");
+		b.scriviCodice(this);
+		output.println("goto "+ labelMaggiore1);
+		output.println(labelMaggiore3+": ");
 	}
 
 	public void endFile() throws IOException {
