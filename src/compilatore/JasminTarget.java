@@ -136,18 +136,44 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void maggiore(Espressione parteSinistra, Espressione parteDestra) {
-		// TODO: da implementare
+		sottrazione(parteSinistra, parteDestra);
+		String labelMaggiore1 = generaLabel();
+		String labelMaggiore2 = generaLabel();
+		String ifgt ="ifgt ";
+		ifgt = ifgt + labelMaggiore1;
+		output.println(ifgt);
+		output.println("pop");
+		output.println("LDC -1");
+		String go_to="goto ";
+		go_to = go_to + labelMaggiore2;
+		output.println(go_to);
+		output.println(labelMaggiore1 + ": pop");
+		output.println("LDC 1");
+		output.println(labelMaggiore2+": ");
 	}
 
 	@Override
 	public void minore(Espressione parteSinistra, Espressione parteDestra) {
-		// TODO Auto-generated method stub
+		maggiore(parteDestra,parteSinistra);
 
 	}
 
 	@Override
 	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra) {
-		// TODO Auto-generated method stub
+		sottrazione(parteSinistra, parteDestra);
+		String labelMaggiore1 = generaLabel();
+		String labelMaggiore2 = generaLabel();
+		String ifeq ="ifeq ";
+		ifeq = ifeq + labelMaggiore1;
+		output.println(ifeq);
+		output.println("pop");
+		output.println("LDC -1");
+		String go_to="goto ";
+		go_to = go_to + labelMaggiore2;
+		output.println(go_to);
+		output.println(labelMaggiore1 + ": pop");
+		output.println("LDC 1");
+		output.println(labelMaggiore2+": ");
 	}
 
 	@Override
