@@ -141,7 +141,8 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void minore(Espressione parteSinistra, Espressione parteDestra) {
-		String l1 = 
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -251,7 +252,6 @@ public class JasminTarget extends ScrittoreTarget {
 		output.println("invokestatic " + className + "/writeString(Ljava/lang/String;)V");
 	}
 
-	// Operazioni con i vettori
 	@Override
 	public void definisciVettore(String identificatore, Integer dimensione) {
 		boolean status = registraVariabile(identificatore + "[]");
