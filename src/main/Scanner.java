@@ -44,6 +44,7 @@ import static main.ParserSpec.Terminals.*;
  * on 27/02/12 10:35 from the specification file
  * <tt>/Users/luca/Sviluppo/itaco/src/main/Scanner.flex</tt>
  */
+@SuppressWarnings("unused")
 public class Scanner implements edu.tum.cup2.scanner.Scanner {
 
   /** This character denotes the end of file */
@@ -375,7 +376,8 @@ public class Scanner implements edu.tum.cup2.scanner.Scanner {
   private int yyline;
 
   /** the number of characters up to the start of the matched text */
-  private int yychar;
+
+private int yychar;
 
   /**
    * the number of characters from the last newline up to the start of the 

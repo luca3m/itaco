@@ -35,6 +35,7 @@ import edu.tum.cup2.grammar.SpecialTerminals;
 import edu.tum.cup2.scanner.ScannerToken;
 import static main.ParserSpec.Terminals.*;
 
+@SuppressWarnings("unused")
 %%
 
 %public
