@@ -1,7 +1,6 @@
-intero ciao <- 0,
-scrivi "inserisci il numero: ",
-leggi ciao,
-se ciao > 5:
-	scrivi "indovinato"
-altrimenti:
-	scrivi "sbagliato".
+intero i <- 0,
+intero limite <- 0,
+leggi limite,
+finche i < limite:
+	scrivi i,
+	i <- i + 1.
