@@ -1,13 +1,12 @@
-package istruzioni.logiche;
+package istruzioni.espressioni;
 
-import istruzioni.espressioni.E;
 import compilatore.ScrittoreTarget;
 
-public class Uguaglianza implements B {
+public class Uguaglianza implements E {
 	private E parteSinistra;
-	private E parteDestra;
+	private B parteDestra;
 	
-	public Uguaglianza(E parteSinistra, E parteDestra) {
+	public Uguaglianza(E parteSinistra, B parteDestra) {
 		this.parteSinistra = parteSinistra;
 		this.parteDestra = parteDestra;
 	}
