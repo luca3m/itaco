@@ -3,6 +3,7 @@ package main;
 import istruzioni.Assegnamento;
 import istruzioni.AssegnamentoVettore;
 import istruzioni.CicloFinche;
+import istruzioni.CondizionaleAltrimenti;
 import istruzioni.CondizionaleSe;
 import istruzioni.DefinizioneAssegnamento;
 import istruzioni.DefinizioneVettore;
@@ -17,12 +18,12 @@ import istruzioni.espressioni.Divisione;
 import istruzioni.espressioni.ElementoVettore;
 import istruzioni.espressioni.EspressioneInParentesi;
 import istruzioni.espressioni.Identificatore;
-import istruzioni.espressioni.Maggiore;
-import istruzioni.espressioni.Minore;
 import istruzioni.espressioni.Prodotto;
 import istruzioni.espressioni.Somma;
 import istruzioni.espressioni.Sottrazione;
-import istruzioni.espressioni.Uguaglianza;
+import istruzioni.logiche.Maggiore;
+import istruzioni.logiche.Minore;
+import istruzioni.logiche.Uguaglianza;
 import edu.tum.cup2.grammar.*;
 import edu.tum.cup2.semantics.*;
 import edu.tum.cup2.spec.CUP2Specification;
@@ -32,11 +33,7 @@ import static main.ParserSpec.NonTerminals.*;
 public class ParserSpec extends CUP2Specification {
 
 	public enum Terminals implements Terminal {
-		SE, ALTRIMENTI, FINCHE, INTERO, PARENTESI_QUADRA_APERTA,
-		PARENTESI_QUADRA_CHIUSA, DUE_PUNTI, PUNTO, VIRGOLA,
-		PARENTESI_TONDA_APERTA, PARENTESI_TONDA_CHIUSA, UGUALE, LEGGI,
-		SCRIVI, IDENTIFICATORE, NUMERO_INTERO, SOMMA,
-		SOTTRAZIONE, PRODOTTO, DIVISIONE, ASSEGNAZIONE, STRINGA, MINORE, MAGGIORE, VETTORE;
+		SE, ALTRIMENTI, FINCHE, INTERO, PARENTESI_QUADRA_APERTA, PARENTESI_QUADRA_CHIUSA, DUE_PUNTI, PUNTO, VIRGOLA, PARENTESI_TONDA_APERTA, PARENTESI_TONDA_CHIUSA, UGUALE, LEGGI, SCRIVI, IDENTIFICATORE, NUMERO_INTERO, SOMMA, SOTTRAZIONE, PRODOTTO, DIVISIONE, ASSEGNAZIONE, STRINGA, MINORE, MAGGIORE, VETTORE;
 	}
 
 	// non-terminals
@@ -59,190 +56,205 @@ public class ParserSpec extends CUP2Specification {
 	public class F extends SymbolValue<istruzioni.espressioni.F> {
 	};
 
-	public class B extends SymbolValue<istruzioni.espressioni.B> {
+	public class B extends SymbolValue<istruzioni.logiche.B> {
 	};
-	
+
 	public class C extends SymbolValue<istruzioni.C> {
 	};
 
 	public class NUMERO_INTERO extends SymbolValue<Integer> {
 	};
-	
+
 	public class IDENTIFICATORE extends SymbolValue<String> {
 	};
-	
+
 	public class STRINGA extends SymbolValue<String> {
 	};
-	
+
 	@SuppressWarnings("unused")
 	public ParserSpec() {
 
 		/*
-		 * Definisco la grammatica
-		 * la funzione grammar() è definita nella classe madre, accetta un numero
-		 * variabile di argomenti che sono le produzioni
-		 * Le produzioni si definiscono con la funzione prod(), essa accetta come primo
-		 * parametro un non terminale e poi una serie di rhs() e oggetti Action
-		 * la funzione rhs() rappresenta la parte destra della produzione e accetta come parametri
-		 * caratteri terminali o non terminali, l'oggetto di tipo action deve definire il metodo a()
-		 * che viene chiamato appena viene fatta la riduzione
+		 * Definisco la grammatica la funzione grammar() è definita nella classe
+		 * madre, accetta un numero variabile di argomenti che sono le
+		 * produzioni Le produzioni si definiscono con la funzione prod(), essa
+		 * accetta come primo parametro un non terminale e poi una serie di
+		 * rhs() e oggetti Action la funzione rhs() rappresenta la parte destra
+		 * della produzione e accetta come parametri caratteri terminali o non
+		 * terminali, l'oggetto di tipo action deve definire il metodo a() che
+		 * viene chiamato appena viene fatta la riduzione
 		 */
 		grammar(
-				
-				prod(N, rhs(I), new Action() {
-									public istruzioni.N a(istruzioni.I i) {
-										return i;
-									}
-								},
-						rhs(I, VIRGOLA, N), new Action() {
-							public istruzioni.N a(istruzioni.I i, istruzioni.N n) {
-								return new SuccessioneIstruzioni(i, n);
-							}
-						},
-						rhs(C, PUNTO, N), new Action() {
-							public istruzioni.N a(istruzioni.C c, istruzioni.N n) {
-								return new SuccessioneCN(c, n);
-							}
-						},
-						rhs(C, PUNTO), new Action() {
-							public istruzioni.N a(istruzioni.C c) {
-								return c;
-							}
-						}),
-			   prod(I,
-					   rhs(INTERO, IDENTIFICATORE, ASSEGNAZIONE, E), new Action() {
-							public istruzioni.I a(String id, istruzioni.espressioni.E e) {
+
+		prod(N, rhs(I), new Action() {
+			public istruzioni.N a(istruzioni.I i) {
+				return i;
+			}
+		}, rhs(I, VIRGOLA, N), new Action() {
+			public istruzioni.N a(istruzioni.I i, istruzioni.N n) {
+				return new SuccessioneIstruzioni(i, n);
+			}
+		}, rhs(C, PUNTO, N), new Action() {
+			public istruzioni.N a(istruzioni.C c, istruzioni.N n) {
+				return new SuccessioneCN(c, n);
+			}
+		}, rhs(C, PUNTO), new Action() {
+			public istruzioni.N a(istruzioni.C c) {
+				return c;
+			}
+		}),
+				prod(I,
+						rhs(INTERO, IDENTIFICATORE, ASSEGNAZIONE, E),
+						new Action() {
+							public istruzioni.I a(String id,
+									istruzioni.espressioni.E e) {
 								return new DefinizioneAssegnamento(id, e);
 							}
 						},
-						rhs(IDENTIFICATORE, ASSEGNAZIONE, E), new Action() {
-							public istruzioni.I a(String id, istruzioni.espressioni.E e) {
+						rhs(IDENTIFICATORE, ASSEGNAZIONE, E),
+						new Action() {
+							public istruzioni.I a(String id,
+									istruzioni.espressioni.E e) {
 								return new Assegnamento(id, e);
 							}
 						},
-						rhs(SCRIVI, STRINGA), new Action() {
+						rhs(SCRIVI, STRINGA),
+						new Action() {
 							public istruzioni.I a(String s) {
 								return new StampaStringa(s);
 							}
 						},
-						rhs(VETTORE, IDENTIFICATORE, PARENTESI_QUADRA_APERTA, NUMERO_INTERO, PARENTESI_QUADRA_CHIUSA), new Action() {
+						rhs(VETTORE, IDENTIFICATORE, PARENTESI_QUADRA_APERTA,
+								NUMERO_INTERO, PARENTESI_QUADRA_CHIUSA),
+						new Action() {
 							public istruzioni.I a(String id, Integer i) {
 								return new DefinizioneVettore(id, i);
 							}
 						},
-						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA, E, PARENTESI_QUADRA_CHIUSA, ASSEGNAZIONE, E), new Action() {
-							public istruzioni.I a(String id, istruzioni.espressioni.E indice, istruzioni.espressioni.E e) {
+						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA, E,
+								PARENTESI_QUADRA_CHIUSA, ASSEGNAZIONE, E),
+						new Action() {
+							public istruzioni.I a(String id,
+									istruzioni.espressioni.E indice,
+									istruzioni.espressioni.E e) {
 								return new AssegnamentoVettore(id, indice, e);
 							}
 						},
-						rhs(SCRIVI, E), new Action() {
+						rhs(SCRIVI, E),
+						new Action() {
 							public istruzioni.I a(istruzioni.espressioni.E e) {
 								return new Stampa(e);
 							}
 						},
-						rhs(LEGGI, IDENTIFICATORE), new Action() {
-							
+						rhs(LEGGI, IDENTIFICATORE),
+						new Action() {
+
 							public istruzioni.I a(String id) {
 								return new LetturaDaTastiera(id);
 							}
 						},
-						rhs(LEGGI, IDENTIFICATORE, PARENTESI_QUADRA_APERTA, E, PARENTESI_QUADRA_CHIUSA), new Action() {
-							public istruzioni.I a(String id, istruzioni.espressioni.E indice) {
-								return new LetturaTastieraElementoVettore(id, indice);
+						rhs(LEGGI, IDENTIFICATORE, PARENTESI_QUADRA_APERTA, E,
+								PARENTESI_QUADRA_CHIUSA), new Action() {
+							public istruzioni.I a(String id,
+									istruzioni.espressioni.E indice) {
+								return new LetturaTastieraElementoVettore(id,
+										indice);
 							}
 						}),
-					prod(C,
-						rhs(SE, E, DUE_PUNTI, N), new Action() {
-							public istruzioni.C a(istruzioni.espressioni.E e, istruzioni.N n) {
-								return new CondizionaleSe(e, n);
-							}
-						},
-						rhs(FINCHE, E, DUE_PUNTI, N), new Action() {
-							public istruzioni.C a(istruzioni.espressioni.E e, istruzioni.N n) {
-								return new CicloFinche(e, n);
-							}
-						}
-			   ),
-			   // Espressioni
-			   prod(E,
-					   rhs(E, MAGGIORE, B), new Action() {
-							public istruzioni.espressioni.E a(istruzioni.espressioni.E e, istruzioni.espressioni.B b) {
-								return new Maggiore(e, b);
-							}
-						},
-						rhs(E, MINORE, B), new Action() {
-							public istruzioni.espressioni.E a(istruzioni.espressioni.E e, istruzioni.espressioni.B b) {
-								return new Minore(e, b);
-							}
-						},
-						rhs(E, UGUALE, B), new Action() {
-							public istruzioni.espressioni.E a(istruzioni.espressioni.E e, istruzioni.espressioni.B b) {
-								return new Uguaglianza(e, b);
-							}
-						},
-						rhs(B), new Action() {
-							public istruzioni.espressioni.E a(istruzioni.espressioni.B b) {
-								return b;
-							}
-						}
-				),
-			   prod(B,
-					   rhs(B, SOMMA, T), new Action() {
-							public istruzioni.espressioni.B a(istruzioni.espressioni.B b, istruzioni.espressioni.T t) {
-								return new Somma(b, t);
-							}
-						},
-						rhs(B, SOTTRAZIONE, T), new Action() {
-							public istruzioni.espressioni.B a(istruzioni.espressioni.B b, istruzioni.espressioni.T t) {
-								return new Sottrazione(b, t);
-							}
-						},
-						rhs(T), new Action() {
-							public istruzioni.espressioni.B a(istruzioni.espressioni.T t) {
-								return t;
-							}
-						}
-				),
-				prod(T,
-					   rhs(T, PRODOTTO, F), new Action() {
-							public istruzioni.espressioni.T a(istruzioni.espressioni.T t, istruzioni.espressioni.F f) {
-								return new Prodotto(t, f);
-							}
-						},
-						rhs(T, DIVISIONE, F), new Action() {
-							public istruzioni.espressioni.T a(istruzioni.espressioni.T t, istruzioni.espressioni.F f) {
-								return new Divisione(t, f);
-							}
-						},
-						rhs(F), new Action() {
-							public istruzioni.espressioni.T a(istruzioni.espressioni.F f) {
-								return f;
-							}
-						}
-				),
+				prod(C, rhs(SE, B, DUE_PUNTI, N), new Action() {
+					public istruzioni.C a(istruzioni.espressioni.E e,
+							istruzioni.N n) {
+						return new CondizionaleSe(e, n);
+					}
+				}, rhs(SE, B, DUE_PUNTI, N, ALTRIMENTI, N), new Action() {
+					public istruzioni.C a(istruzioni.espressioni.E e,
+							istruzioni.N n) {
+						return new CondizionaleAltrimenti(n);
+					}
+				}, rhs(FINCHE, B, DUE_PUNTI, N), new Action() {
+					public istruzioni.C a(istruzioni.espressioni.E e,
+							istruzioni.N n) {
+						return new CicloFinche(e, n);
+					}
+				}),
+				// Espressioni
+				prod(B, rhs(E, MAGGIORE, E), new Action() {
+					public istruzioni.logiche.B a(istruzioni.espressioni.E e,
+							istruzioni.espressioni.E e2) {
+						return new Maggiore(e, e2);
+					}
+				}, rhs(E, MINORE, E), new Action() {
+					public istruzioni.logiche.B a(istruzioni.espressioni.E e,
+							istruzioni.espressioni.E e2) {
+						return new Minore(e, e2);
+					}
+				}, rhs(E, UGUALE, E), new Action() {
+					public istruzioni.logiche.B a(istruzioni.espressioni.E e,
+							istruzioni.espressioni.E e2) {
+						return new Uguaglianza(e, e2);
+					}
+				}),
+				prod(E, rhs(E, SOMMA, T), new Action() {
+					public istruzioni.espressioni.E a(
+							istruzioni.espressioni.E e,
+							istruzioni.espressioni.T t) {
+						return new Somma(e, t);
+					}
+				}, rhs(E, SOTTRAZIONE, T), new Action() {
+					public istruzioni.espressioni.E a(
+							istruzioni.espressioni.E e,
+							istruzioni.espressioni.T t) {
+						return new Sottrazione(e, t);
+					}
+				}, rhs(T), new Action() {
+					public istruzioni.espressioni.E a(istruzioni.espressioni.T t) {
+						return t;
+					}
+				}),
+				prod(T, rhs(T, PRODOTTO, F), new Action() {
+					public istruzioni.espressioni.T a(
+							istruzioni.espressioni.T t,
+							istruzioni.espressioni.F f) {
+						return new Prodotto(t, f);
+					}
+				}, rhs(T, DIVISIONE, F), new Action() {
+					public istruzioni.espressioni.T a(
+							istruzioni.espressioni.T t,
+							istruzioni.espressioni.F f) {
+						return new Divisione(t, f);
+					}
+				}, rhs(F), new Action() {
+					public istruzioni.espressioni.T a(istruzioni.espressioni.F f) {
+						return f;
+					}
+				}),
 				prod(F,
-					   rhs(IDENTIFICATORE), new Action() {
+						rhs(IDENTIFICATORE),
+						new Action() {
 							public istruzioni.espressioni.F a(String id) {
 								return new Identificatore(id);
 							}
 						},
-						rhs(NUMERO_INTERO), new Action() {
+						rhs(NUMERO_INTERO),
+						new Action() {
 							public istruzioni.espressioni.F a(Integer numero) {
 								return new Costante(numero);
 							}
 						},
-						rhs(PARENTESI_TONDA_APERTA, E, PARENTESI_TONDA_CHIUSA), new Action() {
-							public istruzioni.espressioni.F a(istruzioni.espressioni.E espressione) {
+						rhs(PARENTESI_TONDA_APERTA, E, PARENTESI_TONDA_CHIUSA),
+						new Action() {
+							public istruzioni.espressioni.F a(
+									istruzioni.espressioni.E espressione) {
 								return new EspressioneInParentesi(espressione);
 							}
 						},
-						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA, E, PARENTESI_QUADRA_CHIUSA), new Action() {
-							public istruzioni.espressioni.F a(String id, istruzioni.espressioni.E e) {
+						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA, E,
+								PARENTESI_QUADRA_CHIUSA), new Action() {
+							public istruzioni.espressioni.F a(String id,
+									istruzioni.espressioni.E e) {
 								return new ElementoVettore(id, e);
 							}
-						}
-					)
-		);
+						}));
 
 	}
 
