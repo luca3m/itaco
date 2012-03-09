@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import compilatore.JasminTarget;
 
-public class IntegrationTest {
+public class JasminTest {
 
 	private static final String cartellaFileTest = "testFiles" + File.separator;
 	
