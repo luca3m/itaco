@@ -162,19 +162,17 @@ public class ParserSpec extends CUP2Specification {
 							}
 						}),
 				prod(C, rhs(SE, B, DUE_PUNTI, N), new Action() {
-					public istruzioni.C a(istruzioni.espressioni.E e,
-							istruzioni.N n) {
-						return new CondizionaleSe(e, n);
+					public istruzioni.C a(istruzioni.logiche.B b, istruzioni.N n) {
+						return new CondizionaleSe(b, n);
 					}
 				}, rhs(SE, B, DUE_PUNTI, N, ALTRIMENTI, N), new Action() {
-					public istruzioni.C a(istruzioni.espressioni.E e,
-							istruzioni.N n) {
-						return new CondizionaleAltrimenti(n);
+					public istruzioni.C a(istruzioni.logiche.B b,
+							istruzioni.N n1, istruzioni.N n2) {
+						return new CondizionaleAltrimenti(b, n1, n2);
 					}
 				}, rhs(FINCHE, B, DUE_PUNTI, N), new Action() {
-					public istruzioni.C a(istruzioni.espressioni.E e,
-							istruzioni.N n) {
-						return new CicloFinche(e, n);
+					public istruzioni.C a(istruzioni.logiche.B b, istruzioni.N n) {
+						return new CicloFinche(b, n);
 					}
 				}),
 				// Espressioni
