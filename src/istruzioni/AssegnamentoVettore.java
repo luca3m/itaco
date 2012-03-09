@@ -17,7 +17,7 @@ public class AssegnamentoVettore implements I {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		
+		sc.storeElementoVettore(identificatore, indice, espressione);
 	}
 	
 }

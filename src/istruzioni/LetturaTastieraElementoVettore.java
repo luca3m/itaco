@@ -15,7 +15,7 @@ public class LetturaTastieraElementoVettore implements I {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// FIXME: da implementare
+		sc.leggiElementoVettore(identificatore, indice);
 	}
 	
 }

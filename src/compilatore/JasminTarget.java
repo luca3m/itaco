@@ -178,6 +178,11 @@ public class JasminTarget extends ScrittoreTarget {
 		ex.scriviCodice(this);
 		storeInVariabile(identificatore);
 	}
+
+	@Override
+	public void espressioneInParentesi(Espressione ex) {
+		ex.scriviCodice(this);
+	}
 	
 	@Override
 	public void finche(Espressione ex, Blocco b) {
@@ -261,23 +266,25 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void leggiElementoVettore(String identificatore, Espressione indice) {
-		// TODO Auto-generated method stub
+		output.println("aload " + idVariabile(identificatore + "[]"));
+		indice.scriviCodice(this);
+		output.println("invokestatic "+className+"/readInt()I");
+		output.println("iastore");
 	}
 
 	@Override
 	public void caricaElementoVettore(String identificatore, Espressione indice) {
-		// TODO Auto-generated method stub
+		output.println("aload " + idVariabile(identificatore + "[]"));
+		indice.scriviCodice(this);
+		output.println("iaload");
 	}
 
 	@Override
 	public void storeElementoVettore(String identificatore, Espressione indice,
 			Espressione elemento) {
-		// TODO Auto-generated method stub
+		output.println("aload " + idVariabile(identificatore + "[]"));
+		indice.scriviCodice(this);
+		elemento.scriviCodice(this);
+		output.println("iastore");
 	}
-
-	@Override
-	public void espressioneInParentesi(Espressione ex) {
-		ex.scriviCodice(this);
-	}
-	
 }
