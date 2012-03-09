@@ -1,0 +1,3 @@
+1. Definire il numero di variabili locali del metodo main, per ora viene usato staticamente il valore 100
+2. Inserire il supporto alle funzioni
+3. sistemare meglio la punteggiatura, l'if non termina con il punto
