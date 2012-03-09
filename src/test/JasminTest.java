@@ -120,6 +120,9 @@ public class JasminTest {
 		String[] datiIngresso2 = { "1" };
 		String[] outputPrevisto2 = { "sbagliato"};
 		testFile("condizionaleSe", datiIngresso2, outputPrevisto2);
+		String[] datiIngresso3 = { "5" };
+		String[] outputPrevisto3 = { "sbagliato"};
+		testFile("condizionaleSe", datiIngresso3, outputPrevisto3);
 	}
 	
 	@Test
