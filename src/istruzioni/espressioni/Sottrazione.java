@@ -6,7 +6,7 @@ public class Sottrazione implements B {
 	private B minuendo;
 	private T sottraendo;
 	
-	public Sottrazione(E parteSinistra, T parteDestra) {
+	public Sottrazione(B parteSinistra, T parteDestra) {
 		this.minuendo = parteSinistra;
 		this.sottraendo = parteDestra;
 	}
