@@ -165,7 +165,7 @@ public class ParserSpec extends CUP2Specification {
 					public istruzioni.C a(istruzioni.logiche.B b, istruzioni.N n) {
 						return new CondizionaleSe(b, n);
 					}
-				}, rhs(SE, B, DUE_PUNTI, N, ALTRIMENTI, N, DUE_PUNTI), new Action() {
+				}, rhs(SE, B, DUE_PUNTI, N, ALTRIMENTI, DUE_PUNTI, N), new Action() {
 					public istruzioni.C a(istruzioni.logiche.B b,
 							istruzioni.N n1, istruzioni.N n2) {
 						return new CondizionaleAltrimenti(b, n1, n2);

@@ -111,4 +111,14 @@ public class JasminTest {
 		String[] outputPrevisto = { "1", "2" , "3", "4" };
 		testFile("vettori", datiIngresso, outputPrevisto);
 	}
+	
+	@Test
+	public void testCondizionaleSe() {
+		String[] datiIngresso = { "10" };
+		String[] outputPrevisto = { "indovinato"};
+		testFile("condizionaleSe", datiIngresso, outputPrevisto);
+		String[] datiIngresso2 = { "1" };
+		String[] outputPrevisto2 = { "sbagliato"};
+		testFile("condizionaleSe", datiIngresso2, outputPrevisto2);
+	}
 }
