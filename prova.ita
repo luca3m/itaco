@@ -1,18 +1,3 @@
-# Calcolo area rettangolo
-intero x <- 0,
-scrivi "Inserisci la base: ",
-leggi x,
-intero y <- 0,
-scrivi "Inserisci altezza: ",
-leggi y,
-scrivi "area vale: ",
-scrivi x*y,
-
-# Altri calcoli di esempio
-x <- x + 5,
-y <- x,
-y <- ((y + 2)*x*6)/x,
-intero z <- x,
-z <- z + y - 2,
-scrivi x,
-scrivi y
+intero ciao <- 9,
+se ciao < 9:
+	scrivi ciao.
