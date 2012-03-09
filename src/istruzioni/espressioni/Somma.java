@@ -2,11 +2,11 @@ package istruzioni.espressioni;
 
 import compilatore.ScrittoreTarget;
 
-public class Somma implements B {
-	private B addendo1;
+public class Somma implements E {
+	private E addendo1;
 	private T addendo2;
 	
-	public Somma(B parteSinistra, T parteDestra) {
+	public Somma(E parteSinistra, T parteDestra) {
 		this.addendo1 = parteSinistra;
 		this.addendo2 = parteDestra;
 	}
