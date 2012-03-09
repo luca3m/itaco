@@ -105,4 +105,10 @@ public class JasminTest {
 		testFile("espressioneComplessa", datiIngresso2, outputPrevisto2);
 	}
 
+	@Test
+	public void testVettori() {
+		String[] datiIngresso = { "4", "3" , "2", "1"};
+		String[] outputPrevisto = { "1", "2" , "3", "4" };
+		testFile("vettori", datiIngresso, outputPrevisto);
+	}
 }

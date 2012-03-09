@@ -13,6 +13,6 @@ public class ElementoVettore implements F {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// FIXME: da implementare
+		sc.caricaElementoVettore(nomeVettore, indice);
 	}
 }
