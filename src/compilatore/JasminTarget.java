@@ -28,7 +28,7 @@ public class JasminTarget extends ScrittoreTarget {
 	 * Inizio del contatore per identificare le variabili
 	 */
 	private static final int START_ID = 1;
-
+	private int label = 0;
 	private static int contatoreVariabili = START_ID;
 	
 	public boolean registraVariabile(String nome) {
@@ -141,7 +141,8 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void minore(Espressione parteSinistra, Espressione parteDestra) {
-		String l1 = 
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -286,5 +287,12 @@ public class JasminTarget extends ScrittoreTarget {
 		indice.scriviCodice(this);
 		elemento.scriviCodice(this);
 		output.println("iastore");
+	}
+	
+	public String generaLabel(){
+	String labelCorrente = "L";
+	labelCorrente = labelCorrente + label;
+	label= label+1;
+	return labelCorrente;
 	}
 }
