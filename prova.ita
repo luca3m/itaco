@@ -1,9 +1,6 @@
-vettore c[4],
-leggi c[0],
-leggi c[1],
-leggi c[2],
-leggi c[3],
-scrivi c[3],
-scrivi c[2],
-scrivi c[1],
-scrivi c[0]
+intero ciao <- 0,
+leggi ciao,
+se ciao > 5:
+	scrivi "indovinato".
+altrimenti:
+	scrivi "sbagliato".
