@@ -2,7 +2,6 @@ package istruzioni;
 
 import compilatore.ScrittoreTarget;
 
-import istruzioni.espressioni.E;
 import istruzioni.logiche.B;
 
 public class CicloFinche extends Object implements C {
@@ -16,8 +15,7 @@ public class CicloFinche extends Object implements C {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// TODO Auto-generated method stub
-		
+		sc.finche(condizione, blocco);
 	}
 	
 }

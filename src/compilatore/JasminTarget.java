@@ -204,7 +204,7 @@ public class JasminTarget extends ScrittoreTarget {
 		output.println(labelMaggiore2+": ");
 	}
     
-	public void se_Altrimenti(Espressione ex, Blocco b1,Blocco b2) {
+	public void seAltrimenti(Espressione ex, Blocco b1,Blocco b2) {
 		ex.scriviCodice(this);
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();

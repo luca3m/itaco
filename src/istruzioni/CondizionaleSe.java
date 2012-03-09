@@ -16,6 +16,6 @@ public class CondizionaleSe implements C {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// FIXME: da implementare
+		sc.se(condizione, blocco);
 	}
 }

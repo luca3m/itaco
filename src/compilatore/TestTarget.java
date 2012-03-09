@@ -142,4 +142,11 @@ public class TestTarget extends ScrittoreTarget {
 		
 	}
 
+	@Override
+	public void seAltrimenti(Espressione ex, Blocco codice,
+			Blocco codiceAltrimenti) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -108,7 +108,9 @@ public abstract class ScrittoreTarget {
 	 * Scrivi l'istruzione condizionale "se"
 	 */
 	public abstract void se(Espressione ex, Blocco codice);
+	public abstract void seAltrimenti(Espressione ex, Blocco codice, Blocco codiceAltrimenti);
 
+	
 	/**
 	 * Scrivi l'istruzione ciclo finche
 	 */

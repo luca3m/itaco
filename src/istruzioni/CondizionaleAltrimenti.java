@@ -18,6 +18,6 @@ public class CondizionaleAltrimenti implements C {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// FIXME: da implementare
+		sc.seAltrimenti(condizione, blocco1, blocco2);
 	}
 }
