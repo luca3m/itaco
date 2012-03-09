@@ -136,18 +136,44 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void maggiore(Espressione parteSinistra, Espressione parteDestra) {
-		// TODO: da implementare
+		sottrazione(parteSinistra, parteDestra);
+		String labelMaggiore1 = generaLabel();
+		String labelMaggiore2 = generaLabel();
+		String ifgt ="ifgt ";
+		ifgt = ifgt + labelMaggiore1;
+		output.println(ifgt);
+		output.println("pop");
+		output.println("LDC -1");
+		String go_to="goto ";
+		go_to = go_to + labelMaggiore2;
+		output.println(go_to);
+		output.println(labelMaggiore1 + ": pop");
+		output.println("LDC 1");
+		output.println(labelMaggiore2+": ");
 	}
 
 	@Override
 	public void minore(Espressione parteSinistra, Espressione parteDestra) {
-		// TODO Auto-generated method stub
+		maggiore(parteDestra,parteSinistra);
 
 	}
 
 	@Override
 	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra) {
-		// TODO Auto-generated method stub
+		sottrazione(parteSinistra, parteDestra);
+		String labelMaggiore1 = generaLabel();
+		String labelMaggiore2 = generaLabel();
+		String ifeq ="ifeq ";
+		ifeq = ifeq + labelMaggiore1;
+		output.println(ifeq);
+		output.println("pop");
+		output.println("LDC -1");
+		String go_to="goto ";
+		go_to = go_to + labelMaggiore2;
+		output.println(go_to);
+		output.println(labelMaggiore1 + ": pop");
+		output.println("LDC 1");
+		output.println(labelMaggiore2+": ");
 	}
 
 	@Override
@@ -164,9 +190,37 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void se(Espressione ex, Blocco b) {
-		// TODO Auto-generated method stub
+		ex.scriviCodice(this);
+		String labelMaggiore1 = generaLabel();
+		String labelMaggiore2 = generaLabel();
+		String ifgt ="ifgt ";
+		ifgt = ifgt + labelMaggiore1;
+		output.println(ifgt);
+		String go_to="goto ";
+		go_to = go_to + labelMaggiore2;
+		output.println(go_to);
+		output.println(labelMaggiore1 + ": ");
+		b.scriviCodice(this);
+		output.println(labelMaggiore2+": ");
+	}
+    
+	public void se_Altrimenti(Espressione ex, Blocco b1,Blocco b2) {
+		ex.scriviCodice(this);
+		String labelMaggiore1 = generaLabel();
+		String labelMaggiore2 = generaLabel();
+		String ifgt ="ifgt ";
+		ifgt = ifgt + labelMaggiore1;
+		output.println(ifgt);
+		b2.scriviCodice(this);
+		String go_to="goto ";
+		go_to = go_to + labelMaggiore2;
+		output.println(go_to);
+		output.println(labelMaggiore1 + ": ");
+		b1.scriviCodice(this);
+		output.println(labelMaggiore2+": ");
 
 	}
+
 
 	private void storeInVariabile(String identificatore) {
 		int idVar = this.idVariabile(identificatore);
@@ -186,8 +240,19 @@ public class JasminTarget extends ScrittoreTarget {
 	
 	@Override
 	public void finche(Espressione ex, Blocco b) {
-		// TODO Auto-generated method stub
-
+		String labelMaggiore1 = generaLabel();
+		String labelMaggiore2 = generaLabel();
+		String labelMaggiore3 = generaLabel();
+		output.println(labelMaggiore1+": ");
+		ex.scriviCodice(this);
+		String ifgt ="ifgt ";
+		ifgt = ifgt + labelMaggiore2;
+		output.println(ifgt);
+		output.println("goto "+ labelMaggiore3);
+		output.println(labelMaggiore2+": ");
+		b.scriviCodice(this);
+		output.println("goto "+ labelMaggiore1);
+		output.println(labelMaggiore3+": ");
 	}
 
 	public void endFile() throws IOException {
