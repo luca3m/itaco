@@ -1,12 +1,13 @@
-package istruzioni.espressioni;
+package istruzioni.logiche;
 
+import istruzioni.espressioni.E;
 import compilatore.ScrittoreTarget;
 
-public class Minore implements E {
+public class Minore implements B {
 	private E parteSinistra;
-	private B parteDestra;
+	private E parteDestra;
 	
-	public Minore(E parteSinistra, B parteDestra) {
+	public Minore(E parteSinistra, E parteDestra) {
 		this.parteSinistra = parteSinistra;
 		this.parteDestra = parteDestra;
 	}
