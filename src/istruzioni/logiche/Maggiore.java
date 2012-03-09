@@ -1,11 +1,12 @@
-package istruzioni.espressioni;
+package istruzioni.logiche;
 
+import istruzioni.espressioni.E;
 import compilatore.ScrittoreTarget;
 
-public class Maggiore implements E {
+public class Maggiore implements B {
 	private E parteSinistra;
-	private B parteDestra;
-	public Maggiore(E parteSinistra, B parteDestra) {
+	private E parteDestra;
+	public Maggiore(E parteSinistra, E parteDestra) {
 		this.parteSinistra = parteSinistra;
 		this.parteDestra = parteDestra;
 	}

@@ -4,7 +4,7 @@ N -> C. | C.N
 I -> intero id ass E | id ass E
 I -> vettore id[costante] | id[E] ass E
 I -> stampa E | leggi id | leggi id[E] | stampa STRINGA
-C -> se E:N | finché E:N | se E:N altrimenti N
+C -> se B:N | finché B:N | se B:N altrimenti N
 
 # Espressioni logiche
 B -> E = E | E < E | E > E
