@@ -143,13 +143,11 @@ public class ParserSpec extends CUP2Specification {
 						rhs(LEGGI, IDENTIFICATORE), new Action() {
 							
 							public istruzioni.I a(String id) {
-								// FIXME: forse devo usare Identificatore() e non la stringa
 								return new LetturaDaTastiera(id);
 							}
 						},
 						rhs(LEGGI, IDENTIFICATORE, PARENTESI_QUADRA_APERTA, E, PARENTESI_QUADRA_CHIUSA), new Action() {
 							public istruzioni.I a(String id, istruzioni.espressioni.E indice) {
-								// FIXME: forse devo usare Identificatore() e non la stringa
 								return new LetturaTastieraElementoVettore(id, indice);
 							}
 						}),

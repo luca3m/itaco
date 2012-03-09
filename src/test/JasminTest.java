@@ -83,8 +83,16 @@ public class JasminTest {
 	@Test
 	public void testCalcoloArea() {
 		String[] datiIngresso = { "4", "3" };
-		String[] outputPrevisto = { "12"};
+		String[] outputPrevisto = { "12" };
 		testFile("area", datiIngresso, outputPrevisto);
+		String[] datiIngresso2 = { "90", "10" };
+		String[] outputPrevisto2 = { "900" };
+		testFile("area", datiIngresso2, outputPrevisto2);
+	}
+	@Test
+	public void testScriviStringa() {
+		String[] outputPrevisto = { "ciao"};
+		testFile("stringoutput", new String[0], outputPrevisto);
 	}
 	
 	@Test
