@@ -144,12 +144,12 @@ public class JasminTarget extends ScrittoreTarget {
 		String ifgt = "ifgt ";
 		ifgt = ifgt + labelMaggiore1;
 		output.println(ifgt);
-		output.println("LDC -1");
+		output.println("ldc -1");
 		String go_to = "goto ";
 		go_to = go_to + labelMaggiore2;
 		output.println(go_to);
 		output.println(labelMaggiore1 + ":");
-		output.println("LDC 1");
+		output.println("ldc 1");
 		output.println(labelMaggiore2 + ": ");
 	}
 
@@ -167,12 +167,12 @@ public class JasminTarget extends ScrittoreTarget {
 		String ifeq = "ifeq ";
 		ifeq = ifeq + labelMaggiore1;
 		output.println(ifeq);
-		output.println("LDC -1");
+		output.println("ldc -1");
 		String go_to = "goto ";
 		go_to = go_to + labelMaggiore2;
 		output.println(go_to);
 		output.println(labelMaggiore1 + ":");
-		output.println("LDC 1");
+		output.println("ldc 1");
 		output.println(labelMaggiore2 + ": ");
 	}
 
