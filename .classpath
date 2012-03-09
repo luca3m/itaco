@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="cup2.jar"/>
-	<classpathentry kind="lib" path="jasmin.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/cup2.jar"/>
+	<classpathentry kind="lib" path="lib/jasmin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
