@@ -1,6 +1,6 @@
 intero ciao <- 0,
 leggi ciao,
 se ciao > 5:
-	scrivi "indovinato"
+	scrivi "indovinato";
 altrimenti :
 	scrivi "sbagliato".

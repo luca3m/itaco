@@ -1,0 +1,6 @@
+intero n <- 0,
+leggi n,
+intero fattoriale <- 1,
+finche n > 0:
+	fattoriale <- n * fattoriale,
+	n <- n - 1.

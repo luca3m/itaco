@@ -1,6 +1,10 @@
-intero i <- 0,
-intero limite <- 0,
-leggi limite,
-finche i < limite:
-	scrivi i,
-	i <- i + 1.
+intero n <- 0,
+scrivi "Inserisci un numero: ",
+leggi n,
+intero fattoriale <- 1,
+finche n > 0:
+	fattoriale <- n * fattoriale,
+	n <- n - 1.
+scrivi "Il fattoriale e:",
+scrivi fattoriale,
+scrivi "\n"
