@@ -22,7 +22,7 @@ import edu.tum.cup2.parser.LRParser;
 import edu.tum.cup2.parser.tables.LRParsingTable;
 
 public class JasminTarget extends ScrittoreTarget {
-	
+
 	private Map<String, Integer> tabellaSimboli = new HashMap<String, Integer>();
 	/**
 	 * Inizio del contatore per identificare le variabili
@@ -30,9 +30,9 @@ public class JasminTarget extends ScrittoreTarget {
 	private static final int START_ID = 1;
 	private int label = 0;
 	private static int contatoreVariabili = START_ID;
-	
+
 	public boolean registraVariabile(String nome) {
-		if(tabellaSimboli.containsKey(nome)){
+		if (tabellaSimboli.containsKey(nome)) {
 			return false;
 		}
 		tabellaSimboli.put(nome, contatoreVariabili++);
@@ -49,10 +49,10 @@ public class JasminTarget extends ScrittoreTarget {
 	protected int numeroVariabili() {
 		return tabellaSimboli.size();
 	}
-	
+
 	PrintStream output;
 	String className;
-	
+
 	public JasminTarget(String className, OutputStream output)
 			throws IOException {
 		this.output = new PrintStream(output);
@@ -60,7 +60,8 @@ public class JasminTarget extends ScrittoreTarget {
 		writeContentOfStub("preMainStub.j", "%className", className);
 	}
 
-	private void writeContentOfStub(String stubFileName, String replacePattern, String replaceString ) throws IOException {
+	private void writeContentOfStub(String stubFileName, String replacePattern,
+			String replaceString) throws IOException {
 		// Copio il contenuto dello stub nel file di output
 		File stubFile = new File(stubFileName);
 		FileReader stub = new FileReader(stubFile);
@@ -72,13 +73,14 @@ public class JasminTarget extends ScrittoreTarget {
 
 		while (copiedBytes < fileSizeInBytes) {
 			charsRead = stub.read(fileData);
-			sb.append(fileData, 0,  charsRead);
+			sb.append(fileData, 0, charsRead);
 			copiedBytes += charsRead;
 		}
-		String stubReplaced = sb.toString().replaceAll(replacePattern, replaceString);
+		String stubReplaced = sb.toString().replaceAll(replacePattern,
+				replaceString);
 		output.print(stubReplaced);
 	}
-	
+
 	private void writeContentOfStub(String stubFileName) throws IOException {
 		// Copio il contenuto dello stub nel file di output
 		File stubFile = new File(stubFileName);
@@ -119,7 +121,7 @@ public class JasminTarget extends ScrittoreTarget {
 		sottraendo.scriviCodice(this);
 		output.println("isub");
 	}
-	
+
 	@Override
 	public void prodotto(Espressione fattore1, Espressione fattore2) {
 		fattore1.scriviCodice(this);
@@ -139,21 +141,21 @@ public class JasminTarget extends ScrittoreTarget {
 		sottrazione(parteSinistra, parteDestra);
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
-		String ifgt ="ifgt ";
+		String ifgt = "ifgt ";
 		ifgt = ifgt + labelMaggiore1;
 		output.println(ifgt);
 		output.println("LDC -1");
-		String go_to="goto ";
+		String go_to = "goto ";
 		go_to = go_to + labelMaggiore2;
 		output.println(go_to);
-		output.println(labelMaggiore1);
+		output.println(labelMaggiore1 + ":");
 		output.println("LDC 1");
-		output.println(labelMaggiore2+": ");
+		output.println(labelMaggiore2 + ": ");
 	}
 
 	@Override
 	public void minore(Espressione parteSinistra, Espressione parteDestra) {
-		maggiore(parteDestra,parteSinistra);
+		maggiore(parteDestra, parteSinistra);
 
 	}
 
@@ -162,27 +164,27 @@ public class JasminTarget extends ScrittoreTarget {
 		sottrazione(parteSinistra, parteDestra);
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
-		String ifeq ="ifeq ";
+		String ifeq = "ifeq ";
 		ifeq = ifeq + labelMaggiore1;
 		output.println(ifeq);
 		output.println("LDC -1");
-		String go_to="goto ";
+		String go_to = "goto ";
 		go_to = go_to + labelMaggiore2;
 		output.println(go_to);
-		output.println(labelMaggiore1);
+		output.println(labelMaggiore1 + ":");
 		output.println("LDC 1");
-		output.println(labelMaggiore2+": ");
+		output.println(labelMaggiore2 + ": ");
 	}
 
 	@Override
 	public void stampa(Espressione espressione) {
 		espressione.scriviCodice(this);
-		output.println("invokestatic "+ className +"/writeInt(I)V");
+		output.println("invokestatic " + className + "/writeInt(I)V");
 	}
 
 	@Override
 	public void leggi(String identificatore) {
-		output.println("invokestatic "+className+"/readInt()I");
+		output.println("invokestatic " + className + "/readInt()I");
 		storeInVariabile(identificatore);
 	}
 
@@ -191,38 +193,37 @@ public class JasminTarget extends ScrittoreTarget {
 		ex.scriviCodice(this);
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
-		String ifgt ="ifgt ";
+		String ifgt = "ifgt ";
 		ifgt = ifgt + labelMaggiore1;
 		output.println(ifgt);
-		String go_to="goto ";
+		String go_to = "goto ";
 		go_to = go_to + labelMaggiore2;
 		output.println(go_to);
 		output.println(labelMaggiore1 + ": ");
 		b.scriviCodice(this);
-		output.println(labelMaggiore2+": ");
+		output.println(labelMaggiore2 + ": ");
 	}
-    
-	public void seAltrimenti(Espressione ex, Blocco b1,Blocco b2) {
+
+	public void seAltrimenti(Espressione ex, Blocco b1, Blocco b2) {
 		ex.scriviCodice(this);
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
-		String ifgt ="ifgt ";
+		String ifgt = "ifgt ";
 		ifgt = ifgt + labelMaggiore1;
 		output.println(ifgt);
 		b2.scriviCodice(this);
-		String go_to="goto ";
+		String go_to = "goto ";
 		go_to = go_to + labelMaggiore2;
 		output.println(go_to);
 		output.println(labelMaggiore1 + ": ");
 		b1.scriviCodice(this);
-		output.println(labelMaggiore2+": ");
+		output.println(labelMaggiore2 + ": ");
 
 	}
 
-
 	private void storeInVariabile(String identificatore) {
 		int idVar = this.idVariabile(identificatore);
-		output.println("istore "+idVar);
+		output.println("istore " + idVar);
 	}
 
 	@Override
@@ -235,69 +236,86 @@ public class JasminTarget extends ScrittoreTarget {
 	public void espressioneInParentesi(Espressione ex) {
 		ex.scriviCodice(this);
 	}
-	
+
 	@Override
 	public void finche(Espressione ex, Blocco b) {
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
 		String labelMaggiore3 = generaLabel();
-		output.println(labelMaggiore1+": ");
+		output.println(labelMaggiore1 + ": ");
 		ex.scriviCodice(this);
-		String ifgt ="ifgt ";
+		String ifgt = "ifgt ";
 		ifgt = ifgt + labelMaggiore2;
 		output.println(ifgt);
-		output.println("goto "+ labelMaggiore3);
-		output.println(labelMaggiore2+": ");
+		output.println("goto " + labelMaggiore3);
+		output.println(labelMaggiore2 + ": ");
 		b.scriviCodice(this);
-		output.println("goto "+ labelMaggiore1);
-		output.println(labelMaggiore3+": ");
+		output.println("goto " + labelMaggiore1);
+		output.println(labelMaggiore3 + ": ");
 	}
 
 	public void endFile() throws IOException {
 		writeContentOfStub("postMainStub.j");
 	}
-	
-	public static void compilaFile(String percorsoFile, boolean salvaAssembly) throws Exception {
-		
+
+	public static void compilaFile(String percorsoFile, boolean salvaAssembly)
+			throws Exception {
+
 		File sorgenteFile = new File(percorsoFile);
-		
+
 		// Genero l'AST
-		LALR1Generator generator = new LALR1Generator(new ParserSpec()); //we want to use LALR(1)
-	    LRParsingTable table = generator.getParsingTable(); //get the resulting parsing table
-	    LRParser parser = new LRParser(table); //create a new LR parser using our table
-	    N result = (N) parser.parse(new Scanner(new FileReader(sorgenteFile))); //apply parser to a token stream
-		
-	    // Genero il codice assembly Jasmin
-	    String nomeClasse = sorgenteFile.getName().split("\\.")[0];
+		LALR1Generator generator = new LALR1Generator(new ParserSpec()); // we
+																			// want
+																			// to
+																			// use
+																			// LALR(1)
+		LRParsingTable table = generator.getParsingTable(); // get the resulting
+															// parsing table
+		LRParser parser = new LRParser(table); // create a new LR parser using
+												// our table
+		N result = (N) parser.parse(new Scanner(new FileReader(sorgenteFile))); // apply
+																				// parser
+																				// to
+																				// a
+																				// token
+																				// stream
+
+		// Genero il codice assembly Jasmin
+		String nomeClasse = sorgenteFile.getName().split("\\.")[0];
 		ByteArrayOutputStream jasminAssemblyBytes = new ByteArrayOutputStream();
-	    JasminTarget jt = new JasminTarget(nomeClasse, jasminAssemblyBytes);
-	    result.scriviCodice(jt);
-	    jt.endFile();
-	    if (salvaAssembly) {
-	    	String percorsoFileJ;
-	    	if (sorgenteFile.getParent() != null) {
-	    		percorsoFileJ =  sorgenteFile.getParent() + File.separator + nomeClasse + ".j";
-	    	} else {
-	    		percorsoFileJ =  nomeClasse + ".j";
-	    	}
-	    	
+		JasminTarget jt = new JasminTarget(nomeClasse, jasminAssemblyBytes);
+		result.scriviCodice(jt);
+		jt.endFile();
+		if (salvaAssembly) {
+			String percorsoFileJ;
+			if (sorgenteFile.getParent() != null) {
+				percorsoFileJ = sorgenteFile.getParent() + File.separator
+						+ nomeClasse + ".j";
+			} else {
+				percorsoFileJ = nomeClasse + ".j";
+			}
+
 			FileOutputStream fileOut = new FileOutputStream(percorsoFileJ);
 			fileOut.write(jasminAssemblyBytes.toByteArray());
 			fileOut.close();
-	    }
-	    
-	    // Genero il bytecode
-	    String percorsoFileClass;
-    	if (sorgenteFile.getParent() != null) {
-    		percorsoFileClass =  sorgenteFile.getParent() + File.separator + nomeClasse + ".class";
-    	} else {
-    		percorsoFileClass =  nomeClasse + ".class";
-    	}
-		// Oggetto della libreria Jasmin che si occupa di generare il file .class
-	    ClassFile classFile = new ClassFile();
-	    // Questa chiamata rocambolesca converte l'output a byte del nostro codice Jasmin in input a caratteri
-	    // necessario per la libreria Jasmin
-	    CharArrayReader assemblyInput = new CharArrayReader(new String(jasminAssemblyBytes.toByteArray()).toCharArray());
+		}
+
+		// Genero il bytecode
+		String percorsoFileClass;
+		if (sorgenteFile.getParent() != null) {
+			percorsoFileClass = sorgenteFile.getParent() + File.separator
+					+ nomeClasse + ".class";
+		} else {
+			percorsoFileClass = nomeClasse + ".class";
+		}
+		// Oggetto della libreria Jasmin che si occupa di generare il file
+		// .class
+		ClassFile classFile = new ClassFile();
+		// Questa chiamata rocambolesca converte l'output a byte del nostro
+		// codice Jasmin in input a caratteri
+		// necessario per la libreria Jasmin
+		CharArrayReader assemblyInput = new CharArrayReader(new String(
+				jasminAssemblyBytes.toByteArray()).toCharArray());
 		classFile.readJasmin(assemblyInput, sorgenteFile.getName(), false);
 		FileOutputStream classFOut = new FileOutputStream(percorsoFileClass);
 		classFile.write(classFOut);
@@ -312,7 +330,8 @@ public class JasminTarget extends ScrittoreTarget {
 	@Override
 	public void stampa(String stringa) {
 		costante(stringa);
-		output.println("invokestatic " + className + "/writeString(Ljava/lang/String;)V");
+		output.println("invokestatic " + className
+				+ "/writeString(Ljava/lang/String;)V");
 	}
 
 	@Override
@@ -323,15 +342,15 @@ public class JasminTarget extends ScrittoreTarget {
 		}
 		int id = idVariabile(identificatore + "[]");
 		costante(dimensione);
-	    output.println("newarray int");
-	    output.println("astore " + id);
+		output.println("newarray int");
+		output.println("astore " + id);
 	}
 
 	@Override
 	public void leggiElementoVettore(String identificatore, Espressione indice) {
 		output.println("aload " + idVariabile(identificatore + "[]"));
 		indice.scriviCodice(this);
-		output.println("invokestatic "+className+"/readInt()I");
+		output.println("invokestatic " + className + "/readInt()I");
 		output.println("iastore");
 	}
 
@@ -350,12 +369,12 @@ public class JasminTarget extends ScrittoreTarget {
 		elemento.scriviCodice(this);
 		output.println("iastore");
 	}
-	
-	public String generaLabel(){
-	String labelCorrente = "L";
-	labelCorrente = labelCorrente + label;
-	label= label+1;
-	return labelCorrente;
+
+	public String generaLabel() {
+		String labelCorrente = "L";
+		labelCorrente = labelCorrente + label;
+		label = label + 1;
+		return labelCorrente;
 	}
 
 }
