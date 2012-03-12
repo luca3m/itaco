@@ -4,25 +4,17 @@
 package compilatore;
 
 import istruzioni.S;
-import jasmin.ClassFile;
 
-import java.io.ByteArrayOutputStream;
-import java.io.CharArrayReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 
-import javax.swing.text.TabExpander;
-
 import main.ParserSpec;
 import main.Scanner;
 import edu.tum.cup2.generator.LALR1Generator;
-import edu.tum.cup2.generator.exceptions.GeneratorException;
 import edu.tum.cup2.parser.LRParser;
 import edu.tum.cup2.parser.tables.LRParsingTable;
 
@@ -37,6 +29,7 @@ public class CTarget extends ScrittoreTarget {
 
 	public CTarget(OutputStream o) {
 		this.ps = new PrintStream(o);
+		ps.println("#include <stdio.h>\n#include <stdlib.h>\n");
 	}
 
 	/*
@@ -366,6 +359,7 @@ public class CTarget extends ScrittoreTarget {
 			ps.print("void ");
 		}
 		else ps.print("int ");
+		ps.print(nome);
 		StringBuilder stringaParametri = new StringBuilder("(");
 		for ( String variabile : ingressi) {
 			String[] nomeEtipo = variabile.split(":");
@@ -374,10 +368,10 @@ public class CTarget extends ScrittoreTarget {
 			if (tipo.equals("intero")) {
 				stringaParametri.append("int "+ nomeParametro+", ");
 			} else {
-				stringaParametri.append("int "+ nomeParametro+"[] , int"+nomeEtipo[2]+", ");
+				stringaParametri.append("int "+ nomeParametro+"[] , int "+nomeEtipo[2]+", ");
 			}
-			stringaParametri.delete(stringaParametri.length()-2, stringaParametri.length());
 		}
+		stringaParametri.delete(stringaParametri.length()-2, stringaParametri.length());
 		ps.print(stringaParametri);
 		ps.print("){\n");
 		codice.scriviCodice(this);
