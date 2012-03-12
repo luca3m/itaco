@@ -1,6 +1,7 @@
 package compilatore;
 
 import istruzioni.N;
+import istruzioni.S;
 import jasmin.ClassFile;
 
 import java.io.ByteArrayOutputStream;
@@ -64,16 +65,32 @@ public class JasminTarget extends ScrittoreTarget {
 		contatoreVariabiliCorrente = contatoreVariabiliGlobali;
 	}
 	
-	PrintStream output;
+	PrintStream outputFile;
 	String className;
-
+	ByteArrayOutputStream buffer;
+	PrintStream bufferOutput;
+	
+	OutputStream fileOut;
 	public JasminTarget(String className, OutputStream output)
 			throws IOException {
-		this.output = new PrintStream(output);
+		this.fileOut = output;
+		this.outputFile = new PrintStream(output);
 		this.className = className;
-		writeContentOfStub("preMainStub.j", "%className", className);
+		initBuffer();
+		writeContentOfStub("initStub.j", "%className", className);
 	}
 
+	private void initBuffer() {
+		buffer = new ByteArrayOutputStream();
+		bufferOutput = new PrintStream(buffer);
+	}
+	
+	private void svuotaBuffer() {
+		byte[] ret = buffer.toByteArray();
+		outputFile.write(ret, 0, ret.length);
+		initBuffer();
+	}
+	
 	private void writeContentOfStub(String stubFileName, String replacePattern,
 			String replaceString) throws IOException {
 		// Copio il contenuto dello stub nel file di output
@@ -92,7 +109,7 @@ public class JasminTarget extends ScrittoreTarget {
 		}
 		String stubReplaced = sb.toString().replaceAll(replacePattern,
 				replaceString);
-		output.print(stubReplaced);
+		outputFile.print(stubReplaced);
 	}
 
 	private void writeContentOfStub(String stubFileName) throws IOException {
@@ -106,7 +123,7 @@ public class JasminTarget extends ScrittoreTarget {
 
 		while (copiedBytes < fileSizeInBytes) {
 			bytesRead = stub.read(fileData);
-			output.write(fileData, 0, bytesRead);
+			outputFile.write(fileData, 0, bytesRead);
 			copiedBytes += bytesRead;
 		}
 	}
@@ -115,39 +132,39 @@ public class JasminTarget extends ScrittoreTarget {
 	public void somma(Espressione addendo1, Espressione addendo2) {
 		addendo1.scriviCodice(this);
 		addendo2.scriviCodice(this);
-		output.println("iadd");
+		bufferOutput.println("iadd");
 	}
 
 	@Override
 	public void caricaVariabile(String nome) {
 		int id = idVariabile(nome);
-		output.println("iload " + id);
+		bufferOutput.println("iload " + id);
 	}
 
 	@Override
 	public void costante(int costante) {
-		output.println("ldc " + costante);
+		bufferOutput.println("ldc " + costante);
 	}
 
 	@Override
 	public void sottrazione(Espressione minuendo, Espressione sottraendo) {
 		minuendo.scriviCodice(this);
 		sottraendo.scriviCodice(this);
-		output.println("isub");
+		bufferOutput.println("isub");
 	}
 
 	@Override
 	public void prodotto(Espressione fattore1, Espressione fattore2) {
 		fattore1.scriviCodice(this);
 		fattore2.scriviCodice(this);
-		output.println("imul");
+		bufferOutput.println("imul");
 	}
 
 	@Override
 	public void divisione(Espressione dividendo, Espressione divisore) {
 		dividendo.scriviCodice(this);
 		divisore.scriviCodice(this);
-		output.println("idiv");
+		bufferOutput.println("idiv");
 	}
 
 	@Override
@@ -157,14 +174,14 @@ public class JasminTarget extends ScrittoreTarget {
 		String labelMaggiore2 = generaLabel();
 		String ifgt = "ifgt ";
 		ifgt = ifgt + labelMaggiore1;
-		output.println(ifgt);
-		output.println("ldc -1");
+		bufferOutput.println(ifgt);
+		bufferOutput.println("ldc -1");
 		String go_to = "goto ";
 		go_to = go_to + labelMaggiore2;
-		output.println(go_to);
-		output.println(labelMaggiore1 + ":");
-		output.println("ldc 1");
-		output.println(labelMaggiore2 + ": ");
+		bufferOutput.println(go_to);
+		bufferOutput.println(labelMaggiore1 + ":");
+		bufferOutput.println("ldc 1");
+		bufferOutput.println(labelMaggiore2 + ": ");
 	}
 
 	@Override
@@ -180,25 +197,25 @@ public class JasminTarget extends ScrittoreTarget {
 		String labelMaggiore2 = generaLabel();
 		String ifeq = "ifeq ";
 		ifeq = ifeq + labelMaggiore1;
-		output.println(ifeq);
-		output.println("ldc -1");
+		bufferOutput.println(ifeq);
+		bufferOutput.println("ldc -1");
 		String go_to = "goto ";
 		go_to = go_to + labelMaggiore2;
-		output.println(go_to);
-		output.println(labelMaggiore1 + ":");
-		output.println("ldc 1");
-		output.println(labelMaggiore2 + ": ");
+		bufferOutput.println(go_to);
+		bufferOutput.println(labelMaggiore1 + ":");
+		bufferOutput.println("ldc 1");
+		bufferOutput.println(labelMaggiore2 + ": ");
 	}
 
 	@Override
 	public void stampa(Espressione espressione) {
 		espressione.scriviCodice(this);
-		output.println("invokestatic " + className + "/writeInt(I)V");
+		bufferOutput.println("invokestatic " + className + "/writeInt(I)V");
 	}
 
 	@Override
 	public void leggi(String identificatore) {
-		output.println("invokestatic " + className + "/readInt()I");
+		bufferOutput.println("invokestatic " + className + "/readInt()I");
 		storeInVariabile(identificatore);
 	}
 
@@ -209,13 +226,13 @@ public class JasminTarget extends ScrittoreTarget {
 		String labelMaggiore2 = generaLabel();
 		String ifgt = "ifgt ";
 		ifgt = ifgt + labelMaggiore1;
-		output.println(ifgt);
+		bufferOutput.println(ifgt);
 		String go_to = "goto ";
 		go_to = go_to + labelMaggiore2;
-		output.println(go_to);
-		output.println(labelMaggiore1 + ": ");
+		bufferOutput.println(go_to);
+		bufferOutput.println(labelMaggiore1 + ": ");
 		b.scriviCodice(this);
-		output.println(labelMaggiore2 + ": ");
+		bufferOutput.println(labelMaggiore2 + ": ");
 	}
 
 	public void seAltrimenti(Espressione ex, Blocco b1, Blocco b2) {
@@ -224,20 +241,20 @@ public class JasminTarget extends ScrittoreTarget {
 		String labelMaggiore2 = generaLabel();
 		String ifgt = "ifgt ";
 		ifgt = ifgt + labelMaggiore1;
-		output.println(ifgt);
+		bufferOutput.println(ifgt);
 		b2.scriviCodice(this);
 		String go_to = "goto ";
 		go_to = go_to + labelMaggiore2;
-		output.println(go_to);
-		output.println(labelMaggiore1 + ": ");
+		bufferOutput.println(go_to);
+		bufferOutput.println(labelMaggiore1 + ": ");
 		b1.scriviCodice(this);
-		output.println(labelMaggiore2 + ": ");
+		bufferOutput.println(labelMaggiore2 + ": ");
 
 	}
 
 	private void storeInVariabile(String identificatore) {
 		int idVar = this.idVariabile(identificatore);
-		output.println("istore " + idVar);
+		bufferOutput.println("istore " + idVar);
 	}
 
 	@Override
@@ -256,16 +273,16 @@ public class JasminTarget extends ScrittoreTarget {
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
 		String labelMaggiore3 = generaLabel();
-		output.println(labelMaggiore1 + ": ");
+		bufferOutput.println(labelMaggiore1 + ": ");
 		ex.scriviCodice(this);
 		String ifgt = "ifgt ";
 		ifgt = ifgt + labelMaggiore2;
-		output.println(ifgt);
-		output.println("goto " + labelMaggiore3);
-		output.println(labelMaggiore2 + ": ");
+		bufferOutput.println(ifgt);
+		bufferOutput.println("goto " + labelMaggiore3);
+		bufferOutput.println(labelMaggiore2 + ": ");
 		b.scriviCodice(this);
-		output.println("goto " + labelMaggiore1);
-		output.println(labelMaggiore3 + ": ");
+		bufferOutput.println("goto " + labelMaggiore1);
+		bufferOutput.println(labelMaggiore3 + ": ");
 	}
 
 	public void endFile() throws IOException {
@@ -287,7 +304,7 @@ public class JasminTarget extends ScrittoreTarget {
 															// parsing table
 		LRParser parser = new LRParser(table); // create a new LR parser using
 												// our table
-		N result = (N) parser.parse(new Scanner(new FileReader(sorgenteFile))); // apply
+		S result = (S) parser.parse(new Scanner(new FileReader(sorgenteFile))); // apply
 																				// parser
 																				// to
 																				// a
@@ -338,13 +355,13 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void costante(String stringa) {
-		output.printf("ldc \"%s\"\n", stringa);
+		bufferOutput.printf("ldc \"%s\"\n", stringa);
 	}
 
 	@Override
 	public void stampa(String stringa) {
 		costante(stringa);
-		output.println("invokestatic " + className
+		bufferOutput.println("invokestatic " + className
 				+ "/writeString(Ljava/lang/String;)V");
 	}
 
@@ -360,32 +377,32 @@ public class JasminTarget extends ScrittoreTarget {
 		int id = idVariabile(identificatore + "[]");
 		dimensioneVettori.put(identificatore, dimensione);
 		costante(dimensione);
-		output.println("newarray int");
-		output.println("astore " + id);
+		bufferOutput.println("newarray int");
+		bufferOutput.println("astore " + id);
 	}
 
 	@Override
 	public void leggiElementoVettore(String identificatore, Espressione indice) {
-		output.println("aload " + idVariabile(identificatore + "[]"));
+		bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
 		indice.scriviCodice(this);
-		output.println("invokestatic " + className + "/readInt()I");
-		output.println("iastore");
+		bufferOutput.println("invokestatic " + className + "/readInt()I");
+		bufferOutput.println("iastore");
 	}
 
 	@Override
 	public void caricaElementoVettore(String identificatore, Espressione indice) {
-		output.println("aload " + idVariabile(identificatore + "[]"));
+		bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
 		indice.scriviCodice(this);
-		output.println("iaload");
+		bufferOutput.println("iaload");
 	}
 
 	@Override
 	public void storeElementoVettore(String identificatore, Espressione indice,
 			Espressione elemento) {
-		output.println("aload " + idVariabile(identificatore + "[]"));
+		bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
 		indice.scriviCodice(this);
 		elemento.scriviCodice(this);
-		output.println("iastore");
+		bufferOutput.println("iastore");
 	}
 
 	public String generaLabel() {
@@ -403,16 +420,47 @@ public class JasminTarget extends ScrittoreTarget {
 	public void definisciFunzione(String nome, String[] ingressi,
 			String uscita, Blocco codice) {
 		pushScope();
+		outputFile.printf(".method public static %s", nome);
+		StringBuilder stringaParametri = new StringBuilder("(");
 		for ( String variabile : ingressi) {
-			String[] nomeEtipo = variabile.split("|");
+			String[] nomeEtipo = variabile.split(":");
 			String nomeParametro = nomeEtipo[0];
 			String tipo = nomeEtipo[1];
 			if (tipo.equals("intero")) {
 				registraVariabile(nomeParametro);
+				stringaParametri.append("I");
 			} else {
 				registraVariabile(nomeParametro + "[]");
+				registraVariabile(nomeEtipo[2]);
+				stringaParametri.append("[II");
 			}
 		}
+		stringaParametri.append(")");
+		if (uscita != null) {
+			registraVariabile(uscita);
+			stringaParametri.append("I");
+		} else {
+			stringaParametri.append("V");
+		}
+		
+		parametriFunzioni.put(nome, stringaParametri.toString());
+		
+		outputFile.println(stringaParametri.toString());
+		
+		outputFile.println(".limit stack 9");
+		// FIXME: da aggiustare
+		codice.scriviCodice(this);
+		outputFile.println(".limit locals " + numeroVariabili());
+		svuotaBuffer();
+		
+		if (uscita != null) {
+			caricaVariabile(uscita);
+			outputFile.println("ireturn");
+		} else {
+			outputFile.println("return");
+		}
+		outputFile.println(".end method");
+		popScope();
 	}
 
 	@Override
@@ -420,7 +468,7 @@ public class JasminTarget extends ScrittoreTarget {
 		for ( Espressione ex : parametri) {
 			ex.scriviCodice(this);
 		}
-		output.printf("invokestatic %s/%s%s\n", className, nome, parametriFunzioni.get(nome));
+		outputFile.printf("invokestatic %s/%s%s\n", className, nome, parametriFunzioni.get(nome));
 	}
 
 }

@@ -37,7 +37,7 @@ public class DefinizioneFunzione implements Z {
 		// valori
 		List<String> listaArgomenti = new LinkedList<String>();
 		argomenti.aggiungiALista(listaArgomenti);
-		sc.definisciFunzione(nomeFunzione,listaArgomenti.toArray(new String[4]), idValoreRitorno, codiceFunzione);
+		sc.definisciFunzione(nomeFunzione,listaArgomenti.toArray(new String[0]), idValoreRitorno, codiceFunzione);
 	}
 
 }
