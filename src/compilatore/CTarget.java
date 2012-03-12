@@ -471,7 +471,12 @@ public class CTarget extends ScrittoreTarget {
 
 	// Genero il codice assembly Jasmin
 	String nomeClasse = sorgenteFile.getName().split("\\.")[0];
-	File sorgenteC = new File(sorgenteFile.getParent() + File.separator + nomeClasse + ".c");
+	File sorgenteC;
+	if (sorgenteFile.getParent() != null) {
+		sorgenteC = new File(sorgenteFile.getParent() + File.separator + nomeClasse + ".c");
+	} else {
+		sorgenteC = new File(nomeClasse + ".c");
+	}
 	FileOutputStream sorgenteCStream = new FileOutputStream(sorgenteC);
 	CTarget ct = new CTarget(sorgenteCStream);
 	result.scriviCodice(ct);

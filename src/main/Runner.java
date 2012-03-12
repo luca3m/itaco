@@ -11,6 +11,7 @@ public class Runner {
 	 */
 	public static void main(String[] args) throws Exception {
 		CTarget.compilaFile("prova.ita");
+		JasminTarget.compilaFile("prova.ita", true);
 		System.out.println("Generato codice .class");
 	}
 
