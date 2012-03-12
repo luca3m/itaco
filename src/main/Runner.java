@@ -1,5 +1,6 @@
 package main;
 
+import compilatore.CTarget;
 import compilatore.JasminTarget;
 
 public class Runner {

@@ -333,7 +333,7 @@ public class CTarget extends ScrittoreTarget {
 
 	}
 
-public static void compilaFile(String percorsoFile) throws Exception {
+	public static void compilaFile(String percorsoFile) throws Exception {
 	File sorgenteFile = new File(percorsoFile);
 
 	// Genero l'AST
