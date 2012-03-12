@@ -28,6 +28,7 @@ import istruzioni.funzioni.ArgomentoFunzioneVettore;
 import istruzioni.funzioni.ArgomentoVariabileFunzione;
 import istruzioni.funzioni.ArgomentoVettoreFunzione;
 import istruzioni.funzioni.ChiamaFunzione;
+import istruzioni.funzioni.ChiamaFunzioneSenzaRitorno;
 import istruzioni.funzioni.DefinizioneFunzione;
 import istruzioni.logiche.Maggiore;
 import istruzioni.logiche.Minore;
@@ -266,7 +267,14 @@ public class ParserSpec extends CUP2Specification {
 								return new LetturaTastieraElementoVettore(id,
 										indice);
 							}
-						}),
+						},
+						rhs(IDENTIFICATORE, PARENTESI_TONDA_APERTA, W, PARENTESI_TONDA_CHIUSA),
+						new Action() {
+							public istruzioni.I a(String id, istruzioni.espressioni.W w) {
+								return new ChiamaFunzioneSenzaRitorno(id, w);
+							}
+						}
+						),
 				prod(C, rhs(SE, B, DUE_PUNTI, N, PUNTO), new Action() {
 					public istruzioni.C a(istruzioni.logiche.B b, istruzioni.N n) {
 						return new CondizionaleSe(b, n);
