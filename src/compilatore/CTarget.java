@@ -375,7 +375,12 @@ public class CTarget extends ScrittoreTarget {
 		stringaParametri.delete(stringaParametri.length()-2, stringaParametri.length());
 		ps.print(stringaParametri);
 		ps.print("){\n");
+		if (uscita != null)
+			registraVariabile(uscita);
 		codice.scriviCodice(this);
+		if (uscita != null) {
+			ps.println("return " + uscita + ";");
+		}
 		ps.print("\n}\n");
 	}
 
@@ -416,7 +421,7 @@ public class CTarget extends ScrittoreTarget {
 	@Override
 	public void scriviMain(Blocco codice) {
 		// TODO Auto-generated method stub
-		ps.print("void main() {\n");
+		ps.print("main() {\n");
 		codice.scriviCodice(this);
 		ps.print("\n}");
 	}
