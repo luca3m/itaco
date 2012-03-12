@@ -3,14 +3,6 @@ package compilatore;
 public abstract class ScrittoreTarget {
 	
 	public abstract boolean registraVariabile(String nome);
-	
-	protected String labelInizioBlocco(String nome) {
-		return "";
-	}
-
-	protected String labelFineBlocco(String nome) {
-		return "";
-	}
 
 	/**
 	 * Scrivi l'istruzione per caricare il valore della variabile nello stack
@@ -121,4 +113,8 @@ public abstract class ScrittoreTarget {
 	public abstract void definisciVettore(String identificatore, Integer dimensione);
 	public abstract void caricaElementoVettore(String identificatore, Espressione indice);
 	public abstract void storeElementoVettore(String identificatore, Espressione indice, Espressione elemento);
+
+	// Operazioni sulle funzioni
+	public abstract void definisciFunzione(String nome, String[] ingressi, String uscita, Blocco codice);
+	public abstract void eseguiFunzione(String nome, Espressione[] parametri);
 }

@@ -1,0 +1,14 @@
+funzione prova_somma (intero x | intero y) -> intero z:
+	x+y -> z.
+
+
+intero n,
+scrivi "Inserisci un numero: ",
+leggi n,
+1 -> intero fattoriale,
+finche n > 0:
+	n*fattoriale -> fattoriale,
+	n-1 -> n.
+scrivi "Il fattoriale e:",
+scrivi fattoriale,
+scrivi "\n".

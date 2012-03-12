@@ -1,10 +1,15 @@
 # Assioma
+S -> Z S | N.
+Z -> funzione id(A) ass intero id:N.| funzione id(A):N.
+A -> epsilon | A2
+A2-> R | R pipe A2 
+R -> intero id | vettore id[id]
 N -> I | I,N
-N -> C. | C.N
-I -> intero id ass E | id ass E
-I -> vettore id[costante] | id[E] ass E
+N -> C | C N
+I -> E ass intero id | E ass id | intero id
+I -> vettore id[costante] | E ass id[E]
 I -> stampa E | leggi id | leggi id[E] | stampa STRINGA
-C -> se B:N | finché B:N | se B:N altrimenti: N
+C -> se B:N. | finché B:N. | se B:N; altrimenti: N.
 
 # Espressioni logiche
 B -> E = E | E < E | E > E
@@ -12,4 +17,7 @@ B -> E = E | E < E | E > E
 # Espressioni aritmetiche
 E -> E + T | E - T | T
 T -> T • F | T / F | F
-F -> id | costante | (E) | id[E]
+F -> id | costante | (E) | id[E] | id(W)
+W -> epsilon | W2
+W2 -> U pipe W2 | U
+U -> E | id[]

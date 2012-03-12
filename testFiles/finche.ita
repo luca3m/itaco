@@ -1,6 +1,7 @@
-intero i <- 0,
-intero limite <- 0,
+intero i,
+intero limite,
 leggi limite,
 finche i < limite:
 	scrivi i,
-	i <- i + 1.
+	i+1 -> i.
+.

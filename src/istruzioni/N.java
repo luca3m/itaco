@@ -2,6 +2,6 @@ package istruzioni;
 
 import compilatore.Blocco;
 
-public interface N extends Blocco  {
+public interface N extends Blocco, Z  {
 
 }

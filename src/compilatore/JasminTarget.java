@@ -23,33 +23,47 @@ import edu.tum.cup2.parser.tables.LRParsingTable;
 
 public class JasminTarget extends ScrittoreTarget {
 
-	private Map<String, Integer> tabellaSimboli = new HashMap<String, Integer>();
+	private Map<String, Integer> tabellaSimboliCorrente = new HashMap<String, Integer>();
+	private Map<String, Integer> tabellaSimboliGlobale = tabellaSimboliCorrente;
+	
 	/**
 	 * Inizio del contatore per identificare le variabili
 	 */
 	private static final int START_ID = 1;
 	private int label = 0;
-	private static int contatoreVariabili = START_ID;
+	private int contatoreVariabiliCorrente = START_ID;
+	private int contatoreVariabiliGlobali = contatoreVariabiliCorrente;
 
 	public boolean registraVariabile(String nome) {
-		if (tabellaSimboli.containsKey(nome)) {
+		if (tabellaSimboliCorrente.containsKey(nome)) {
 			return false;
 		}
-		tabellaSimboli.put(nome, contatoreVariabili++);
+		tabellaSimboliCorrente.put(nome, contatoreVariabiliCorrente++);
 		return true;
 	}
 
 	protected int idVariabile(String nome) {
-		if (tabellaSimboli.containsKey(nome)) {
-			return tabellaSimboli.get(nome);
+		if (tabellaSimboliCorrente.containsKey(nome)) {
+			return tabellaSimboliCorrente.get(nome);
 		} else
 			return -1;
 	}
 
 	protected int numeroVariabili() {
-		return tabellaSimboli.size();
+		return tabellaSimboliCorrente.size();
 	}
 
+	protected void pushScope() {
+		tabellaSimboliCorrente = new HashMap<String, Integer>();
+		contatoreVariabiliGlobali = contatoreVariabiliCorrente;
+		contatoreVariabiliCorrente = 0;
+	}
+	
+	protected void popScope() {
+		tabellaSimboliCorrente = tabellaSimboliGlobale;
+		contatoreVariabiliCorrente = contatoreVariabiliGlobali;
+	}
+	
 	PrintStream output;
 	String className;
 
@@ -334,6 +348,9 @@ public class JasminTarget extends ScrittoreTarget {
 				+ "/writeString(Ljava/lang/String;)V");
 	}
 
+	// Operazioni sui vettori
+	private Map<String, Integer> dimensioneVettori = new HashMap<String, Integer>();
+	
 	@Override
 	public void definisciVettore(String identificatore, Integer dimensione) {
 		boolean status = registraVariabile(identificatore + "[]");
@@ -341,6 +358,7 @@ public class JasminTarget extends ScrittoreTarget {
 			// FIXME: lanciare una eccezione
 		}
 		int id = idVariabile(identificatore + "[]");
+		dimensioneVettori.put(identificatore, dimensione);
 		costante(dimensione);
 		output.println("newarray int");
 		output.println("astore " + id);
@@ -375,6 +393,34 @@ public class JasminTarget extends ScrittoreTarget {
 		labelCorrente = labelCorrente + label;
 		label = label + 1;
 		return labelCorrente;
+	}
+
+	// Operazioni sulle funzioni
+	
+	private Map<String, String> parametriFunzioni = new HashMap<String, String>();
+	
+	@Override
+	public void definisciFunzione(String nome, String[] ingressi,
+			String uscita, Blocco codice) {
+		pushScope();
+		for ( String variabile : ingressi) {
+			String[] nomeEtipo = variabile.split("|");
+			String nomeParametro = nomeEtipo[0];
+			String tipo = nomeEtipo[1];
+			if (tipo.equals("intero")) {
+				registraVariabile(nomeParametro);
+			} else {
+				registraVariabile(nomeParametro + "[]");
+			}
+		}
+	}
+
+	@Override
+	public void eseguiFunzione(String nome, Espressione[] parametri) {
+		for ( Espressione ex : parametri) {
+			ex.scriviCodice(this);
+		}
+		output.printf("invokestatic %s/%s%s\n", className, nome, parametriFunzioni.get(nome));
 	}
 
 }

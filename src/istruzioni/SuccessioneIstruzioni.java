@@ -1,15 +1,19 @@
 package istruzioni;
 
+import compilatore.Produzione;
 import compilatore.ScrittoreTarget;
 
 public class SuccessioneIstruzioni implements N {
 
-	private I istruzionePrecedente;
-	private N istruzioneSuccessiva;
-	public SuccessioneIstruzioni(I istruzionePrecedente, N istruzioneSuccessiva) {
+	private Produzione istruzionePrecedente;
+	private Produzione istruzioneSuccessiva;
+
+	public SuccessioneIstruzioni(Produzione istruzionePrecedente,
+			Produzione istruzioneSuccessiva) {
 		this.istruzionePrecedente = istruzionePrecedente;
 		this.istruzioneSuccessiva = istruzioneSuccessiva;
 	}
+
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
 		// TODO Auto-generated method stub

@@ -2,10 +2,10 @@ package istruzioni.espressioni;
 
 import compilatore.ScrittoreTarget;
 
-public class Identificatore implements F {
+public class Variabile implements F {
 	
 	private String nome;
-	public Identificatore(String nome) {
+	public Variabile(String nome) {
 		this.nome = nome;
 	}
 	

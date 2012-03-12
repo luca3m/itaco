@@ -89,6 +89,7 @@ SingleCharacter = [^\r\n\'\\]
   "leggi"						 { return new ScannerToken<Object>(LEGGI); }
   "scrivi"						 { return new ScannerToken<Object>(SCRIVI); }
   "vettore"						 { return new ScannerToken<Object>(VETTORE); }
+  "funzione"						 { return new ScannerToken<Object>(FUNZIONE); }
   
   /* separators */
   ":"							 { return new ScannerToken<Object>(DUE_PUNTI); }
@@ -98,9 +99,11 @@ SingleCharacter = [^\r\n\'\\]
   "]"                            { return new ScannerToken<Object>(PARENTESI_QUADRA_CHIUSA); }
   ","                            { return new ScannerToken<Object>(VIRGOLA); }
   "."                            { return new ScannerToken<Object>(PUNTO); }
+  "|"                            { return new ScannerToken<Object>(PIPE); }
+  ";"                            { return new ScannerToken<Object>(PUNTO_VIRGOLA); }
   
   /* operators */
-  "<-"                            { return new ScannerToken<Object>(ASSEGNAZIONE); }
+  "->"                            { return new ScannerToken<Object>(ASSEGNAZIONE); }
   "+"							 { return new ScannerToken<Object>(SOMMA); }
   "-"                            { return new ScannerToken<Object>(SOTTRAZIONE); }
   "*"                            { return new ScannerToken<Object>(PRODOTTO); }

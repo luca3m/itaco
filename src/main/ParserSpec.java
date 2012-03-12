@@ -1,11 +1,16 @@
 package main;
 
-import istruzioni.Assegnamento;
+import com.sun.xml.internal.ws.api.pipe.Pipe;
+
+import compilatore.Espressione;
+import compilatore.ScrittoreTarget;
+
+import istruzioni.AssegnamentoVariabile;
 import istruzioni.AssegnamentoVettore;
 import istruzioni.CicloFinche;
 import istruzioni.CondizionaleAltrimenti;
 import istruzioni.CondizionaleSe;
-import istruzioni.DefinizioneAssegnamento;
+import istruzioni.DefinizioneAssegnamentoVariabile;
 import istruzioni.DefinizioneVettore;
 import istruzioni.LetturaDaTastiera;
 import istruzioni.LetturaTastieraElementoVettore;
@@ -17,10 +22,18 @@ import istruzioni.espressioni.Costante;
 import istruzioni.espressioni.Divisione;
 import istruzioni.espressioni.ElementoVettore;
 import istruzioni.espressioni.EspressioneInParentesi;
-import istruzioni.espressioni.Identificatore;
+import istruzioni.espressioni.Variabile;
 import istruzioni.espressioni.Prodotto;
 import istruzioni.espressioni.Somma;
 import istruzioni.espressioni.Sottrazione;
+import istruzioni.espressioni.Vettore;
+import istruzioni.funzioni.ArgomentiDefinizioneFunzione;
+import istruzioni.funzioni.ArgomentiFunzione;
+import istruzioni.funzioni.ArgomentiVettoreFunzione;
+import istruzioni.funzioni.ArgomentoVariabileFunzione;
+import istruzioni.funzioni.ArgomentoVettoreFunzione;
+import istruzioni.funzioni.ChiamaFunzione;
+import istruzioni.funzioni.DefinizioneFunzione;
 import istruzioni.logiche.Maggiore;
 import istruzioni.logiche.Minore;
 import istruzioni.logiche.Uguaglianza;
@@ -33,13 +46,19 @@ import static main.ParserSpec.NonTerminals.*;
 public class ParserSpec extends CUP2Specification {
 
 	public enum Terminals implements Terminal {
-		SE, ALTRIMENTI, FINCHE, INTERO, PARENTESI_QUADRA_APERTA, PARENTESI_QUADRA_CHIUSA, DUE_PUNTI, PUNTO, VIRGOLA, PARENTESI_TONDA_APERTA, PARENTESI_TONDA_CHIUSA, UGUALE, LEGGI, SCRIVI, IDENTIFICATORE, NUMERO_INTERO, SOMMA, SOTTRAZIONE, PRODOTTO, DIVISIONE, ASSEGNAZIONE, STRINGA, MINORE, MAGGIORE, VETTORE;
+		SE, ALTRIMENTI, FINCHE, INTERO, PARENTESI_QUADRA_APERTA, PARENTESI_QUADRA_CHIUSA, DUE_PUNTI, PUNTO, VIRGOLA, PARENTESI_TONDA_APERTA, PARENTESI_TONDA_CHIUSA, UGUALE, LEGGI, SCRIVI, IDENTIFICATORE, NUMERO_INTERO, SOMMA, SOTTRAZIONE, PRODOTTO, DIVISIONE, ASSEGNAZIONE, STRINGA, MINORE, MAGGIORE, VETTORE, FUNZIONE, PIPE, PUNTO_VIRGOLA;
 	}
 
 	// non-terminals
 	public enum NonTerminals implements NonTerminal {
-		N, I, E, T, F, B, C;
+		S, Z, N, I, E, T, F, B, C, A, A2, R, W, W2, U;
 	}
+
+	public class S extends SymbolValue<istruzioni.S> {
+	};
+
+	public class Z extends SymbolValue<istruzioni.Z> {
+	};
 
 	public class N extends SymbolValue<istruzioni.N> {
 	};
@@ -71,6 +90,24 @@ public class ParserSpec extends CUP2Specification {
 	public class STRINGA extends SymbolValue<String> {
 	};
 
+	public class A extends SymbolValue<istruzioni.funzioni.A> {
+	};
+
+	public class A2 extends SymbolValue<istruzioni.funzioni.A2> {
+	};
+
+	public class R extends SymbolValue<istruzioni.funzioni.R> {
+	};
+
+	public class W extends SymbolValue<istruzioni.espressioni.W> {
+	};
+
+	public class W2 extends SymbolValue<istruzioni.espressioni.W2> {
+	};
+
+	public class U extends SymbolValue<istruzioni.espressioni.U> {
+	};
+
 	@SuppressWarnings("unused")
 	public ParserSpec() {
 
@@ -86,36 +123,110 @@ public class ParserSpec extends CUP2Specification {
 		 */
 		grammar(
 
-		prod(N, rhs(I), new Action() {
-			public istruzioni.N a(istruzioni.I i) {
-				return i;
+		prod(S, rhs(Z, S), new Action() {
+			public istruzioni.S a(istruzioni.Z z, istruzioni.S s) {
+				return new SuccessioneIstruzioni(z, s);
 			}
-		}, rhs(I, VIRGOLA, N), new Action() {
-			public istruzioni.N a(istruzioni.I i, istruzioni.N n) {
-				return new SuccessioneIstruzioni(i, n);
-			}
-		}, rhs(C, PUNTO, N), new Action() {
-			public istruzioni.N a(istruzioni.C c, istruzioni.N n) {
-				return new SuccessioneCN(c, n);
-			}
-		}, rhs(C, PUNTO), new Action() {
-			public istruzioni.N a(istruzioni.C c) {
-				return c;
+		}, rhs(N, PUNTO), new Action() {
+			public istruzioni.S a(istruzioni.N n) {
+				return n;
 			}
 		}),
-				prod(I,
-						rhs(INTERO, IDENTIFICATORE, ASSEGNAZIONE, E),
+				prod(Z,
+						rhs(FUNZIONE, IDENTIFICATORE, PARENTESI_TONDA_APERTA,
+								A, PARENTESI_TONDA_CHIUSA, ASSEGNAZIONE,
+								INTERO, IDENTIFICATORE, DUE_PUNTI, N, PUNTO),
 						new Action() {
-							public istruzioni.I a(String id,
-									istruzioni.espressioni.E e) {
-								return new DefinizioneAssegnamento(id, e);
+							public istruzioni.Z a(String id_funzione,
+									istruzioni.funzioni.A a_ingresso,
+									String id_uscita, istruzioni.N n) {
+								return new DefinizioneFunzione(id_funzione,
+										a_ingresso, id_uscita, n);
 							}
 						},
-						rhs(IDENTIFICATORE, ASSEGNAZIONE, E),
+						rhs(FUNZIONE, IDENTIFICATORE, PARENTESI_TONDA_APERTA,
+								A, PARENTESI_TONDA_CHIUSA, DUE_PUNTI, N, PUNTO),
 						new Action() {
-							public istruzioni.I a(String id,
-									istruzioni.espressioni.E e) {
-								return new Assegnamento(id, e);
+							public istruzioni.Z a(String id,
+									istruzioni.funzioni.A a_ingresso,
+									istruzioni.N n) {
+								return new DefinizioneFunzione(id, a_ingresso,
+										n);
+							}
+						}),
+
+				prod(A, rhs(), rhs(A2), new Action() {
+					public istruzioni.funzioni.A a(istruzioni.funzioni.A2 a2) {
+						return a2;
+					}
+				}),
+
+				prod(A2,
+
+				rhs(R), new Action() {
+					public istruzioni.funzioni.A2 a(istruzioni.funzioni.R r) {
+						return r;
+					}
+				}, rhs(R, PIPE, A2), new Action() {
+					public istruzioni.funzioni.A2 a(istruzioni.funzioni.R r,
+							istruzioni.funzioni.A2 a2) {
+						return new ArgomentiDefinizioneFunzione(r, a2);
+					}
+				}),
+
+				prod(R,
+						rhs(INTERO, IDENTIFICATORE),
+						new Action() {
+							public istruzioni.funzioni.R a(String id) {
+								return new ArgomentoVariabileFunzione(id);
+							}
+						},
+						rhs(INTERO, IDENTIFICATORE, PARENTESI_QUADRA_APERTA,
+								IDENTIFICATORE, PARENTESI_QUADRA_CHIUSA),
+						new Action() {
+							public istruzioni.funzioni.R a(String id, String dim) {
+								return new ArgomentoVettoreFunzione(id, dim);
+							}
+						}),
+
+				prod(N, rhs(I), new Action() {
+					public istruzioni.N a(istruzioni.I i) {
+						return i;
+					}
+				}, rhs(I, VIRGOLA, N), new Action() {
+					public istruzioni.N a(istruzioni.I i, istruzioni.N n) {
+						return new SuccessioneIstruzioni(i, n);
+					}
+				}, rhs(C, N), new Action() {
+					public istruzioni.N a(istruzioni.C c, istruzioni.N n) {
+						return new SuccessioneCN(c, n);
+					}
+				}, rhs(C), new Action() {
+					public istruzioni.N a(istruzioni.C c) {
+						return c;
+					}
+				}),
+				prod(I,
+						rhs(E, ASSEGNAZIONE, INTERO, IDENTIFICATORE),
+						new Action() {
+							public istruzioni.I a(istruzioni.espressioni.E e,
+									String id) {
+								return new DefinizioneAssegnamentoVariabile(id,
+										e);
+							}
+						},
+						rhs(E, ASSEGNAZIONE, IDENTIFICATORE),
+						new Action() {
+							public istruzioni.I a(istruzioni.espressioni.E e,
+									String id) {
+								return new AssegnamentoVariabile(id, e);
+							}
+						},
+						rhs(INTERO, IDENTIFICATORE),
+						new Action() {
+							public istruzioni.I a(String id) {
+								return new DefinizioneAssegnamentoVariabile(id,
+										new Costante(0));
 							}
 						},
 						rhs(SCRIVI, STRINGA),
@@ -131,12 +242,12 @@ public class ParserSpec extends CUP2Specification {
 								return new DefinizioneVettore(id, i);
 							}
 						},
-						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA, E,
-								PARENTESI_QUADRA_CHIUSA, ASSEGNAZIONE, E),
+						rhs(E, ASSEGNAZIONE, IDENTIFICATORE,
+								PARENTESI_QUADRA_APERTA, E,
+								PARENTESI_QUADRA_CHIUSA),
 						new Action() {
-							public istruzioni.I a(String id,
-									istruzioni.espressioni.E indice,
-									istruzioni.espressioni.E e) {
+							public istruzioni.I a(istruzioni.espressioni.E e,
+									String id, istruzioni.espressioni.E indice) {
 								return new AssegnamentoVettore(id, indice, e);
 							}
 						},
@@ -161,20 +272,23 @@ public class ParserSpec extends CUP2Specification {
 										indice);
 							}
 						}),
-				prod(C, rhs(SE, B, DUE_PUNTI, N), new Action() {
+				prod(C, rhs(SE, B, DUE_PUNTI, N, PUNTO), new Action() {
 					public istruzioni.C a(istruzioni.logiche.B b, istruzioni.N n) {
 						return new CondizionaleSe(b, n);
 					}
-				}, rhs(SE, B, DUE_PUNTI, N, ALTRIMENTI, DUE_PUNTI, N), new Action() {
-					public istruzioni.C a(istruzioni.logiche.B b,
-							istruzioni.N n1, istruzioni.N n2) {
-						return new CondizionaleAltrimenti(b, n1, n2);
-					}
-				}, rhs(FINCHE, B, DUE_PUNTI, N), new Action() {
-					public istruzioni.C a(istruzioni.logiche.B b, istruzioni.N n) {
-						return new CicloFinche(b, n);
-					}
-				}),
+				},
+						rhs(SE, B, DUE_PUNTI, N, PUNTO_VIRGOLA, ALTRIMENTI,
+								DUE_PUNTI, N, PUNTO), new Action() {
+							public istruzioni.C a(istruzioni.logiche.B b,
+									istruzioni.N n1, istruzioni.N n2) {
+								return new CondizionaleAltrimenti(b, n1, n2);
+							}
+						}, rhs(FINCHE, B, DUE_PUNTI, N, PUNTO), new Action() {
+							public istruzioni.C a(istruzioni.logiche.B b,
+									istruzioni.N n) {
+								return new CicloFinche(b, n);
+							}
+						}),
 				// Espressioni
 				prod(B, rhs(E, MAGGIORE, E), new Action() {
 					public istruzioni.logiche.B a(istruzioni.espressioni.E e,
@@ -230,7 +344,7 @@ public class ParserSpec extends CUP2Specification {
 						rhs(IDENTIFICATORE),
 						new Action() {
 							public istruzioni.espressioni.F a(String id) {
-								return new Identificatore(id);
+								return new Variabile(id);
 							}
 						},
 						rhs(NUMERO_INTERO),
@@ -247,13 +361,56 @@ public class ParserSpec extends CUP2Specification {
 							}
 						},
 						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA, E,
-								PARENTESI_QUADRA_CHIUSA), new Action() {
+								PARENTESI_QUADRA_CHIUSA),
+						new Action() {
 							public istruzioni.espressioni.F a(String id,
 									istruzioni.espressioni.E e) {
 								return new ElementoVettore(id, e);
 							}
+						},
+						rhs(IDENTIFICATORE, PARENTESI_TONDA_APERTA, W,
+								PARENTESI_TONDA_CHIUSA), new Action() {
+							public istruzioni.espressioni.F a(String id,
+									istruzioni.espressioni.W w) {
+								return new ChiamaFunzione(id, w);
+							}
+
+						}),
+
+				prod(W, rhs(), rhs(W2), new Action() {
+					public istruzioni.espressioni.W a(
+							istruzioni.espressioni.W2 w2) {
+						return w2;
+					}
+				}), prod(W2, rhs(U, PIPE, W2), new Action() {
+					public istruzioni.espressioni.W2 a(
+							istruzioni.espressioni.U u,
+							istruzioni.espressioni.W2 w2) {
+						return new ArgomentiFunzione(u, w2);
+					}
+				}, rhs(U), new Action() {
+					public istruzioni.espressioni.W2 a(
+							istruzioni.espressioni.U u) {
+						return u;
+					}
+				}), prod(
+
+						U,
+
+						rhs(E),
+						new Action() {
+							public istruzioni.espressioni.U a(
+									istruzioni.espressioni.E e) {
+								return e;
+							}
+						},
+
+						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA,
+								PARENTESI_QUADRA_CHIUSA), new Action() {
+							public istruzioni.espressioni.U a(String id) {
+								return new Vettore(id);
+							}
 						}));
 
 	}
-
 }
