@@ -378,6 +378,7 @@ public class CTarget extends ScrittoreTarget {
 			}
 			stringaParametri.delete(stringaParametri.length()-2, stringaParametri.length());
 		}
+		ps.print(stringaParametri);
 		ps.print("){\n");
 		codice.scriviCodice(this);
 		ps.print("\n}\n");
