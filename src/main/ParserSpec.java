@@ -1,16 +1,12 @@
 package main;
 
-import com.sun.xml.internal.ws.api.pipe.Pipe;
-
-import compilatore.Espressione;
-import compilatore.ScrittoreTarget;
-
 import istruzioni.AssegnamentoVariabile;
 import istruzioni.AssegnamentoVettore;
 import istruzioni.CicloFinche;
 import istruzioni.CondizionaleAltrimenti;
 import istruzioni.CondizionaleSe;
 import istruzioni.DefinizioneAssegnamentoVariabile;
+import istruzioni.DefinizioneMain;
 import istruzioni.DefinizioneVettore;
 import istruzioni.LetturaDaTastiera;
 import istruzioni.LetturaTastieraElementoVettore;
@@ -29,7 +25,6 @@ import istruzioni.espressioni.Sottrazione;
 import istruzioni.espressioni.Vettore;
 import istruzioni.funzioni.ArgomentiDefinizioneFunzione;
 import istruzioni.funzioni.ArgomentiFunzione;
-import istruzioni.funzioni.ArgomentiVettoreFunzione;
 import istruzioni.funzioni.ArgomentoVariabileFunzione;
 import istruzioni.funzioni.ArgomentoVettoreFunzione;
 import istruzioni.funzioni.ChiamaFunzione;
@@ -129,7 +124,7 @@ public class ParserSpec extends CUP2Specification {
 			}
 		}, rhs(N, PUNTO), new Action() {
 			public istruzioni.S a(istruzioni.N n) {
-				return n;
+				return new DefinizioneMain(n);
 			}
 		}),
 				prod(Z,
