@@ -1,16 +1,9 @@
-funzione sommaAlVettore(vettore array[dim] | intero costante):
-	intero i,
-	finche i < dim:
-		array[i] + costante -> array[i],
-		i + 1 -> i..
-vettore numeri[4],
-intero i,
-finche i < 4:
-	leggi numeri[i],
-	i + 1 -> i.
-sommaAlVettore(numeri[]|5),
-0 -> i,
-finche i < 4:
-	scrivi numeri[i],
-	i + 1 -> i.
-scrivi "ciao".
+funzione fattoriale(intero numero) -> intero risultato:
+	se numero > 0:
+		numero*fattoriale(numero-1) -> risultato;
+	altrimenti:
+		1 -> risultato..
+
+intero numero,
+leggi numero,
+scrivi fattoriale(numero).
