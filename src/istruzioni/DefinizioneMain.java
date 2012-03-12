@@ -19,8 +19,7 @@ public class DefinizioneMain implements S {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// TODO Auto-generated method stub
-
+		sc.scriviMain(codiceProgramma);
 	}
 
 }
