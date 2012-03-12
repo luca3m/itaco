@@ -412,6 +412,7 @@ public class JasminTarget extends ScrittoreTarget {
 		return labelCorrente;
 	}
 
+	@Override
 	public void scriviMain(Blocco codice) {
 		outputFile.println(".method public static main([Ljava/lang/String;)V");
 	    outputFile.println(".limit stack 30");

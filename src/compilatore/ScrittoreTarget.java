@@ -124,4 +124,5 @@ public abstract class ScrittoreTarget {
 	 */
 	public abstract void definisciFunzione(String nome, String[] ingressi, String uscita, Blocco codice);
 	public abstract void eseguiFunzione(String nome, Espressione[] parametri);
+	public abstract void scriviMain(Blocco codice);
 }
