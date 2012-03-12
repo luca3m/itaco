@@ -1,6 +1,6 @@
 package istruzioni.funzioni;
 
-import compilatore.ScrittoreTarget;
+import java.util.List;
 
 public class ArgomentiDefinizioneFunzione implements A2 {
 
@@ -13,9 +13,9 @@ public class ArgomentiDefinizioneFunzione implements A2 {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
-		// TODO Auto-generated method stub
-
+	public void aggiungiALista(List<String> lista) {
+		argomento.aggiungiALista(lista);
+		prossimoArgomento.aggiungiALista(lista);
 	}
 
 }

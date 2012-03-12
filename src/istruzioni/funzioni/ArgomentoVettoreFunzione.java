@@ -1,6 +1,6 @@
 package istruzioni.funzioni;
 
-import compilatore.ScrittoreTarget;
+import java.util.List;
 
 public class ArgomentoVettoreFunzione implements R {
 
@@ -17,9 +17,8 @@ public class ArgomentoVettoreFunzione implements R {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
-		// TODO Auto-generated method stub
-
+	public void aggiungiALista(List<String> lista) {
+		lista.add(String.format("%s:%s:%s", nomeVettore, "vettore", dimVettore));
 	}
 
 }

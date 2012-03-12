@@ -1,5 +1,5 @@
 funzione prova_somma (intero x | intero y) -> intero z:
-	x+y -> z.
+	x*10/100 -> z.
 
 
 intero n,

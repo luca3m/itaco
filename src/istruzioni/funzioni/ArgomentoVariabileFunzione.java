@@ -1,5 +1,7 @@
 package istruzioni.funzioni;
 
+import java.util.List;
+
 import compilatore.ScrittoreTarget;
 
 public class ArgomentoVariabileFunzione implements R {
@@ -14,9 +16,8 @@ public class ArgomentoVariabileFunzione implements R {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
-		// TODO Auto-generated method stub
-
+	public void aggiungiALista(List<String> lista) {
+		lista.add(nomeVariabile + ":intero");
 	}
 
 }

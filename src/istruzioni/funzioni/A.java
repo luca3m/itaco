@@ -1,7 +1,7 @@
 package istruzioni.funzioni;
 
-import compilatore.Produzione;
+import java.util.List;
 
-public interface A extends Produzione {
-
+public interface A {
+	public void aggiungiALista(List<String> lista);
 }

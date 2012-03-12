@@ -115,6 +115,14 @@ public abstract class ScrittoreTarget {
 	public abstract void storeElementoVettore(String identificatore, Espressione indice, Espressione elemento);
 
 	// Operazioni sulle funzioni
+	/**
+	 * 
+	 * @param nome
+	 * @param ingressi un vettore di stringhe del tipo { "nomeparametro:tipo", "nomeparametro:tipo", "nomeparametro:tipo" }
+	 * @param uscita stringa del tipo "variabileuscita:tipo"
+	 * @param codice codice eseguito dalla funzione
+	 */
 	public abstract void definisciFunzione(String nome, String[] ingressi, String uscita, Blocco codice);
 	public abstract void eseguiFunzione(String nome, Espressione[] parametri);
+	public abstract void scriviMain(Blocco codice);
 }
