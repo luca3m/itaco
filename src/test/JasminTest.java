@@ -131,4 +131,17 @@ public class JasminTest {
 		String[] outputPrevisto = { "0", "1", "2" , "3", "4", "5", "6", "7", "8", "9" };
 		testFile("finche", datiIngresso, outputPrevisto);
 	}
+	
+	@Test
+	public void testFunzioneRicorsiva() {
+		String[] datiIngresso = { "6" };
+		String[] outputPrevisto = { "720"};
+		testFile("funzioneRicorsiva", datiIngresso, outputPrevisto);
+		String[] datiIngresso2 = { "2" };
+		String[] outputPrevisto2 = { "2"};
+		testFile("funzioneRicorsiva", datiIngresso2, outputPrevisto2);
+		String[] datiIngresso3 = { "0" };
+		String[] outputPrevisto3 = { "1"};
+		testFile("funzioneRicorsiva", datiIngresso3, outputPrevisto3);
+	}
 }

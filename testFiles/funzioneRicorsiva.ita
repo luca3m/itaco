@@ -1,0 +1,9 @@
+funzione fattoriale(intero numero) -> intero risultato:
+	se numero > 0:
+		numero*fattoriale(numero-1) -> risultato;
+	altrimenti:
+		1 -> risultato..
+
+intero numero,
+leggi numero,
+scrivi fattoriale(numero).
