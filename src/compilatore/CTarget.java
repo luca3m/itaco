@@ -15,6 +15,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.HashMap;
+
+import javax.swing.text.TabExpander;
 
 import main.ParserSpec;
 import main.Scanner;
@@ -25,17 +28,20 @@ import edu.tum.cup2.parser.tables.LRParsingTable;
 
 /**
  * @author ale
- *
+ * 
  */
 public class CTarget extends ScrittoreTarget {
 
+	private HashMap<String, Integer> mappaDimensioneVettori= new HashMap<String, Integer>();
 	private PrintStream ps;
-	
-	public CTarget(OutputStream o){
-		this.ps=new PrintStream(o);
+
+	public CTarget(OutputStream o) {
+		this.ps = new PrintStream(o);
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see compilatore.ScrittoreTarget#registraVariabile(java.lang.String)
 	 */
 	@Override
@@ -44,7 +50,9 @@ public class CTarget extends ScrittoreTarget {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see compilatore.ScrittoreTarget#caricaVariabile(java.lang.String)
 	 */
 	@Override
@@ -53,19 +61,24 @@ public class CTarget extends ScrittoreTarget {
 		ps.println(nome);
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#storeInVariabile(java.lang.String, compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#storeInVariabile(java.lang.String,
+	 * compilatore.Espressione)
 	 */
 	@Override
 	public void storeInVariabile(String identificatore, Espressione valore) {
 		// TODO Auto-generated method stub
-		String linea = identificatore+" = ";
+		String linea = identificatore + " = ";
 		ps.printf(linea);
 		valore.scriviCodice(this);
 		ps.println(";");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see compilatore.ScrittoreTarget#costante(int)
 	 */
 	@Override
@@ -74,17 +87,22 @@ public class CTarget extends ScrittoreTarget {
 		ps.print(costante);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see compilatore.ScrittoreTarget#costante(java.lang.String)
 	 */
 	@Override
 	public void costante(String stringa) {
 		// TODO Auto-generated method stub
-		ps.print("\""+stringa+"\"");
+		ps.print("\"" + stringa + "\"");
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#somma(compilatore.Espressione, compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#somma(compilatore.Espressione,
+	 * compilatore.Espressione)
 	 */
 	@Override
 	public void somma(Espressione addendo1, Espressione addendo2) {
@@ -94,8 +112,11 @@ public class CTarget extends ScrittoreTarget {
 		addendo2.scriviCodice(this);
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#sottrazione(compilatore.Espressione, compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#sottrazione(compilatore.Espressione,
+	 * compilatore.Espressione)
 	 */
 	@Override
 	public void sottrazione(Espressione minuendo, Espressione sottraendo) {
@@ -105,8 +126,11 @@ public class CTarget extends ScrittoreTarget {
 		sottraendo.scriviCodice(this);
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#prodotto(compilatore.Espressione, compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#prodotto(compilatore.Espressione,
+	 * compilatore.Espressione)
 	 */
 	@Override
 	public void prodotto(Espressione fattore1, Espressione fattore2) {
@@ -116,8 +140,11 @@ public class CTarget extends ScrittoreTarget {
 		fattore2.scriviCodice(this);
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#divisione(compilatore.Espressione, compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#divisione(compilatore.Espressione,
+	 * compilatore.Espressione)
 	 */
 	@Override
 	public void divisione(Espressione dividendo, Espressione divisore) {
@@ -127,8 +154,11 @@ public class CTarget extends ScrittoreTarget {
 		divisore.scriviCodice(this);
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#maggiore(compilatore.Espressione, compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#maggiore(compilatore.Espressione,
+	 * compilatore.Espressione)
 	 */
 	@Override
 	public void maggiore(Espressione parteSinistra, Espressione parteDestra) {
@@ -138,8 +168,11 @@ public class CTarget extends ScrittoreTarget {
 		parteDestra.scriviCodice(this);
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#minore(compilatore.Espressione, compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#minore(compilatore.Espressione,
+	 * compilatore.Espressione)
 	 */
 	@Override
 	public void minore(Espressione parteSinistra, Espressione parteDestra) {
@@ -149,8 +182,11 @@ public class CTarget extends ScrittoreTarget {
 		parteDestra.scriviCodice(this);
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#uguaglianza(compilatore.Espressione, compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#uguaglianza(compilatore.Espressione,
+	 * compilatore.Espressione)
 	 */
 	@Override
 	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra) {
@@ -160,8 +196,12 @@ public class CTarget extends ScrittoreTarget {
 		parteDestra.scriviCodice(this);
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#espressioneInParentesi(compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * compilatore.ScrittoreTarget#espressioneInParentesi(compilatore.Espressione
+	 * )
 	 */
 	@Override
 	public void espressioneInParentesi(Espressione ex) {
@@ -171,7 +211,9 @@ public class CTarget extends ScrittoreTarget {
 		ps.print(")");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see compilatore.ScrittoreTarget#stampa(compilatore.Espressione)
 	 */
 	@Override
@@ -182,37 +224,47 @@ public class CTarget extends ScrittoreTarget {
 		ps.print(");\n");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see compilatore.ScrittoreTarget#stampa(java.lang.String)
 	 */
 	@Override
 	public void stampa(String stringa) {
 		// TODO Auto-generated method stub
-		ps.print("printf(\""+stringa+"\");\n");
+		ps.print("printf(\"" + stringa + "\");\n");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see compilatore.ScrittoreTarget#leggi(java.lang.String)
 	 */
 	@Override
 	public void leggi(String identificatore) {
 		// TODO Auto-generated method stub
-		ps.print("scanf(\"%d\", &"+identificatore+");\n");
+		ps.print("scanf(\"%d\", &" + identificatore + ");\n");
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#leggiElementoVettore(java.lang.String, compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#leggiElementoVettore(java.lang.String,
+	 * compilatore.Espressione)
 	 */
 	@Override
 	public void leggiElementoVettore(String identificatore, Espressione indice) {
 		// TODO Auto-generated method stub
-		ps.print("scanf(\"%d\", &"+identificatore+"+");
+		ps.print("scanf(\"%d\", &" + identificatore + "+");
 		indice.scriviCodice(this);
 		ps.print(");\n");
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#se(compilatore.Espressione, compilatore.Blocco)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#se(compilatore.Espressione,
+	 * compilatore.Blocco)
 	 */
 	@Override
 	public void se(Espressione ex, Blocco codice) {
@@ -224,8 +276,11 @@ public class CTarget extends ScrittoreTarget {
 		ps.print("\n}\n");
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#seAltrimenti(compilatore.Espressione, compilatore.Blocco, compilatore.Blocco)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#seAltrimenti(compilatore.Espressione,
+	 * compilatore.Blocco, compilatore.Blocco)
 	 */
 	@Override
 	public void seAltrimenti(Espressione ex, Blocco codice,
@@ -237,8 +292,11 @@ public class CTarget extends ScrittoreTarget {
 		ps.print("\n}\n");
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#finche(compilatore.Espressione, compilatore.Blocco)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#finche(compilatore.Espressione,
+	 * compilatore.Blocco)
 	 */
 	@Override
 	public void finche(Espressione ex, Blocco codice) {
@@ -250,87 +308,145 @@ public class CTarget extends ScrittoreTarget {
 		ps.print("\n}\n");
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#definisciVettore(java.lang.String, java.lang.Integer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#definisciVettore(java.lang.String,
+	 * java.lang.Integer)
 	 */
 	@Override
 	public void definisciVettore(String identificatore, Integer dimensione) {
 		// TODO Auto-generated method stub
-
+		mappaDimensioneVettori.put(identificatore, dimensione);
+		ps.print("int " + identificatore + "[" + dimensione + "];\n");
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#caricaElementoVettore(java.lang.String, compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#caricaElementoVettore(java.lang.String,
+	 * compilatore.Espressione)
 	 */
 	@Override
 	public void caricaElementoVettore(String identificatore, Espressione indice) {
 		// TODO Auto-generated method stub
-
+		ps.print(identificatore + "[");
+		indice.scriviCodice(this);
+		ps.print("]");
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#storeElementoVettore(java.lang.String, compilatore.Espressione, compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#storeElementoVettore(java.lang.String,
+	 * compilatore.Espressione, compilatore.Espressione)
 	 */
 	@Override
 	public void storeElementoVettore(String identificatore, Espressione indice,
 			Espressione elemento) {
 		// TODO Auto-generated method stub
-
+		ps.print(identificatore + "[");
+		indice.scriviCodice(this);
+		ps.print("] = ");
+		elemento.scriviCodice(this);
+		ps.print(";\n");
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#definisciFunzione(java.lang.String, java.lang.String[], java.lang.String, compilatore.Blocco)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#definisciFunzione(java.lang.String,
+	 * java.lang.String[], java.lang.String, compilatore.Blocco)
 	 */
 	@Override
 	public void definisciFunzione(String nome, String[] ingressi,
 			String uscita, Blocco codice) {
 		// TODO Auto-generated method stub
-
+		if (uscita == null) {
+			ps.print("void ");
+		}
+		else ps.print("int ");
+		StringBuilder stringaParametri = new StringBuilder("(");
+		for ( String variabile : ingressi) {
+			String[] nomeEtipo = variabile.split(":");
+			String nomeParametro = nomeEtipo[0];
+			String tipo = nomeEtipo[1];
+			if (tipo.equals("intero")) {
+				stringaParametri.append("int "+ nomeParametro+", ");
+			} else {
+				stringaParametri.append("int "+ nomeParametro+"[] , int"+nomeEtipo[2]+", ");
+			}
+			stringaParametri.delete(stringaParametri.length()-2, stringaParametri.length());
+		}
+		ps.print("){\n");
+		codice.scriviCodice(this);
+		ps.print("\n}\n");
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#eseguiFunzione(java.lang.String, compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see compilatore.ScrittoreTarget#eseguiFunzione(java.lang.String,
+	 * compilatore.Espressione)
 	 */
 	@Override
 	public void eseguiFunzione(String nome, Espressione parametri) {
 		// TODO Auto-generated method stub
-
+		ps.print(nome+"(");
+		parametri.scriviCodice(this);
+		//FIXME
+		ps.print(")");
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#eseguiFunzioneSenzaRitorno(java.lang.String, compilatore.Espressione)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * compilatore.ScrittoreTarget#eseguiFunzioneSenzaRitorno(java.lang.String,
+	 * compilatore.Espressione)
 	 */
 	@Override
 	public void eseguiFunzioneSenzaRitorno(String nome, Espressione parametri) {
 		// TODO Auto-generated method stub
-
+		eseguiFunzione(nome, parametri);
+		ps.print(";\n");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see compilatore.ScrittoreTarget#scriviMain(compilatore.Blocco)
 	 */
 	@Override
 	public void scriviMain(Blocco codice) {
 		// TODO Auto-generated method stub
-
+		ps.print("void main() {");
+		codice.scriviCodice(this);
+		ps.print("\n}");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see compilatore.ScrittoreTarget#caricaVettore(java.lang.String)
 	 */
 	@Override
 	public void caricaVettore(String nome) {
 		// TODO Auto-generated method stub
-
+		ps.print(nome);
 	}
 
-	/* (non-Javadoc)
-	 * @see compilatore.ScrittoreTarget#caricaDimensioneVettore(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * compilatore.ScrittoreTarget#caricaDimensioneVettore(java.lang.String)
 	 */
 	@Override
 	public void caricaDimensioneVettore(String nome) {
 		// TODO Auto-generated method stub
-
+		int dimensione = mappaDimensioneVettori.get(nome);
+		ps.print(dimensione);
 	}
 
 	public static void compilaFile(String percorsoFile) throws Exception {
