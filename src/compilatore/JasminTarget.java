@@ -412,6 +412,24 @@ public class JasminTarget extends ScrittoreTarget {
 		return labelCorrente;
 	}
 
+	public void scriviMain(Blocco codice) {
+		outputFile.println(".method public static main([Ljava/lang/String;)V");
+	    outputFile.println(".limit stack 30");
+	   
+	    codice.scriviCodice(this);
+	    outputFile.println(".limit locals " + numeroVariabili());
+	    
+	    try {
+			writeContentOfStub("preMainStub.j");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		svuotaBuffer();
+		outputFile.println("return");
+		outputFile.println(".end method");
+	}
+	
 	// Operazioni sulle funzioni
 	
 	private Map<String, String> parametriFunzioni = new HashMap<String, String>();
@@ -448,7 +466,6 @@ public class JasminTarget extends ScrittoreTarget {
 		outputFile.println(stringaParametri.toString());
 		
 		outputFile.println(".limit stack 9");
-		// FIXME: da aggiustare
 		codice.scriviCodice(this);
 		outputFile.println(".limit locals " + numeroVariabili());
 		svuotaBuffer();
