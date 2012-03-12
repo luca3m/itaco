@@ -285,10 +285,6 @@ public class JasminTarget extends ScrittoreTarget {
 		bufferOutput.println(labelMaggiore3 + ": ");
 	}
 
-	public void endFile() throws IOException {
-		writeContentOfStub("postMainStub.j");
-	}
-
 	public static void compilaFile(String percorsoFile, boolean salvaAssembly)
 			throws Exception {
 
@@ -316,7 +312,6 @@ public class JasminTarget extends ScrittoreTarget {
 		ByteArrayOutputStream jasminAssemblyBytes = new ByteArrayOutputStream();
 		JasminTarget jt = new JasminTarget(nomeClasse, jasminAssemblyBytes);
 		result.scriviCodice(jt);
-		jt.endFile();
 		if (salvaAssembly) {
 			String percorsoFileJ;
 			if (sorgenteFile.getParent() != null) {
@@ -418,10 +413,10 @@ public class JasminTarget extends ScrittoreTarget {
 	    outputFile.println(".limit stack 30");
 	   
 	    codice.scriviCodice(this);
-	    outputFile.println(".limit locals " + numeroVariabili());
+	    outputFile.println(".limit locals " + (numeroVariabili() + 2));
 	    
 	    try {
-			writeContentOfStub("preMainStub.j");
+			writeContentOfStub("preMainStub.j", "%className", className);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -469,24 +464,33 @@ public class JasminTarget extends ScrittoreTarget {
 		outputFile.println(".limit stack 9");
 		codice.scriviCodice(this);
 		outputFile.println(".limit locals " + numeroVariabili());
-		svuotaBuffer();
 		
 		if (uscita != null) {
 			caricaVariabile(uscita);
-			outputFile.println("ireturn");
+			bufferOutput.println("ireturn");
 		} else {
-			outputFile.println("return");
+			bufferOutput.println("return");
 		}
+		svuotaBuffer();
+		
 		outputFile.println(".end method");
 		popScope();
 	}
 
 	@Override
-	public void eseguiFunzione(String nome, Espressione[] parametri) {
-		for ( Espressione ex : parametri) {
-			ex.scriviCodice(this);
-		}
-		outputFile.printf("invokestatic %s/%s%s\n", className, nome, parametriFunzioni.get(nome));
+	public void eseguiFunzione(String nome, Espressione parametri) {
+		parametri.scriviCodice(this);
+		bufferOutput.printf("invokestatic %s/%s%s\n", className, nome, parametriFunzioni.get(nome));
+	}
+
+	@Override
+	public void caricaVettore(String nome) {
+		bufferOutput.println("aload " + idVariabile(nome + "[]"));
+	}
+
+	@Override
+	public void caricaDimensioneVettore(String nome) {
+		costante(dimensioneVettori.get(nome));
 	}
 
 }

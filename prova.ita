@@ -1,14 +1,12 @@
-funzione prova_somma (intero x | intero y) -> intero z:
-	x*10/100 -> z.
+funzione fattoriale(intero numero) -> intero risultato:
+	se numero > 0:
+		numero*fattoriale(numero-1) -> risultato;
+	altrimenti:
+		1 -> risultato..
 
-
-intero n,
 scrivi "Inserisci un numero: ",
-leggi n,
-1 -> intero fattoriale,
-finche n > 0:
-	n*fattoriale -> fattoriale,
-	n-1 -> n.
-scrivi "Il fattoriale e:",
-scrivi fattoriale,
+intero numero,
+leggi numero,
+scrivi "Il fattoriale e: ",
+scrivi fattoriale(numero),
 scrivi "\n".

@@ -17,8 +17,7 @@ public class ChiamaFunzione implements F {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// TODO Auto-generated method stub
-
+		sc.eseguiFunzione(id, argomenti);
 	}
 
 }

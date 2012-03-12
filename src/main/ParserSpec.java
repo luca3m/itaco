@@ -22,9 +22,9 @@ import istruzioni.espressioni.Variabile;
 import istruzioni.espressioni.Prodotto;
 import istruzioni.espressioni.Somma;
 import istruzioni.espressioni.Sottrazione;
-import istruzioni.espressioni.Vettore;
 import istruzioni.funzioni.ArgomentiDefinizioneFunzione;
 import istruzioni.funzioni.ArgomentiFunzione;
+import istruzioni.funzioni.ArgomentoFunzioneVettore;
 import istruzioni.funzioni.ArgomentoVariabileFunzione;
 import istruzioni.funzioni.ArgomentoVettoreFunzione;
 import istruzioni.funzioni.ChiamaFunzione;
@@ -403,7 +403,7 @@ public class ParserSpec extends CUP2Specification {
 						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA,
 								PARENTESI_QUADRA_CHIUSA), new Action() {
 							public istruzioni.espressioni.U a(String id) {
-								return new Vettore(id);
+								return new ArgomentoFunzioneVettore(id);
 							}
 						}));
 

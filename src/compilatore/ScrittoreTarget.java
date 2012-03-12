@@ -123,6 +123,10 @@ public abstract class ScrittoreTarget {
 	 * @param codice codice eseguito dalla funzione
 	 */
 	public abstract void definisciFunzione(String nome, String[] ingressi, String uscita, Blocco codice);
-	public abstract void eseguiFunzione(String nome, Espressione[] parametri);
+	public abstract void eseguiFunzione(String nome, Espressione parametri);
 	public abstract void scriviMain(Blocco codice);
+
+	public abstract void caricaVettore(String nome);
+
+	public abstract void caricaDimensioneVettore(String nome);
 }

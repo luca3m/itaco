@@ -17,8 +17,8 @@ public class ArgomentiFunzione implements W2 {
 	
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// TODO Auto-generated method stub
-
+		argomentoPrecedente.scriviCodice(sc);
+		argomentiSuccessivi.scriviCodice(sc);
 	}
 
 }

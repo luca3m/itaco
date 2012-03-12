@@ -17,8 +17,7 @@ public class ArgomentiVettoreFunzione implements W {
 	
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }
