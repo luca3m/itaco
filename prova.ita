@@ -1,7 +1,6 @@
 funzione prova_somma (intero x | intero y) -> intero z:
 	x+y -> z.
 
-
 intero n,
 scrivi "Inserisci un numero: ",
 leggi n,

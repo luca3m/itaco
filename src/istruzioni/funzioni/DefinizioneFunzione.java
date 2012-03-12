@@ -1,5 +1,8 @@
 package istruzioni.funzioni;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import compilatore.ScrittoreTarget;
 
 import istruzioni.N;
@@ -32,6 +35,9 @@ public class DefinizioneFunzione implements Z {
 		// TODO Auto-generated method stub
 		// mettere il controllo se il valore di ritorno è null la f non ritorna
 		// valori
+		List<String> listaArgomenti = new LinkedList<String>();
+		argomenti.aggiungiALista(listaArgomenti);
+		sc.definisciFunzione(nomeFunzione,listaArgomenti.toArray(new String[4]), idValoreRitorno, codiceFunzione);
 	}
 
 }
