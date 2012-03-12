@@ -40,7 +40,8 @@ public class CTarget extends ScrittoreTarget {
 	@Override
 	public boolean registraVariabile(String nome) {
 		// TODO Auto-generated method stub
-		return false;
+		ps.print("int "+nome+";\n");
+		return true;
 	}
 
 	/*
@@ -51,7 +52,7 @@ public class CTarget extends ScrittoreTarget {
 	@Override
 	public void caricaVariabile(String nome) {
 		// TODO Auto-generated method stub
-		ps.println(nome);
+		ps.print(nome);
 	}
 
 	/*
@@ -248,7 +249,7 @@ public class CTarget extends ScrittoreTarget {
 	@Override
 	public void leggiElementoVettore(String identificatore, Espressione indice) {
 		// TODO Auto-generated method stub
-		ps.print("scanf(\"%d\", &" + identificatore + "+");
+		ps.print("scanf(\"%d\", " + identificatore + "+");
 		indice.scriviCodice(this);
 		ps.print(");\n");
 	}
@@ -415,7 +416,7 @@ public class CTarget extends ScrittoreTarget {
 	@Override
 	public void scriviMain(Blocco codice) {
 		// TODO Auto-generated method stub
-		ps.print("void main() {");
+		ps.print("void main() {\n");
 		codice.scriviCodice(this);
 		ps.print("\n}");
 	}
