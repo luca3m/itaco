@@ -483,6 +483,7 @@ public class JasminTarget extends ScrittoreTarget {
 		bufferOutput.printf("invokestatic %s/%s%s\n", className, nome, parametriFunzioni.get(nome));
 	}
 
+
 	@Override
 	public void caricaVettore(String nome) {
 		bufferOutput.println("aload " + idVariabile(nome + "[]"));
@@ -491,6 +492,14 @@ public class JasminTarget extends ScrittoreTarget {
 	@Override
 	public void caricaDimensioneVettore(String nome) {
 		costante(dimensioneVettori.get(nome));
+	}
+
+	@Override
+	public void eseguiFunzioneSenzaRitorno(String nome, Espressione parametri) {
+		eseguiFunzione(nome, parametri);
+		if (! parametriFunzioni.get(nome).endsWith("V")) {
+			bufferOutput.println("pop");
+		}
 	}
 
 }
