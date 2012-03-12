@@ -176,7 +176,7 @@ public class ParserSpec extends CUP2Specification {
 								return new ArgomentoVariabileFunzione(id);
 							}
 						},
-						rhs(INTERO, IDENTIFICATORE, PARENTESI_QUADRA_APERTA,
+						rhs(VETTORE, IDENTIFICATORE, PARENTESI_QUADRA_APERTA,
 								IDENTIFICATORE, PARENTESI_QUADRA_CHIUSA),
 						new Action() {
 							public istruzioni.funzioni.R a(String id, String dim) {

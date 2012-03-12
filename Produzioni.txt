@@ -8,7 +8,7 @@ N -> I | I,N
 N -> C | C N
 I -> E ass intero id | E ass id | intero id
 I -> vettore id[costante] | E ass id[E]
-I -> stampa E | leggi id | leggi id[E] | stampa STRINGA
+I -> stampa E | leggi id | leggi id[E] | stampa STRINGA | id(W)
 C -> se B:N. | finché B:N. | se B:N; altrimenti: N.
 
 # Espressioni logiche

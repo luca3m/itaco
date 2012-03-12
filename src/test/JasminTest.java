@@ -144,4 +144,11 @@ public class JasminTest {
 		String[] outputPrevisto3 = { "1"};
 		testFile("funzioneRicorsiva", datiIngresso3, outputPrevisto3);
 	}
+	
+	@Test
+	public void testFunzioneDiVettori() {
+		String[] datiIngresso = { "1", "2","3","4",};
+		String[] outputPrevisto = { "6", "7", "8", "9" };
+		testFile("funzioneVettori", datiIngresso, outputPrevisto);
+	}
 }

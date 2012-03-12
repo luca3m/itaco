@@ -3,6 +3,7 @@ funzione sommaAlVettore(vettore array[dim] | intero costante):
 	finche i < dim:
 		array[i] + costante -> array[i],
 		i + 1 -> i..
+
 vettore numeri[4],
 intero i,
 finche i < 4:
@@ -13,4 +14,3 @@ sommaAlVettore(numeri[]|5),
 finche i < 4:
 	scrivi numeri[i],
 	i + 1 -> i.
-scrivi "ciao".

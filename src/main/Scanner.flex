@@ -82,35 +82,35 @@ SingleCharacter = [^\r\n\'\\]
 <YYINITIAL> {
 
   /* keywords */
-  "altrimenti"                   { return new ScannerToken<Object>(ALTRIMENTI); }
-  "intero"                          { return new ScannerToken<Object>(INTERO); }
-  "se"                           { return new ScannerToken<Object>(SE); }
-  "finche"                        { return new ScannerToken<Object>(FINCHE); }
-  "leggi"						 { return new ScannerToken<Object>(LEGGI); }
-  "scrivi"						 { return new ScannerToken<Object>(SCRIVI); }
-  "vettore"						 { return new ScannerToken<Object>(VETTORE); }
-  "funzione"						 { return new ScannerToken<Object>(FUNZIONE); }
+  "altrimenti"                   { return new ScannerToken<Object>(ALTRIMENTI, yyline+1, yycolumn); }
+  "intero"                          { return new ScannerToken<Object>(INTERO, yyline+1, yycolumn); }
+  "se"                           { return new ScannerToken<Object>(SE, yyline+1, yycolumn); }
+  "finche"                        { return new ScannerToken<Object>(FINCHE, yyline+1, yycolumn); }
+  "leggi"						 { return new ScannerToken<Object>(LEGGI, yyline+1, yycolumn); }
+  "scrivi"						 { return new ScannerToken<Object>(SCRIVI, yyline+1, yycolumn); }
+  "vettore"						 { return new ScannerToken<Object>(VETTORE, yyline+1, yycolumn); }
+  "funzione"						 { return new ScannerToken<Object>(FUNZIONE, yyline+1, yycolumn); }
   
   /* separators */
-  ":"							 { return new ScannerToken<Object>(DUE_PUNTI); }
-  "("                            { return new ScannerToken<Object>(PARENTESI_TONDA_APERTA); }
-  ")"                            { return new ScannerToken<Object>(PARENTESI_TONDA_CHIUSA); }
-  "["                            { return new ScannerToken<Object>(PARENTESI_QUADRA_APERTA); }
-  "]"                            { return new ScannerToken<Object>(PARENTESI_QUADRA_CHIUSA); }
-  ","                            { return new ScannerToken<Object>(VIRGOLA); }
-  "."                            { return new ScannerToken<Object>(PUNTO); }
-  "|"                            { return new ScannerToken<Object>(PIPE); }
-  ";"                            { return new ScannerToken<Object>(PUNTO_VIRGOLA); }
+  ":"							 { return new ScannerToken<Object>(DUE_PUNTI, yyline+1, yycolumn); }
+  "("                            { return new ScannerToken<Object>(PARENTESI_TONDA_APERTA, yyline+1, yycolumn); }
+  ")"                            { return new ScannerToken<Object>(PARENTESI_TONDA_CHIUSA, yyline+1, yycolumn); }
+  "["                            { return new ScannerToken<Object>(PARENTESI_QUADRA_APERTA, yyline+1, yycolumn); }
+  "]"                            { return new ScannerToken<Object>(PARENTESI_QUADRA_CHIUSA, yyline+1, yycolumn); }
+  ","                            { return new ScannerToken<Object>(VIRGOLA, yyline+1, yycolumn); }
+  "."                            { return new ScannerToken<Object>(PUNTO, yyline+1, yycolumn); }
+  "|"                            { return new ScannerToken<Object>(PIPE, yyline+1, yycolumn); }
+  ";"                            { return new ScannerToken<Object>(PUNTO_VIRGOLA, yyline+1, yycolumn); }
   
   /* operators */
-  "->"                            { return new ScannerToken<Object>(ASSEGNAZIONE); }
-  "+"							 { return new ScannerToken<Object>(SOMMA); }
-  "-"                            { return new ScannerToken<Object>(SOTTRAZIONE); }
-  "*"                            { return new ScannerToken<Object>(PRODOTTO); }
-  "/"                            { return new ScannerToken<Object>(DIVISIONE); }
-  "="                           { return new ScannerToken<Object>(UGUALE); }  
-  "<"							{ return new ScannerToken<Object>(MINORE);}
-  ">" 							{ return new ScannerToken<Object>(MAGGIORE);}
+  "->"                            { return new ScannerToken<Object>(ASSEGNAZIONE, yyline+1, yycolumn); }
+  "+"							 { return new ScannerToken<Object>(SOMMA, yyline+1, yycolumn); }
+  "-"                            { return new ScannerToken<Object>(SOTTRAZIONE, yyline+1, yycolumn); }
+  "*"                            { return new ScannerToken<Object>(PRODOTTO, yyline+1, yycolumn); }
+  "/"                            { return new ScannerToken<Object>(DIVISIONE, yyline+1, yycolumn); }
+  "="                           { return new ScannerToken<Object>(UGUALE, yyline+1, yycolumn); }  
+  "<"							{ return new ScannerToken<Object>(MINORE, yyline+1, yycolumn); }
+  ">" 							{ return new ScannerToken<Object>(MAGGIORE, yyline+1, yycolumn); }
   
   /* string literal */
   \"                             { yybegin(STRING); string.setLength(0); }
@@ -120,7 +120,7 @@ SingleCharacter = [^\r\n\'\\]
   /* This is matched together with the minus, because the number is too big to 
      be represented by a positive integer. */
      
-  {DecIntegerLiteral}            { return new ScannerToken<Object>(NUMERO_INTERO, Integer.valueOf(yytext())); }
+  {DecIntegerLiteral}            { return new ScannerToken<Object>(NUMERO_INTERO, Integer.valueOf(yytext()), yyline+1, yycolumn); }
   
   /* comments */
   {Comment}                      { /* ignore */ }
@@ -129,11 +129,11 @@ SingleCharacter = [^\r\n\'\\]
   {WhiteSpace}                   { /* ignore */ }
 
   /* identifiers */ 
-  {Identifier}                   { return new ScannerToken<Object>(IDENTIFICATORE, yytext()); }  
+  {Identifier}                   { return new ScannerToken<Object>(IDENTIFICATORE, yytext(), yyline+1, yycolumn); }  
 }
 
 <STRING> {
-  \"                             { yybegin(YYINITIAL); return new ScannerToken<Object>(STRINGA, string.toString()); }
+  \"                             { yybegin(YYINITIAL); return new ScannerToken<Object>(STRINGA, string.toString(), yyline+1, yycolumn); }
   
   {StringCharacter}+             { string.append( yytext() ); }
   
@@ -152,5 +152,5 @@ SingleCharacter = [^\r\n\'\\]
 
 /* error fallback */
 .|\n                             { throw new RuntimeException("Illegal character \""+yytext()+
-                                                              "\" at line "+yyline+", column "+yycolumn); }
+                                                              "\" at line "+yyline+1+", column "+yycolumn); }
 <<EOF>>                          { return new ScannerToken<Object>(SpecialTerminals.EndOfInputStream); }
