@@ -3,8 +3,25 @@
  */
 package compilatore;
 
+import istruzioni.S;
+import jasmin.ClassFile;
+
+import java.io.ByteArrayOutputStream;
+import java.io.CharArrayReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+
+import main.ParserSpec;
+import main.Scanner;
+import edu.tum.cup2.generator.LALR1Generator;
+import edu.tum.cup2.generator.exceptions.GeneratorException;
+import edu.tum.cup2.parser.LRParser;
+import edu.tum.cup2.parser.tables.LRParsingTable;
 
 /**
  * @author ale
@@ -316,4 +333,52 @@ public class CTarget extends ScrittoreTarget {
 
 	}
 
+public static void compilaFile(String percorsoFile) throws Exception {
+	File sorgenteFile = new File(percorsoFile);
+
+	// Genero l'AST
+	LALR1Generator generator = new LALR1Generator(new ParserSpec()); // we
+																		// want
+																		// to
+																		// use
+																		// LALR(1)
+	LRParsingTable table = generator.getParsingTable(); // get the resulting
+														// parsing table
+	LRParser parser = new LRParser(table); // create a new LR parser using
+											// our table
+	S result = (S) parser.parse(new Scanner(new FileReader(sorgenteFile))); // apply
+																			// parser
+																			// to
+																			// a
+																			// token
+																			// stream
+
+	// Genero il codice assembly Jasmin
+	String nomeClasse = sorgenteFile.getName().split("\\.")[0];
+	File sorgenteC = new File(sorgenteFile.getParent() + File.separator + nomeClasse + ".c");
+	FileOutputStream sorgenteCStream = new FileOutputStream(sorgenteC);
+	CTarget ct = new CTarget(sorgenteCStream);
+	result.scriviCodice(ct);
+
+	// Genero il bytecode
+//	String percorsoFileClass;
+//	if (sorgenteFile.getParent() != null) {
+//		percorsoFileClass = sorgenteFile.getParent() + File.separator
+//				+ nomeClasse + ".class";
+//	} else {
+//		percorsoFileClass = nomeClasse + ".class";
+//	}
+//	// Oggetto della libreria Jasmin che si occupa di generare il file
+//	// .class
+//	ClassFile classFile = new ClassFile();
+//	// Questa chiamata rocambolesca converte l'output a byte del nostro
+//	// codice Jasmin in input a caratteri
+//	// necessario per la libreria Jasmin
+//	CharArrayReader assemblyInput = new CharArrayReader(new String(
+//			sorgenteCStream.toByteArray()).toCharArray());
+//	classFile.readJasmin(assemblyInput, sorgenteFile.getName(), false);
+//	FileOutputStream classFOut = new FileOutputStream(percorsoFileClass);
+//	classFile.write(classFOut);
+//	classFOut.close();
+}
 }

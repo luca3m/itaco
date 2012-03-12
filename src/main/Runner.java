@@ -9,7 +9,7 @@ public class Runner {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-		JasminTarget.compilaFile("prova.ita", true);
+		CTarget.compilaFile("prova.ita");
 		System.out.println("Generato codice .class");
 	}
 

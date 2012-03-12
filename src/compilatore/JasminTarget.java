@@ -1,6 +1,5 @@
 package compilatore;
 
-import istruzioni.N;
 import istruzioni.S;
 import jasmin.ClassFile;
 
