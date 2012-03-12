@@ -2,5 +2,19 @@ intero i <- 0,
 intero limite <- 0,
 leggi limite,
 finche i < limite:
-	scrivi i,
+	#scrivi i,
 	i <- i + 1.
+vettore accidenti[10],
+intero indice <- 0,
+intero lettura <- 0,
+leggi lettura,
+finche indice < 10:
+	accidenti[indice] <- indice*lettura,
+	indice <- indice + 1.
+
+
+se accidenti[9] > 31:
+	scrivi "Perbacco! Il decimo elemento di accidenti è: "
+altrimenti:
+	scrivi "Oh no...! Il decimo elemento di accidenti è: ".
+scrivi accidenti[9]
