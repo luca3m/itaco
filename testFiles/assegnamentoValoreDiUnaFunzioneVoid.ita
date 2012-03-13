@@ -1,0 +1,5 @@
+funzione stampaCostante(intero x):
+	scrivi 4.
+
+intero x,
+stampaCostante(3) -> x.

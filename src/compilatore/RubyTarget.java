@@ -13,9 +13,9 @@ public class RubyTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#registraVariabile(java.lang.String)
 	 */
 	@Override
-	public boolean registraVariabile(String nome) {
+	public void registraVariabile(String nome) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	/* (non-Javadoc)

@@ -1,0 +1,4 @@
+intero x,
+# Variabile non assegnata
+leggi y,
+scrivi x.

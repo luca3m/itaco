@@ -38,10 +38,9 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#registraVariabile(java.lang.String)
 	 */
 	@Override
-	public boolean registraVariabile(String nome) throws SemanticException {
+	public void registraVariabile(String nome) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print("int "+nome+";\n");
-		return true;
 	}
 
 	/*

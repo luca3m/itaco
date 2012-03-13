@@ -151,4 +151,11 @@ public class JasminTest {
 		String[] outputPrevisto = { "6", "7", "8", "9" };
 		testFile("funzioneVettori", datiIngresso, outputPrevisto);
 	}
+	
+	@Test
+	public void testFunzioneVoid() {
+		String[] datiIngresso = {};
+		String[] outputPrevisto = { "ciao" };
+		testFile("funzioneVoid", datiIngresso, outputPrevisto);
+	}
 }
