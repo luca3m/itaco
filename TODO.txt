@@ -1,5 +1,5 @@
 1- Completare gui
-2- Aggiungere altri scrittori target (python, java, ruby, C)
+2- Aggiungere altri scrittori target (ruby, C)
 3- Esempi codice notevoli (quick sort)
 4- Sistemare codice e commenti
 5- Eccezioni
