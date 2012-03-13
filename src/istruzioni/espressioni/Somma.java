@@ -1,7 +1,7 @@
 package istruzioni.espressioni;
 
 import compilatore.ScrittoreTarget;
-import compilatore.SemanticException;
+import compilatore.EccezioneSemantica;
 /**
  * 
  * @author Alessandro, Luca, Saro
@@ -16,7 +16,7 @@ public class Somma implements E {
 		this.addendo2 = parteDestra;
 	}
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
+	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
 		sc.somma(addendo1, addendo2);
 	}
 }

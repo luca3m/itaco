@@ -2,6 +2,7 @@ package main;
 
 import compilatore.CTarget;
 import compilatore.JasminTarget;
+import compilatore.RubyTarget;
 
 public class Runner {
 
@@ -15,7 +16,7 @@ public class Runner {
 		generaCodiceC(file);
 		generaCodiceJasmin(file);
 		generaByteCodeJava(file);
-		//generaCodiceRuby(file);
+		generaCodiceRuby(file);
 	}
 	
 	/**
@@ -36,7 +37,7 @@ public class Runner {
 	 */
 	public static void generaCodiceRuby(String nomeFile) throws Exception {
 		if(nomeFile == null)nomeFile="prova.ita";
-		//RubyTarget.compilaFile(nomeFile);
+		RubyTarget.compilaFile(nomeFile);
 		System.out.println("Generato codice Ruby");
 	}
 

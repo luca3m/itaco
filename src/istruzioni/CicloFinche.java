@@ -1,4 +1,4 @@
-package istruzioni;import compilatore.SemanticException;
+package istruzioni;import compilatore.EccezioneSemantica;
 
 import compilatore.ScrittoreTarget;
 
@@ -19,7 +19,7 @@ public class CicloFinche extends Object implements C {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
+	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
 		sc.finche(condizione, blocco);
 	}
 	

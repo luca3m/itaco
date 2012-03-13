@@ -2,5 +2,5 @@ package compilatore;
 
 
 public interface Produzione {
-	public void scriviCodice(ScrittoreTarget sc) throws SemanticException;
+	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica;
 }

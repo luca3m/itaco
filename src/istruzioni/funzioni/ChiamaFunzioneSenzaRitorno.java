@@ -1,7 +1,7 @@
 package istruzioni.funzioni;
 
 import compilatore.ScrittoreTarget;
-import compilatore.SemanticException;
+import compilatore.EccezioneSemantica;
 
 import istruzioni.I;
 import istruzioni.espressioni.F;
@@ -23,7 +23,7 @@ public class ChiamaFunzioneSenzaRitorno implements F,I {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
+	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
 		sc.eseguiFunzioneSenzaRitorno(id, argomenti);
 	}
 
