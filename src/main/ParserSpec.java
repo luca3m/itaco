@@ -112,10 +112,12 @@ public class ParserSpec extends CUP2Specification {
 		 * madre, accetta un numero variabile di argomenti che sono le
 		 * produzioni Le produzioni si definiscono con la funzione prod(), essa
 		 * accetta come primo parametro un non terminale e poi una serie di
-		 * rhs() e oggetti Action la funzione rhs() rappresenta la parte destra
-		 * della produzione e accetta come parametri caratteri terminali o non
-		 * terminali, l'oggetto di tipo action deve definire il metodo a() che
-		 * viene chiamato appena viene fatta la riduzione
+		 * rhs(), new Action() { public istruzioni.funzioni.A a() { return null;
+		 * } }, e oggetti Action la funzione rhs(), new Action() { public
+		 * istruzioni.funzioni.A a() { return null; } }, rappresenta la parte
+		 * destra della produzione e accetta come parametri caratteri terminali
+		 * o non terminali, l'oggetto di tipo action deve definire il metodo a()
+		 * che viene chiamato appena viene fatta la riduzione
 		 */
 		grammar(
 
@@ -150,14 +152,16 @@ public class ParserSpec extends CUP2Specification {
 										n);
 							}
 						}),
-	
-				prod(A, 
-					rhs(), new Action() { 
+
+				prod(A, rhs(), new Action() {
 					public istruzioni.funzioni.A a() {
 						return null;
-						}
-				}, 	
-					rhs(A2), new Action() {
+					}
+				}, new Action() {
+					public istruzioni.funzioni.A a() {
+						return null;
+					}
+				}, rhs(A2), new Action() {
 					public istruzioni.funzioni.A a(istruzioni.funzioni.A2 a2) {
 						return a2;
 					}
@@ -267,20 +271,21 @@ public class ParserSpec extends CUP2Specification {
 							}
 						},
 						rhs(LEGGI, IDENTIFICATORE, PARENTESI_QUADRA_APERTA, E,
-								PARENTESI_QUADRA_CHIUSA), new Action() {
+								PARENTESI_QUADRA_CHIUSA),
+						new Action() {
 							public istruzioni.I a(String id,
 									istruzioni.espressioni.E indice) {
 								return new LetturaTastieraElementoVettore(id,
 										indice);
 							}
 						},
-						rhs(IDENTIFICATORE, PARENTESI_TONDA_APERTA, W, PARENTESI_TONDA_CHIUSA),
-						new Action() {
-							public istruzioni.I a(String id, istruzioni.espressioni.W w) {
+						rhs(IDENTIFICATORE, PARENTESI_TONDA_APERTA, W,
+								PARENTESI_TONDA_CHIUSA), new Action() {
+							public istruzioni.I a(String id,
+									istruzioni.espressioni.W w) {
 								return new ChiamaFunzioneSenzaRitorno(id, w);
 							}
-						}
-						),
+						}),
 				prod(C, rhs(SE, B, DUE_PUNTI, N, PUNTO), new Action() {
 					public istruzioni.C a(istruzioni.logiche.B b, istruzioni.N n) {
 						return new CondizionaleSe(b, n);
@@ -386,7 +391,11 @@ public class ParserSpec extends CUP2Specification {
 
 						}),
 
-				prod(W, rhs(), rhs(W2), new Action() {
+				prod(W, rhs(), new Action() {
+					public istruzioni.espressioni.W a() {
+						return null;
+					}
+				}, rhs(W2), new Action() {
 					public istruzioni.espressioni.W a(
 							istruzioni.espressioni.W2 w2) {
 						return w2;
@@ -404,15 +413,13 @@ public class ParserSpec extends CUP2Specification {
 					}
 				}), prod(
 
-						U,
+				U,
 
-						rhs(E),
-						new Action() {
-							public istruzioni.espressioni.U a(
-									istruzioni.espressioni.E e) {
-								return e;
-							}
-						},
+				rhs(E), new Action() {
+					public istruzioni.espressioni.U a(istruzioni.espressioni.E e) {
+						return e;
+					}
+				},
 
 						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA,
 								PARENTESI_QUADRA_CHIUSA), new Action() {
