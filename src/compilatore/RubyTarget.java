@@ -280,7 +280,7 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void se(Espressione ex, Blocco codice) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
-		ps.print("if");
+		ps.print("if ");
 		ex.scriviCodice(this);
 		ps.print("\n");
 		codice.scriviCodice(this);
@@ -333,7 +333,7 @@ public class RubyTarget extends ScrittoreTarget {
 			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		mappaDimensioneVettori.put(identificatore, dimensione);
-		ps.print(identificatore + "[" + dimensione + "]\n");
+		ps.print(identificatore + "= [" + dimensione + "]\n");
 	}
 
 	/*
@@ -390,7 +390,7 @@ public class RubyTarget extends ScrittoreTarget {
 			if (tipo.equals("intero")) {
 				stringaParametri.append(nomeParametro + ", ");
 			} else {
-				stringaParametri.append(nomeParametro + "[], "
+				stringaParametri.append(nomeParametro + ", "
 						+ nomeEtipo[2] + ", ");
 			} 
 		}
