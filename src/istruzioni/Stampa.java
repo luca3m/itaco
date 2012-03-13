@@ -1,4 +1,4 @@
-package istruzioni;
+package istruzioni;import compilatore.SemanticException;
 
 import compilatore.ScrittoreTarget;
 
@@ -11,7 +11,7 @@ public class Stampa implements I {
 		this.espressione = espressione;
 	}
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.stampa(espressione);
 	}
 	

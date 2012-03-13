@@ -1,4 +1,4 @@
-package istruzioni;
+package istruzioni;import compilatore.SemanticException;
 
 import compilatore.Produzione;
 

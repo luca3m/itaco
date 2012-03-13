@@ -1,6 +1,7 @@
 package istruzioni.espressioni;
 
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
 public class ElementoVettore implements F {
 	private String nomeVettore;
@@ -12,7 +13,7 @@ public class ElementoVettore implements F {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.caricaElementoVettore(nomeVettore, indice);
 	}
 }

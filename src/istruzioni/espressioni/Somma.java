@@ -1,6 +1,7 @@
 package istruzioni.espressioni;
 
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
 public class Somma implements E {
 	private E addendo1;
@@ -11,7 +12,7 @@ public class Somma implements E {
 		this.addendo2 = parteDestra;
 	}
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.somma(addendo1, addendo2);
 	}
 }

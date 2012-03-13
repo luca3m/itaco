@@ -1,6 +1,7 @@
 package istruzioni.funzioni;
 
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
 import istruzioni.I;
 import istruzioni.espressioni.F;
@@ -17,7 +18,7 @@ public class ChiamaFunzione implements F,I {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.eseguiFunzione(id, argomenti);
 	}
 

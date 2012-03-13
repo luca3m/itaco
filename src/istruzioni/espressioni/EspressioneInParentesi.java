@@ -1,6 +1,7 @@
 package istruzioni.espressioni;
 
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
 public class EspressioneInParentesi implements F {
 	private E espressione;
@@ -10,7 +11,7 @@ public class EspressioneInParentesi implements F {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.espressioneInParentesi(espressione);
 	}
 	

@@ -2,6 +2,7 @@ package istruzioni.logiche;
 
 import istruzioni.espressioni.E;
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
 public class Uguaglianza implements B {
 	private E parteSinistra;
@@ -13,7 +14,7 @@ public class Uguaglianza implements B {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.uguaglianza(parteSinistra, parteDestra);
 	}
 }
