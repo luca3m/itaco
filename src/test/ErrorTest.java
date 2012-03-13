@@ -57,9 +57,14 @@ public class ErrorTest {
 	public void testDoppiaDefinizioneVariabile() {
 		testFallimentoCompilazione("doppiaDefinizioneVariabile");
 	}
+	
 	@Test
 	public void testUsoVariabileNonAssegnata() {
 		testFallimentoCompilazione("usoVariabileNonAssegnata");
 	}
 	
+	@Test
+	public void testAssegnamentoValoreDiUnaFunzioneVoid() {
+		testFallimentoCompilazione("assegnamentoValoreDiUnaFunzioneVoid");
+	}
 }

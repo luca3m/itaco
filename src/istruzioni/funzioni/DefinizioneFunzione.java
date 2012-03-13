@@ -37,7 +37,9 @@ public class DefinizioneFunzione implements Z {
 		// mettere il controllo se il valore di ritorno è null la f non ritorna
 		// valori
 		List<String> listaArgomenti = new LinkedList<String>();
-		argomenti.aggiungiALista(listaArgomenti);
+		if (argomenti!= null) {
+			argomenti.aggiungiALista(listaArgomenti);
+		}
 		sc.definisciFunzione(nomeFunzione,listaArgomenti.toArray(new String[0]), idValoreRitorno, codiceFunzione);
 	}
 

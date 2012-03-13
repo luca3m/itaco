@@ -493,6 +493,9 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void eseguiFunzione(String nome, Espressione parametri) throws SemanticException {
+		if (parametriFunzioni.get(nome).endsWith("V")) {
+			throw new SemanticException(String.format("È stata usata in una espressione la funzione %s che non ritorna valori", nome));
+		}
 		parametri.scriviCodice(this);
 		bufferOutput.printf("invokestatic %s/%s%s\n", className, nome, parametriFunzioni.get(nome));
 	}

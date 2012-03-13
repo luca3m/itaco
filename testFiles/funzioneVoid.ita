@@ -1,0 +1,4 @@
+funzione void():
+	scrivi "Ciao".
+
+void().
