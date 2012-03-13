@@ -87,7 +87,7 @@ public class CTarget extends ScrittoreTarget {
 	@Override
 	public void costante(String stringa) throws SemanticException {
 		// TODO Auto-generated method stub
-		ps.print("\"" + stringa.replaceAll("\\", "\\\\") + "\"");
+		ps.print("\"" + stringa.replaceAll("\n","\\\\n") + "\"");
 	}
 
 	/*
@@ -224,7 +224,9 @@ public class CTarget extends ScrittoreTarget {
 	@Override
 	public void stampa(String stringa) throws SemanticException {
 		// TODO Auto-generated method stub
-		ps.print("printf(\"" + stringa + "\");\n");
+		ps.print("printf(");
+		costante(stringa);
+		ps.print(");\n");
 	}
 
 	/*
@@ -392,11 +394,27 @@ public class CTarget extends ScrittoreTarget {
 	public void eseguiFunzione(String nome, Espressione parametri) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print(nome+"(");
+		PrintStream psSaved = ps;
+		ps = new AggiungiVirgola(psSaved);
 		parametri.scriviCodice(this);
+		ps = psSaved;
+		
 		//FIXME
 		ps.print(")");
 	}
 
+	private static class AggiungiVirgola extends PrintStream {
+		
+		AggiungiVirgola(PrintStream ps) {
+			super(ps);
+		}
+		
+		@Override
+		public void print(String s) {
+			super.print(s);
+			super.print(",");
+		}
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -421,6 +439,7 @@ public class CTarget extends ScrittoreTarget {
 		// TODO Auto-generated method stub
 		ps.print("main() {\n");
 		codice.scriviCodice(this);
+		stampa("\n");
 		ps.print("\n}");
 	}
 
