@@ -2,4 +2,6 @@
 bin
 *.class
 *~
-prova*.*
+prova.j
+prova.c
+prova.class
