@@ -4,6 +4,10 @@ import compilatore.ScrittoreTarget;
 
 import istruzioni.espressioni.E;
 
+/**
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class Stampa implements I {
 	private E espressione;
 

@@ -1,7 +1,10 @@
-package istruzioni;import compilatore.SemanticException;
+package istruzioni;import compilatore.Blocco;
 
-import compilatore.Blocco;
-
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public interface N extends Blocco, Z  {
 
 }

@@ -3,6 +3,11 @@ package istruzioni.espressioni;
 import compilatore.ScrittoreTarget;
 import compilatore.SemanticException;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class Divisione implements T {
 	private T dividendo;
 	private F divisore;

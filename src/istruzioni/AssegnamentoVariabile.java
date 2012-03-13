@@ -4,6 +4,10 @@ import compilatore.ScrittoreTarget;
 
 import istruzioni.espressioni.E;
 
+/**
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class AssegnamentoVariabile implements I {
 	private String identificatore;
 	private E espressione;

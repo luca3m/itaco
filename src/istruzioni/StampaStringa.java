@@ -2,8 +2,11 @@ package istruzioni;import compilatore.SemanticException;
 
 import compilatore.ScrittoreTarget;
 
-import istruzioni.espressioni.E;
-
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class StampaStringa implements I {
 private String stringa;
 	

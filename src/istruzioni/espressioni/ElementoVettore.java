@@ -3,6 +3,11 @@ package istruzioni.espressioni;
 import compilatore.ScrittoreTarget;
 import compilatore.SemanticException;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class ElementoVettore implements F {
 	private String nomeVettore;
 	private E indice;

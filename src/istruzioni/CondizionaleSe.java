@@ -2,9 +2,13 @@ package istruzioni;import compilatore.SemanticException;
 
 import compilatore.ScrittoreTarget;
 
-import istruzioni.espressioni.E;
 import istruzioni.logiche.B;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class CondizionaleSe implements C {
 	private B condizione;
 	private N blocco;

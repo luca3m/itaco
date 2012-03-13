@@ -7,6 +7,11 @@ import istruzioni.I;
 import istruzioni.espressioni.F;
 import istruzioni.espressioni.W;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class ChiamaFunzione implements F,I {
 
 	private String id;

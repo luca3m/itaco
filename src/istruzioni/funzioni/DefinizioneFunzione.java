@@ -8,7 +8,11 @@ import compilatore.SemanticException;
 
 import istruzioni.N;
 import istruzioni.Z;
-
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class DefinizioneFunzione implements Z {
 
 	private String nomeFunzione;

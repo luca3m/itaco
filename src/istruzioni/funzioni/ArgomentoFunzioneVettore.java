@@ -4,6 +4,11 @@ import istruzioni.espressioni.U;
 import compilatore.ScrittoreTarget;
 import compilatore.SemanticException;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class ArgomentoFunzioneVettore implements U {
 	
 	private String nome;

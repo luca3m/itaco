@@ -1,7 +1,10 @@
 package istruzioni.espressioni;
 
-import compilatore.Produzione;
-
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public interface T extends E {
 
 }

@@ -4,6 +4,11 @@ import compilatore.ScrittoreTarget;
 
 import istruzioni.logiche.B;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class CicloFinche extends Object implements C {
 	private B condizione;
 	private N blocco;

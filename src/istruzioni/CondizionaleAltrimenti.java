@@ -1,10 +1,13 @@
-package istruzioni;import compilatore.SemanticException;
+package istruzioni;import istruzioni.logiche.B;
 
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
-import istruzioni.espressioni.E;
-import istruzioni.logiche.B;
-
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class CondizionaleAltrimenti implements C {
 	private B condizione;
 	private N blocco1;

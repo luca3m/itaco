@@ -2,6 +2,11 @@ package istruzioni;import compilatore.SemanticException;
 
 import compilatore.ScrittoreTarget;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class DefinizioneVettore implements I {
 	private String identificatore;
 	private Integer dimensione;

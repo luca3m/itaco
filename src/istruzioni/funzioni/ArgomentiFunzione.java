@@ -6,6 +6,11 @@ import compilatore.SemanticException;
 import istruzioni.espressioni.U;
 import istruzioni.espressioni.W2;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class ArgomentiFunzione implements W2 {
 
 	private U argomentoPrecedente;

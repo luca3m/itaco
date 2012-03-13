@@ -2,7 +2,11 @@ package istruzioni.espressioni;
 
 import compilatore.ScrittoreTarget;
 import compilatore.SemanticException;
-
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class Somma implements E {
 	private E addendo1;
 	private T addendo2;
