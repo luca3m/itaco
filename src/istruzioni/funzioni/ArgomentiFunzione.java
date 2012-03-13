@@ -1,7 +1,7 @@
 package istruzioni.funzioni;
 
 import compilatore.ScrittoreTarget;
-import compilatore.SemanticException;
+import compilatore.EccezioneSemantica;
 
 import istruzioni.espressioni.U;
 import istruzioni.espressioni.W2;
@@ -22,7 +22,7 @@ public class ArgomentiFunzione implements W2 {
 	}
 	
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
+	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
 		argomentoPrecedente.scriviCodice(sc);
 		argomentiSuccessivi.scriviCodice(sc);
 	}

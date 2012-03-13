@@ -1,7 +1,7 @@
 package istruzioni;import istruzioni.logiche.B;
 
 import compilatore.ScrittoreTarget;
-import compilatore.SemanticException;
+import compilatore.EccezioneSemantica;
 
 /**
  * 
@@ -20,7 +20,7 @@ public class CondizionaleAltrimenti implements C {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
+	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
 		sc.seAltrimenti(condizione, blocco1, blocco2);
 	}
 }

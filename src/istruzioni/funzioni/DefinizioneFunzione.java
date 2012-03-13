@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import compilatore.ScrittoreTarget;
-import compilatore.SemanticException;
+import compilatore.EccezioneSemantica;
 
 import istruzioni.N;
 import istruzioni.Z;
@@ -36,7 +36,7 @@ public class DefinizioneFunzione implements Z {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
+	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		// mettere il controllo se il valore di ritorno è null la f non ritorna
 		// valori

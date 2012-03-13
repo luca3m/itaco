@@ -1,6 +1,3 @@
-/**
- * 
- */
 package compilatore;
 
 import istruzioni.S;
@@ -19,16 +16,31 @@ import edu.tum.cup2.parser.LRParser;
 import edu.tum.cup2.parser.tables.LRParsingTable;
 
 /**
- * @author ale
+ * Classe che genera codice C dato un AST La classe viene usata tramite il
+ * metodo 
+ * public static void compilaFile(String percorsoFile)
+ * 
+ * @author Alessandro, Luca, Saro
  * 
  */
 public class CTarget extends ScrittoreTarget {
 
-	private HashMap<String, Integer> mappaDimensioneVettori= new HashMap<String, Integer>();
+	private HashMap<String, Integer> mappaDimensioneVettori = new HashMap<String, Integer>();
 	private PrintStream ps;
 
-	public CTarget(OutputStream o) throws SemanticException {
+	/**
+	 * Costruttore che richiede un stream di uscita per salvare il codice
+	 * generato Il costruttore è privato per evitare istanziazioni esterne
+	 * 
+	 * @param o
+	 *            stream in cui il codice è salvato
+	 * @throws EccezioneSemantica
+	 */
+	private CTarget(OutputStream o) throws EccezioneSemantica {
 		this.ps = new PrintStream(o);
+		/**
+		 * Inserimento delle librerie standard C
+		 */
 		ps.println("#include <stdio.h>\n#include <stdlib.h>\n");
 	}
 
@@ -38,9 +50,9 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#registraVariabile(java.lang.String)
 	 */
 	@Override
-	public void registraVariabile(String nome) throws SemanticException {
+	public void registraVariabile(String nome) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
-		ps.print("int "+nome+";\n");
+		ps.print("int " + nome + "=0;\n");
 	}
 
 	/*
@@ -49,7 +61,7 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#caricaVariabile(java.lang.String)
 	 */
 	@Override
-	public void caricaVariabile(String nome) throws SemanticException {
+	public void caricaVariabile(String nome) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		ps.print(nome);
 	}
@@ -61,7 +73,8 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void storeInVariabile(String identificatore, Espressione valore) throws SemanticException {
+	public void storeInVariabile(String identificatore, Espressione valore)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		String linea = identificatore + " = ";
 		ps.printf(linea);
@@ -75,7 +88,7 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#costante(int)
 	 */
 	@Override
-	public void costante(int costante) throws SemanticException {
+	public void costante(int costante) throws EccezioneSemantica {
 		ps.print(costante);
 	}
 
@@ -85,9 +98,9 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#costante(java.lang.String)
 	 */
 	@Override
-	public void costante(String stringa) throws SemanticException {
+	public void costante(String stringa) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
-		ps.print("\"" + stringa + "\"");
+		ps.print("\"" + stringa.replaceAll("\n", "\\\\n") + "\"");
 	}
 
 	/*
@@ -97,7 +110,8 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void somma(Espressione addendo1, Espressione addendo2) throws SemanticException {
+	public void somma(Espressione addendo1, Espressione addendo2)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		addendo1.scriviCodice(this);
 		ps.print(" + ");
@@ -111,7 +125,8 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void sottrazione(Espressione minuendo, Espressione sottraendo) throws SemanticException {
+	public void sottrazione(Espressione minuendo, Espressione sottraendo)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		minuendo.scriviCodice(this);
 		ps.print(" - ");
@@ -125,7 +140,8 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void prodotto(Espressione fattore1, Espressione fattore2) throws SemanticException {
+	public void prodotto(Espressione fattore1, Espressione fattore2)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		fattore1.scriviCodice(this);
 		ps.print(" * ");
@@ -139,7 +155,8 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void divisione(Espressione dividendo, Espressione divisore) throws SemanticException {
+	public void divisione(Espressione dividendo, Espressione divisore)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		dividendo.scriviCodice(this);
 		ps.print(" / ");
@@ -153,7 +170,8 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void maggiore(Espressione parteSinistra, Espressione parteDestra) throws SemanticException {
+	public void maggiore(Espressione parteSinistra, Espressione parteDestra)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		parteSinistra.scriviCodice(this);
 		ps.print(" > ");
@@ -167,7 +185,8 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void minore(Espressione parteSinistra, Espressione parteDestra) throws SemanticException {
+	public void minore(Espressione parteSinistra, Espressione parteDestra)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		parteSinistra.scriviCodice(this);
 		ps.print(" < ");
@@ -181,7 +200,8 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra) throws SemanticException {
+	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		parteSinistra.scriviCodice(this);
 		ps.print(" == ");
@@ -196,7 +216,8 @@ public class CTarget extends ScrittoreTarget {
 	 * )
 	 */
 	@Override
-	public void espressioneInParentesi(Espressione ex) throws SemanticException {
+	public void espressioneInParentesi(Espressione ex)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		ps.print("(");
 		ex.scriviCodice(this);
@@ -209,7 +230,7 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#stampa(compilatore.Espressione)
 	 */
 	@Override
-	public void stampa(Espressione espressione) throws SemanticException {
+	public void stampa(Espressione espressione) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		ps.print("printf(\"%d\",");
 		espressione.scriviCodice(this);
@@ -222,9 +243,11 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#stampa(java.lang.String)
 	 */
 	@Override
-	public void stampa(String stringa) throws SemanticException {
+	public void stampa(String stringa) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
-		ps.print("printf(\"" + stringa + "\");\n");
+		ps.print("printf(");
+		costante(stringa);
+		ps.print(");\n");
 	}
 
 	/*
@@ -233,7 +256,7 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#leggi(java.lang.String)
 	 */
 	@Override
-	public void leggi(String identificatore) throws SemanticException {
+	public void leggi(String identificatore) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		ps.print("scanf(\"%d\", &" + identificatore + ");\n");
 	}
@@ -245,7 +268,8 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void leggiElementoVettore(String identificatore, Espressione indice) throws SemanticException {
+	public void leggiElementoVettore(String identificatore, Espressione indice)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		ps.print("scanf(\"%d\", " + identificatore + "+");
 		indice.scriviCodice(this);
@@ -259,7 +283,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Blocco)
 	 */
 	@Override
-	public void se(Espressione ex, Blocco codice) throws SemanticException {
+	public void se(Espressione ex, Blocco codice) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		ps.print("if(");
 		ex.scriviCodice(this);
@@ -276,7 +300,7 @@ public class CTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void seAltrimenti(Espressione ex, Blocco codice,
-			Blocco codiceAltrimenti) throws SemanticException {
+			Blocco codiceAltrimenti) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		se(ex, codice);
 		ps.print("else {\n");
@@ -291,7 +315,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Blocco)
 	 */
 	@Override
-	public void finche(Espressione ex, Blocco codice) throws SemanticException {
+	public void finche(Espressione ex, Blocco codice) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		ps.print("while(");
 		ex.scriviCodice(this);
@@ -307,7 +331,8 @@ public class CTarget extends ScrittoreTarget {
 	 * java.lang.Integer)
 	 */
 	@Override
-	public void definisciVettore(String identificatore, Integer dimensione) throws SemanticException {
+	public void definisciVettore(String identificatore, Integer dimensione)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		mappaDimensioneVettori.put(identificatore, dimensione);
 		ps.print("int " + identificatore + "[" + dimensione + "];\n");
@@ -320,7 +345,8 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void caricaElementoVettore(String identificatore, Espressione indice) throws SemanticException {
+	public void caricaElementoVettore(String identificatore, Espressione indice)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		ps.print(identificatore + "[");
 		indice.scriviCodice(this);
@@ -335,7 +361,7 @@ public class CTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void storeElementoVettore(String identificatore, Espressione indice,
-			Espressione elemento) throws SemanticException {
+			Espressione elemento) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		ps.print(identificatore + "[");
 		indice.scriviCodice(this);
@@ -352,25 +378,27 @@ public class CTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void definisciFunzione(String nome, String[] ingressi,
-			String uscita, Blocco codice) throws SemanticException {
+			String uscita, Blocco codice) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		if (uscita == null) {
 			ps.print("void ");
-		}
-		else ps.print("int ");
+		} else
+			ps.print("int ");
 		ps.print(nome);
 		StringBuilder stringaParametri = new StringBuilder("(");
-		for ( String variabile : ingressi) {
+		for (String variabile : ingressi) {
 			String[] nomeEtipo = variabile.split(":");
 			String nomeParametro = nomeEtipo[0];
 			String tipo = nomeEtipo[1];
 			if (tipo.equals("intero")) {
-				stringaParametri.append("int "+ nomeParametro+", ");
+				stringaParametri.append("int " + nomeParametro + ", ");
 			} else {
-				stringaParametri.append("int "+ nomeParametro+"[] , int "+nomeEtipo[2]+", ");
+				stringaParametri.append("int " + nomeParametro + "[] , int "
+						+ nomeEtipo[2] + ", ");
 			}
 		}
-		stringaParametri.delete(stringaParametri.length()-2, stringaParametri.length());
+		stringaParametri.delete(stringaParametri.length() - 2,
+				stringaParametri.length());
 		ps.print(stringaParametri);
 		ps.print("){\n");
 		if (uscita != null)
@@ -389,12 +417,30 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void eseguiFunzione(String nome, Espressione parametri) throws SemanticException {
+	public void eseguiFunzione(String nome, Espressione parametri)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
-		ps.print(nome+"(");
+		ps.print(nome + "(");
+		PrintStream psSaved = ps;
+		ps = new AggiungiVirgola(psSaved);
 		parametri.scriviCodice(this);
-		//FIXME
+		ps = psSaved;
+
+		// FIXME
 		ps.print(")");
+	}
+
+	private static class AggiungiVirgola extends PrintStream {
+
+		AggiungiVirgola(PrintStream ps) {
+			super(ps);
+		}
+
+		@Override
+		public void print(String s) {
+			super.print(s);
+			super.print(",");
+		}
 	}
 
 	/*
@@ -405,7 +451,8 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void eseguiFunzioneSenzaRitorno(String nome, Espressione parametri) throws SemanticException {
+	public void eseguiFunzioneSenzaRitorno(String nome, Espressione parametri)
+			throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		eseguiFunzione(nome, parametri);
 		ps.print(";\n");
@@ -417,10 +464,11 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#scriviMain(compilatore.Blocco)
 	 */
 	@Override
-	public void scriviMain(Blocco codice) throws SemanticException {
+	public void scriviMain(Blocco codice) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		ps.print("main() {\n");
 		codice.scriviCodice(this);
+		stampa("\n");
 		ps.print("\n}");
 	}
 
@@ -430,7 +478,7 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#caricaVettore(java.lang.String)
 	 */
 	@Override
-	public void caricaVettore(String nome) throws SemanticException {
+	public void caricaVettore(String nome) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		ps.print(nome);
 	}
@@ -442,63 +490,53 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.ScrittoreTarget#caricaDimensioneVettore(java.lang.String)
 	 */
 	@Override
-	public void caricaDimensioneVettore(String nome) throws SemanticException {
+	public void caricaDimensioneVettore(String nome) throws EccezioneSemantica {
 		// TODO Auto-generated method stub
 		int dimensione = mappaDimensioneVettori.get(nome);
 		ps.print(dimensione);
 	}
 
+	/**
+	 * Esegue tutte le operazioni per generare il file conetenete il codice C e
+	 * salva il codice sul file specificato
+	 * 
+	 * @param percorsoFile
+	 *            percorso del file che conterrà il codice sorgente
+	 * @throws Exception
+	 */
 	public static void compilaFile(String percorsoFile) throws Exception {
-	File sorgenteFile = new File(percorsoFile);
+		File sorgenteFile = new File(percorsoFile);
 
-	// Genero l'AST
-	LALR1Generator generator = new LALR1Generator(new ParserSpec()); // we
-																		// want
-																		// to
-																		// use
-																		// LALR(1)
-	LRParsingTable table = generator.getParsingTable(); // get the resulting
-														// parsing table
-	LRParser parser = new LRParser(table); // create a new LR parser using
-											// our table
-	S result = (S) parser.parse(new Scanner(new FileReader(sorgenteFile))); // apply
-																			// parser
-																			// to
-																			// a
-																			// token
-																			// stream
-
-	// Genero il codice assembly Jasmin
-	String nomeClasse = sorgenteFile.getName().split("\\.")[0];
-	File sorgenteC;
-	if (sorgenteFile.getParent() != null) {
-		sorgenteC = new File(sorgenteFile.getParent() + File.separator + nomeClasse + ".c");
-	} else {
-		sorgenteC = new File(nomeClasse + ".c");
+		/**
+		 * Creo un parser LALR1
+		 */
+		LALR1Generator generator = new LALR1Generator(new ParserSpec());
+		/**
+		 * Prendi la parsing table generata
+		 */
+		LRParsingTable table = generator.getParsingTable();
+		/**
+		 * Crea un parser LR dalla tabella generata
+		 */
+		LRParser parser = new LRParser(table);
+		/**
+		 * Usa il parser per generare l'AST dallo stream di token passati dallo
+		 * scanner
+		 */
+		S result = (S) parser.parse(new Scanner(new FileReader(sorgenteFile)));
+		/**
+		 * Genero il codice C
+		 */
+		String nomeClasse = sorgenteFile.getName().split("\\.")[0];
+		File sorgenteC;
+		if (sorgenteFile.getParent() != null) {
+			sorgenteC = new File(sorgenteFile.getParent() + File.separator
+					+ nomeClasse + ".c");
+		} else {
+			sorgenteC = new File(nomeClasse + ".c");
+		}
+		FileOutputStream sorgenteCStream = new FileOutputStream(sorgenteC);
+		CTarget ct = new CTarget(sorgenteCStream);
+		result.scriviCodice(ct);
 	}
-	FileOutputStream sorgenteCStream = new FileOutputStream(sorgenteC);
-	CTarget ct = new CTarget(sorgenteCStream);
-	result.scriviCodice(ct);
-
-	// Genero il bytecode
-//	String percorsoFileClass;
-//	if (sorgenteFile.getParent() != null) throws SemanticException {
-//		percorsoFileClass = sorgenteFile.getParent() + File.separator
-//				+ nomeClasse + ".class";
-//	} else {
-//		percorsoFileClass = nomeClasse + ".class";
-//	}
-//	// Oggetto della libreria Jasmin che si occupa di generare il file
-//	// .class
-//	ClassFile classFile = new ClassFile();
-//	// Questa chiamata rocambolesca converte l'output a byte del nostro
-//	// codice Jasmin in input a caratteri
-//	// necessario per la libreria Jasmin
-//	CharArrayReader assemblyInput = new CharArrayReader(new String(
-//			sorgenteCStream.toByteArray()).toCharArray());
-//	classFile.readJasmin(assemblyInput, sorgenteFile.getName(), false);
-//	FileOutputStream classFOut = new FileOutputStream(percorsoFileClass);
-//	classFile.write(classFOut);
-//	classFOut.close();
-}
 }

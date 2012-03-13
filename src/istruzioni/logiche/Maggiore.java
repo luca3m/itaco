@@ -2,7 +2,7 @@ package istruzioni.logiche;
 
 import istruzioni.espressioni.E;
 import compilatore.ScrittoreTarget;
-import compilatore.SemanticException;
+import compilatore.EccezioneSemantica;
 
 /**
  * 
@@ -17,7 +17,7 @@ public class Maggiore implements B {
 		this.parteDestra = parteDestra;
 	}
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
+	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
 		sc.maggiore(parteSinistra, parteDestra);
 	}
 }
