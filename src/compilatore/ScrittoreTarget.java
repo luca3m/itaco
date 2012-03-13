@@ -2,7 +2,7 @@ package compilatore;
 
 public abstract class ScrittoreTarget {
 	
-	public abstract boolean registraVariabile(String nome) throws SemanticException;
+	public abstract void registraVariabile(String nome) throws SemanticException;
 
 	/**
 	 * Scrivi l'istruzione per caricare il valore della variabile nello stack

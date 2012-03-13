@@ -38,19 +38,18 @@ public class JasminTarget extends ScrittoreTarget {
 	private int contatoreVariabiliCorrente = START_ID;
 	private int contatoreVariabiliGlobali = contatoreVariabiliCorrente;
 
-	public boolean registraVariabile(String nome) throws SemanticException {
+	public void registraVariabile(String nome) throws SemanticException {
 		if (tabellaSimboliCorrente.containsKey(nome)) {
-			return false;
+			throw new SemanticException(String.format("La variabile %s è già stata definita", nome));
 		}
 		tabellaSimboliCorrente.put(nome, contatoreVariabiliCorrente++);
-		return true;
 	}
 
 	protected int idVariabile(String nome) throws SemanticException {
 		if (tabellaSimboliCorrente.containsKey(nome)) {
 			return tabellaSimboliCorrente.get(nome);
 		} else
-			return -1;
+			throw new SemanticException(String.format("La variabile %s non è stata definita", nome));
 	}
 
 	protected int numeroVariabili() throws SemanticException {
@@ -375,9 +374,10 @@ public class JasminTarget extends ScrittoreTarget {
 	
 	@Override
 	public void definisciVettore(String identificatore, Integer dimensione) throws SemanticException {
-		boolean status = registraVariabile(identificatore + "[]");
-		if (status == false) {
-			// FIXME: lanciare una eccezione
+		try {
+			registraVariabile(identificatore + "[]");
+		} catch (SemanticException ex) {
+			throw new SemanticException(String.format("Il vettore %s è già stato definito", identificatore));
 		}
 		int id = idVariabile(identificatore + "[]");
 		dimensioneVettori.put(identificatore, dimensione);
@@ -428,7 +428,6 @@ public class JasminTarget extends ScrittoreTarget {
 	    try {
 			writeContentOfStub("preMainStub.j", "%className", className);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		svuotaBuffer();
@@ -501,7 +500,11 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void caricaVettore(String nome) throws SemanticException {
-		bufferOutput.println("aload " + idVariabile(nome + "[]"));
+		try {
+			bufferOutput.println("aload " + idVariabile(nome + "[]"));
+		} catch (SemanticException ex) {
+			throw new SemanticException(String.format("Il vettore %s non è stato definito", nome));
+		}
 	}
 
 	@Override
