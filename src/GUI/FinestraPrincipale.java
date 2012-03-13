@@ -11,9 +11,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import compilatore.EccezioneSemantica;
 import compilatore.JasminException;
 import compilatore.JasminTarget;
-import compilatore.SemanticException;
 import edu.tum.cup2.generator.exceptions.GeneratorException;
 import edu.tum.cup2.parser.exceptions.LRParserException;
 
@@ -129,7 +129,7 @@ public class FinestraPrincipale extends JFrame {
 		} catch (JasminException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (SemanticException e) {
+		} catch (EccezioneSemantica e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
