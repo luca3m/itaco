@@ -1,7 +1,9 @@
 #Questo programma di esempio mostra l'utilizzo
 #di input e output standard
 
+0 -> intero n,
 scrivi "Inserire un numero:\n",
-leggi intero n,
+leggi n,
 scrivi "il numero inserito è:\n",
-scrivi n.
+scrivi n,
+scrivi "\n".
