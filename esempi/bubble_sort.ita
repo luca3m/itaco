@@ -26,13 +26,11 @@ finche n < 3:
 	scrivi "Inserisci un numero\n",
 	leggi vet[n],
 	n+1 -> n.
-BubbleSort(n),
+BubbleSort(vet[]),
 0 -> intero n2,
 finche n2 < 3:
 	scrivi vet[n2],
 	scrivi " ",
 	n2+1-> n2.
 .
-	
-	
-	
+		
