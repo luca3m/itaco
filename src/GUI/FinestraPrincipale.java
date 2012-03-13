@@ -20,6 +20,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.swing.ImageIcon;
 
 public class FinestraPrincipale extends JFrame {
 
@@ -47,66 +48,64 @@ public class FinestraPrincipale extends JFrame {
 	public FinestraPrincipale() {
 		setTitle("ITAco");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 803, 753);
+		setBounds(100, 100, 1024, 750);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblCodiceDaEseguire = new JLabel("Codice da compilare:");
-		lblCodiceDaEseguire.setBounds(48, 315, 132, 16);
-		contentPane.add(lblCodiceDaEseguire);
-		
 		JTextPane Panecodice = new JTextPane();
-		Panecodice.setBounds(48, 336, 461, 196);
+		Panecodice.setBounds(199, 55, 795, 454);
 		contentPane.add(Panecodice);
 		
 		JButton btnNewButton = new JButton("Compila ed Esegui");
-		btnNewButton.setBounds(552, 336, 225, 34);
+		btnNewButton.setBounds(29, 289, 104, 104);
 		contentPane.add(btnNewButton);
 		
 		JButton btnGeneraFile = new JButton("Compila");
-		btnGeneraFile.setBounds(552, 375, 225, 34);
+		btnGeneraFile.setBounds(29, 171, 104, 104);
 		contentPane.add(btnGeneraFile);
 		
 		JButton btnPulisci = new JButton("Pulisci");
-		btnPulisci.setBounds(552, 414, 225, 34);
+		btnPulisci.setBounds(29, 55, 104, 104);
 		contentPane.add(btnPulisci);
 		
 		JCheckBox chckbxFileJasmin = new JCheckBox("Genera file Jasmin");
-		chckbxFileJasmin.setBounds(552, 453, 225, 23);
+		chckbxFileJasmin.setBounds(19, 430, 225, 23);
 		contentPane.add(chckbxFileJasmin);
 		
 		JCheckBox chckbxGeneraFilePython = new JCheckBox("Genera file Python");
-		chckbxGeneraFilePython.setBounds(552, 481, 225, 23);
+		chckbxGeneraFilePython.setBounds(19, 458, 225, 23);
 		contentPane.add(chckbxGeneraFilePython);
 		
 		JCheckBox chckbxGeneraFileJava = new JCheckBox("Genera file Java");
-		chckbxGeneraFileJava.setBounds(552, 509, 225, 23);
+		chckbxGeneraFileJava.setBounds(19, 486, 225, 23);
 		contentPane.add(chckbxGeneraFileJava);
 		
 		JLabel lblLog = new JLabel("Log:");
-		lblLog.setBounds(48, 537, 27, 16);
+		lblLog.setBounds(199, 532, 27, 16);
 		contentPane.add(lblLog);
 		
 		JTextPane PaneLogger = new JTextPane();
-		PaneLogger.setBounds(48, 558, 729, 104);
+		PaneLogger.setBounds(199, 555, 795, 154);
 		contentPane.add(PaneLogger);
 		
-		JButton btnClear = new JButton("Pulisci");
-		btnClear.setBounds(48, 667, 357, 44);
-		contentPane.add(btnClear);
-		
-		JButton btnCompila = new JButton("Salva Log su File");
-		btnCompila.setBounds(410, 667, 367, 44);
-		contentPane.add(btnCompila);
-		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(28, 39, 129, 21);
+		menuBar.setBounds(0, 0, 1024, 23);
 		contentPane.add(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("New menu");
-		mnNewMenu.setBounds(28, 41, 95, 19);
-		contentPane.add(mnNewMenu);
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+		
+		JMenu mnNewMenu = new JMenu("Compila");
+		menuBar.add(mnNewMenu);
+		
+		JMenu mnHelp = new JMenu("Help");
+		menuBar.add(mnHelp);
+		
+		JLabel lblImg = new JLabel("");
+		lblImg.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/itaco2trasp.png")));
+		lblImg.setBounds(19, 555, 173, 138);
+		contentPane.add(lblImg);
 	}
 }
