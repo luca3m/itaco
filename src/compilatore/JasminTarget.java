@@ -359,7 +359,7 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void costante(String stringa) throws SemanticException {
-		bufferOutput.printf("ldc \"%s\"\n", stringa);
+		bufferOutput.printf("ldc \"%s\"\n", stringa.replaceAll("\\", "\\\\"));
 	}
 
 	@Override

@@ -158,4 +158,11 @@ public class JasminTest {
 		String[] outputPrevisto = { "Ciao" };
 		testFile("funzioneVoid", datiIngresso, outputPrevisto);
 	}
+	
+	@Test
+	public void testBubbleSort() {
+		String[] datiIngresso = { "10", "3" , "29",};
+		String[] outputPrevisto = { "3" , "10", "29"};
+		testFile("bubbleSort", datiIngresso, outputPrevisto);
+	}
 }

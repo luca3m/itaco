@@ -87,7 +87,7 @@ public class CTarget extends ScrittoreTarget {
 	@Override
 	public void costante(String stringa) throws SemanticException {
 		// TODO Auto-generated method stub
-		ps.print("\"" + stringa + "\"");
+		ps.print("\"" + stringa.replaceAll("\\", "\\\\") + "\"");
 	}
 
 	/*
