@@ -1,7 +1,13 @@
 package istruzioni.espressioni;
 
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class Divisione implements T {
 	private T dividendo;
 	private F divisore;
@@ -10,7 +16,7 @@ public class Divisione implements T {
 		this.divisore = divisore;
 	}
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.divisione(dividendo, divisore);
 	}
 	

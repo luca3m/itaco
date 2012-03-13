@@ -1,7 +1,12 @@
-package istruzioni;
+package istruzioni;import compilatore.SemanticException;
 
 import compilatore.ScrittoreTarget;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class LetturaDaTastiera implements I {
 	String identificatore;
 
@@ -9,7 +14,7 @@ public class LetturaDaTastiera implements I {
 		this.identificatore = identificatore;
 	}
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		// TODO Auto-generated method stub
 		sc.leggi(identificatore);
 	}

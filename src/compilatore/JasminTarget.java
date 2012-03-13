@@ -1,12 +1,14 @@
 package compilatore;
 
 import istruzioni.S;
+import jas.jasError;
 import jasmin.ClassFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.CharArrayReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,7 +20,9 @@ import java.util.Map;
 import main.ParserSpec;
 import main.Scanner;
 import edu.tum.cup2.generator.LALR1Generator;
+import edu.tum.cup2.generator.exceptions.GeneratorException;
 import edu.tum.cup2.parser.LRParser;
+import edu.tum.cup2.parser.exceptions.LRParserException;
 import edu.tum.cup2.parser.tables.LRParsingTable;
 
 public class JasminTarget extends ScrittoreTarget {
@@ -34,32 +38,31 @@ public class JasminTarget extends ScrittoreTarget {
 	private int contatoreVariabiliCorrente = START_ID;
 	private int contatoreVariabiliGlobali = contatoreVariabiliCorrente;
 
-	public boolean registraVariabile(String nome) {
+	public void registraVariabile(String nome) throws SemanticException {
 		if (tabellaSimboliCorrente.containsKey(nome)) {
-			return false;
+			throw new SemanticException(String.format("La variabile %s è già stata definita", nome));
 		}
 		tabellaSimboliCorrente.put(nome, contatoreVariabiliCorrente++);
-		return true;
 	}
 
-	protected int idVariabile(String nome) {
+	protected int idVariabile(String nome) throws SemanticException {
 		if (tabellaSimboliCorrente.containsKey(nome)) {
 			return tabellaSimboliCorrente.get(nome);
 		} else
-			return -1;
+			throw new SemanticException(String.format("La variabile %s non è stata definita", nome));
 	}
 
-	protected int numeroVariabili() {
+	protected int numeroVariabili() throws SemanticException {
 		return tabellaSimboliCorrente.size();
 	}
 
-	protected void pushScope() {
+	protected void pushScope() throws SemanticException {
 		tabellaSimboliCorrente = new HashMap<String, Integer>();
 		contatoreVariabiliGlobali = contatoreVariabiliCorrente;
 		contatoreVariabiliCorrente = 0;
 	}
 	
-	protected void popScope() {
+	protected void popScope() throws SemanticException {
 		tabellaSimboliCorrente = tabellaSimboliGlobale;
 		contatoreVariabiliCorrente = contatoreVariabiliGlobali;
 	}
@@ -128,46 +131,46 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void somma(Espressione addendo1, Espressione addendo2) {
+	public void somma(Espressione addendo1, Espressione addendo2) throws SemanticException {
 		addendo1.scriviCodice(this);
 		addendo2.scriviCodice(this);
 		bufferOutput.println("iadd");
 	}
 
 	@Override
-	public void caricaVariabile(String nome) {
+	public void caricaVariabile(String nome) throws SemanticException {
 		int id = idVariabile(nome);
 		bufferOutput.println("iload " + id);
 	}
 
 	@Override
-	public void costante(int costante) {
+	public void costante(int costante) throws SemanticException {
 		bufferOutput.println("ldc " + costante);
 	}
 
 	@Override
-	public void sottrazione(Espressione minuendo, Espressione sottraendo) {
+	public void sottrazione(Espressione minuendo, Espressione sottraendo) throws SemanticException {
 		minuendo.scriviCodice(this);
 		sottraendo.scriviCodice(this);
 		bufferOutput.println("isub");
 	}
 
 	@Override
-	public void prodotto(Espressione fattore1, Espressione fattore2) {
+	public void prodotto(Espressione fattore1, Espressione fattore2) throws SemanticException {
 		fattore1.scriviCodice(this);
 		fattore2.scriviCodice(this);
 		bufferOutput.println("imul");
 	}
 
 	@Override
-	public void divisione(Espressione dividendo, Espressione divisore) {
+	public void divisione(Espressione dividendo, Espressione divisore) throws SemanticException {
 		dividendo.scriviCodice(this);
 		divisore.scriviCodice(this);
 		bufferOutput.println("idiv");
 	}
 
 	@Override
-	public void maggiore(Espressione parteSinistra, Espressione parteDestra) {
+	public void maggiore(Espressione parteSinistra, Espressione parteDestra) throws SemanticException {
 		sottrazione(parteSinistra, parteDestra);
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
@@ -184,13 +187,13 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void minore(Espressione parteSinistra, Espressione parteDestra) {
+	public void minore(Espressione parteSinistra, Espressione parteDestra) throws SemanticException {
 		maggiore(parteDestra, parteSinistra);
 
 	}
 
 	@Override
-	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra) {
+	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra) throws SemanticException {
 		sottrazione(parteSinistra, parteDestra);
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
@@ -207,19 +210,19 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void stampa(Espressione espressione) {
+	public void stampa(Espressione espressione) throws SemanticException {
 		espressione.scriviCodice(this);
 		bufferOutput.println("invokestatic " + className + "/writeInt(I)V");
 	}
 
 	@Override
-	public void leggi(String identificatore) {
+	public void leggi(String identificatore) throws SemanticException {
 		bufferOutput.println("invokestatic " + className + "/readInt()I");
 		storeInVariabile(identificatore);
 	}
 
 	@Override
-	public void se(Espressione ex, Blocco b) {
+	public void se(Espressione ex, Blocco b) throws SemanticException {
 		ex.scriviCodice(this);
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
@@ -234,7 +237,7 @@ public class JasminTarget extends ScrittoreTarget {
 		bufferOutput.println(labelMaggiore2 + ": ");
 	}
 
-	public void seAltrimenti(Espressione ex, Blocco b1, Blocco b2) {
+	public void seAltrimenti(Espressione ex, Blocco b1, Blocco b2) throws SemanticException {
 		ex.scriviCodice(this);
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
@@ -251,24 +254,24 @@ public class JasminTarget extends ScrittoreTarget {
 
 	}
 
-	private void storeInVariabile(String identificatore) {
+	private void storeInVariabile(String identificatore) throws SemanticException {
 		int idVar = this.idVariabile(identificatore);
 		bufferOutput.println("istore " + idVar);
 	}
 
 	@Override
-	public void storeInVariabile(String identificatore, Espressione ex) {
+	public void storeInVariabile(String identificatore, Espressione ex) throws SemanticException {
 		ex.scriviCodice(this);
 		storeInVariabile(identificatore);
 	}
 
 	@Override
-	public void espressioneInParentesi(Espressione ex) {
+	public void espressioneInParentesi(Espressione ex) throws SemanticException {
 		ex.scriviCodice(this);
 	}
 
 	@Override
-	public void finche(Espressione ex, Blocco b) {
+	public void finche(Espressione ex, Blocco b) throws SemanticException {
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
 		String labelMaggiore3 = generaLabel();
@@ -284,8 +287,7 @@ public class JasminTarget extends ScrittoreTarget {
 		bufferOutput.println(labelMaggiore3 + ": ");
 	}
 
-	public static void compilaFile(String percorsoFile, boolean salvaAssembly)
-			throws Exception {
+	public static void compilaFile(String percorsoFile, boolean salvaAssembly) throws GeneratorException, FileNotFoundException, LRParserException, IOException, JasminException, SemanticException {
 
 		File sorgenteFile = new File(percorsoFile);
 
@@ -341,19 +343,27 @@ public class JasminTarget extends ScrittoreTarget {
 		// necessario per la libreria Jasmin
 		CharArrayReader assemblyInput = new CharArrayReader(new String(
 				jasminAssemblyBytes.toByteArray()).toCharArray());
-		classFile.readJasmin(assemblyInput, sorgenteFile.getName(), false);
+		try {
+			classFile.readJasmin(assemblyInput, sorgenteFile.getName(), false);
+		} catch (Exception e) {
+			throw new JasminException(e.getLocalizedMessage());
+		}
 		FileOutputStream classFOut = new FileOutputStream(percorsoFileClass);
-		classFile.write(classFOut);
+		try {
+			classFile.write(classFOut);
+		} catch (jasError e) {
+			throw new JasminException(e.getLocalizedMessage());
+		}
 		classFOut.close();
 	}
 
 	@Override
-	public void costante(String stringa) {
+	public void costante(String stringa) throws SemanticException {
 		bufferOutput.printf("ldc \"%s\"\n", stringa);
 	}
 
 	@Override
-	public void stampa(String stringa) {
+	public void stampa(String stringa) throws SemanticException {
 		costante(stringa);
 		bufferOutput.println("invokestatic " + className
 				+ "/writeString(Ljava/lang/String;)V");
@@ -363,10 +373,11 @@ public class JasminTarget extends ScrittoreTarget {
 	private Map<String, Integer> dimensioneVettori = new HashMap<String, Integer>();
 	
 	@Override
-	public void definisciVettore(String identificatore, Integer dimensione) {
-		boolean status = registraVariabile(identificatore + "[]");
-		if (status == false) {
-			// FIXME: lanciare una eccezione
+	public void definisciVettore(String identificatore, Integer dimensione) throws SemanticException {
+		try {
+			registraVariabile(identificatore + "[]");
+		} catch (SemanticException ex) {
+			throw new SemanticException(String.format("Il vettore %s è già stato definito", identificatore));
 		}
 		int id = idVariabile(identificatore + "[]");
 		dimensioneVettori.put(identificatore, dimensione);
@@ -376,7 +387,7 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void leggiElementoVettore(String identificatore, Espressione indice) {
+	public void leggiElementoVettore(String identificatore, Espressione indice) throws SemanticException {
 		bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
 		indice.scriviCodice(this);
 		bufferOutput.println("invokestatic " + className + "/readInt()I");
@@ -384,7 +395,7 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void caricaElementoVettore(String identificatore, Espressione indice) {
+	public void caricaElementoVettore(String identificatore, Espressione indice) throws SemanticException {
 		bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
 		indice.scriviCodice(this);
 		bufferOutput.println("iaload");
@@ -392,14 +403,14 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void storeElementoVettore(String identificatore, Espressione indice,
-			Espressione elemento) {
+			Espressione elemento) throws SemanticException {
 		bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
 		indice.scriviCodice(this);
 		elemento.scriviCodice(this);
 		bufferOutput.println("iastore");
 	}
 
-	public String generaLabel() {
+	public String generaLabel() throws SemanticException {
 		String labelCorrente = "L";
 		labelCorrente = labelCorrente + label;
 		label = label + 1;
@@ -407,7 +418,7 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void scriviMain(Blocco codice) {
+	public void scriviMain(Blocco codice) throws SemanticException {
 		outputFile.println(".method public static main([Ljava/lang/String;)V");
 	    outputFile.println(".limit stack 30");
 	   
@@ -417,7 +428,6 @@ public class JasminTarget extends ScrittoreTarget {
 	    try {
 			writeContentOfStub("preMainStub.j", "%className", className);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		svuotaBuffer();
@@ -431,7 +441,12 @@ public class JasminTarget extends ScrittoreTarget {
 	
 	@Override
 	public void definisciFunzione(String nome, String[] ingressi,
-			String uscita, Blocco codice) {
+			String uscita, Blocco codice) throws SemanticException {
+		// Se la funzione è stata definita già in precedenza
+		// lanciamo un'eccezione
+		if (parametriFunzioni.containsKey(nome)) {
+			throw new SemanticException(String.format("Funzione %s è già stata definita", nome));
+		}
 		pushScope();
 		outputFile.printf(".method public static %s", nome);
 		StringBuilder stringaParametri = new StringBuilder("(");
@@ -464,7 +479,7 @@ public class JasminTarget extends ScrittoreTarget {
 		codice.scriviCodice(this);
 		outputFile.println(".limit locals " + numeroVariabili());
 		
-		if (uscita != null) {
+		if (uscita != null)  {
 			caricaVariabile(uscita);
 			bufferOutput.println("ireturn");
 		} else {
@@ -477,25 +492,34 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void eseguiFunzione(String nome, Espressione parametri) {
+	public void eseguiFunzione(String nome, Espressione parametri) throws SemanticException {
+		if (parametriFunzioni.get(nome).endsWith("V")) {
+			throw new SemanticException(String.format("È stata usata in una espressione la funzione %s che non ritorna valori", nome));
+		}
 		parametri.scriviCodice(this);
 		bufferOutput.printf("invokestatic %s/%s%s\n", className, nome, parametriFunzioni.get(nome));
 	}
 
 
 	@Override
-	public void caricaVettore(String nome) {
-		bufferOutput.println("aload " + idVariabile(nome + "[]"));
+	public void caricaVettore(String nome) throws SemanticException {
+		try {
+			bufferOutput.println("aload " + idVariabile(nome + "[]"));
+		} catch (SemanticException ex) {
+			throw new SemanticException(String.format("Il vettore %s non è stato definito", nome));
+		}
 	}
 
 	@Override
-	public void caricaDimensioneVettore(String nome) {
+	public void caricaDimensioneVettore(String nome) throws SemanticException {
 		costante(dimensioneVettori.get(nome));
 	}
 
 	@Override
-	public void eseguiFunzioneSenzaRitorno(String nome, Espressione parametri) {
-		eseguiFunzione(nome, parametri);
+	public void eseguiFunzioneSenzaRitorno(String nome, Espressione parametri) throws SemanticException {
+		if (parametri != null)
+			parametri.scriviCodice(this);
+		bufferOutput.printf("invokestatic %s/%s%s\n", className, nome, parametriFunzioni.get(nome));
 		if (! parametriFunzioni.get(nome).endsWith("V")) {
 			bufferOutput.println("pop");
 		}

@@ -1,9 +1,14 @@
-package istruzioni;
+package istruzioni;import compilatore.SemanticException;
 
 import compilatore.ScrittoreTarget;
 
 import istruzioni.espressioni.E;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class AssegnamentoVettore implements I {
 	private String identificatore;
 	private E indice;
@@ -16,7 +21,7 @@ public class AssegnamentoVettore implements I {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.storeElementoVettore(identificatore, indice, espressione);
 	}
 	

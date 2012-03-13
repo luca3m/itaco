@@ -1,10 +1,16 @@
 package istruzioni.funzioni;
 
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
 import istruzioni.espressioni.U;
 import istruzioni.espressioni.W2;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class ArgomentiFunzione implements W2 {
 
 	private U argomentoPrecedente;
@@ -16,7 +22,7 @@ public class ArgomentiFunzione implements W2 {
 	}
 	
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		argomentoPrecedente.scriviCodice(sc);
 		argomentiSuccessivi.scriviCodice(sc);
 	}

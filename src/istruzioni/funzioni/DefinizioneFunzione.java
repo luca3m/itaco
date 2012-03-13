@@ -4,10 +4,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
 import istruzioni.N;
 import istruzioni.Z;
-
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class DefinizioneFunzione implements Z {
 
 	private String nomeFunzione;
@@ -31,12 +36,14 @@ public class DefinizioneFunzione implements Z {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		// TODO Auto-generated method stub
 		// mettere il controllo se il valore di ritorno è null la f non ritorna
 		// valori
 		List<String> listaArgomenti = new LinkedList<String>();
-		argomenti.aggiungiALista(listaArgomenti);
+		if (argomenti!= null) {
+			argomenti.aggiungiALista(listaArgomenti);
+		}
 		sc.definisciFunzione(nomeFunzione,listaArgomenti.toArray(new String[0]), idValoreRitorno, codiceFunzione);
 	}
 

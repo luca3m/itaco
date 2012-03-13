@@ -1,5 +1,5 @@
 1- Completare gui
+2- Logger
 2- Aggiungere altri scrittori target (ruby, C)
-3- Esempi codice notevoli (quick sort)
-4- Sistemare codice e commenti
-5- Eccezioni
+3- Sistemare codice e commenti
+4- Eccezioni, variabile già dichiarata

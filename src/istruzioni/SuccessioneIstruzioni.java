@@ -1,8 +1,13 @@
-package istruzioni;
+package istruzioni;import compilatore.SemanticException;
 
 import compilatore.Produzione;
 import compilatore.ScrittoreTarget;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class SuccessioneIstruzioni implements N {
 
 	private Produzione istruzionePrecedente;
@@ -15,7 +20,7 @@ public class SuccessioneIstruzioni implements N {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		// TODO Auto-generated method stub
 		istruzionePrecedente.scriviCodice(sc);
 		istruzioneSuccessiva.scriviCodice(sc);

@@ -27,7 +27,7 @@ public class JasminTest {
 		try {
 			JasminTarget.compilaFile(cartellaFileTest + nomeFileSorgente + ".ita", false);
 		} catch (Exception e) {
-			fail(String.format("Compilazione %s fallita\n:Errore:%s", nomeFileSorgente, e));
+			fail(String.format("Compilazione %s fallita\nErrore:%s", nomeFileSorgente, e));
 		}
 		
 		// Creo il processo java dove il programma verrà eseguito
@@ -150,5 +150,12 @@ public class JasminTest {
 		String[] datiIngresso = { "1", "2","3","4",};
 		String[] outputPrevisto = { "6", "7", "8", "9" };
 		testFile("funzioneVettori", datiIngresso, outputPrevisto);
+	}
+	
+	@Test
+	public void testFunzioneVoid() {
+		String[] datiIngresso = {};
+		String[] outputPrevisto = { "Ciao" };
+		testFile("funzioneVoid", datiIngresso, outputPrevisto);
 	}
 }

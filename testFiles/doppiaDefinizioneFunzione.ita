@@ -1,0 +1,6 @@
+funzione somma(intero x | intero y) -> intero z:
+	x+y -> z.
+funzione somma(intero x | intero y) -> intero z:
+	x+y -> z.
+
+scrivi somma(3|4).

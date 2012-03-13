@@ -2,7 +2,13 @@ package istruzioni.funzioni;
 
 import istruzioni.espressioni.U;
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class ArgomentoFunzioneVettore implements U {
 	
 	private String nome;
@@ -11,7 +17,7 @@ public class ArgomentoFunzioneVettore implements U {
 	}
 	
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.caricaVettore(nome);
 		sc.caricaDimensioneVettore(nome);
 	}

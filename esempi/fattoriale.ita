@@ -20,7 +20,7 @@ finche n > 0:
 	n-1 -> n.
 se fattoriale_ricorsivo = fattoriale_iterativo:
 	scrivi "fattoriale calcolato correttamente:\n",
-	scrivi fattoriale_ricorsivco;
+	scrivi fattoriale_ricorsivo;
 altrimenti:
 	scrivi "errore nel calcolo del fattoriale".
 .

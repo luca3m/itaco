@@ -1,7 +1,13 @@
 package istruzioni.espressioni;
 
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class Sottrazione implements E {
 	private E minuendo;
 	private T sottraendo;
@@ -11,7 +17,7 @@ public class Sottrazione implements E {
 		this.sottraendo = parteDestra;
 	}
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.sottrazione(minuendo, sottraendo);
 	}
 }

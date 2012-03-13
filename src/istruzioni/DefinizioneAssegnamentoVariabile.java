@@ -1,9 +1,14 @@
-package istruzioni;
+package istruzioni;import compilatore.SemanticException;
 
 import compilatore.ScrittoreTarget;
 
 import istruzioni.espressioni.E;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class DefinizioneAssegnamentoVariabile implements I {
 	private String identificatore;
 	private E espressione;
@@ -14,7 +19,7 @@ public class DefinizioneAssegnamentoVariabile implements I {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		// FIXME: devo gestire il caso in cui la registrazione della variabile vada male
 		sc.registraVariabile(identificatore);
 		sc.storeInVariabile(identificatore, espressione);

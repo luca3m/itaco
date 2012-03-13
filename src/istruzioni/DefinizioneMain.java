@@ -1,7 +1,12 @@
-package istruzioni;
+package istruzioni;import compilatore.SemanticException;
 
 import compilatore.ScrittoreTarget;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class DefinizioneMain implements S {
 
 	private N codiceProgramma;
@@ -18,7 +23,7 @@ public class DefinizioneMain implements S {
 
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.scriviMain(codiceProgramma);
 	}
 

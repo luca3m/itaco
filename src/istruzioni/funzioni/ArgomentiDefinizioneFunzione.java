@@ -2,6 +2,11 @@ package istruzioni.funzioni;
 
 import java.util.List;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class ArgomentiDefinizioneFunzione implements A2 {
 
 	private R argomento;

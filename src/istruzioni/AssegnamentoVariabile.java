@@ -1,9 +1,13 @@
-package istruzioni;
+package istruzioni;import compilatore.SemanticException;
 
 import compilatore.ScrittoreTarget;
 
 import istruzioni.espressioni.E;
 
+/**
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class AssegnamentoVariabile implements I {
 	private String identificatore;
 	private E espressione;
@@ -14,7 +18,7 @@ public class AssegnamentoVariabile implements I {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.storeInVariabile(identificatore, espressione);
 	}
 	

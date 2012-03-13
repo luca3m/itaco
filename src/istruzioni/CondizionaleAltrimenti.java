@@ -1,10 +1,13 @@
-package istruzioni;
+package istruzioni;import istruzioni.logiche.B;
 
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
-import istruzioni.espressioni.E;
-import istruzioni.logiche.B;
-
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class CondizionaleAltrimenti implements C {
 	private B condizione;
 	private N blocco1;
@@ -17,7 +20,7 @@ public class CondizionaleAltrimenti implements C {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.seAltrimenti(condizione, blocco1, blocco2);
 	}
 }

@@ -2,6 +2,11 @@ package istruzioni.funzioni;
 
 import java.util.List;
 
+/**
+ * 
+ * @author Alessandro, Luca, Saro
+ *
+ */
 public class ArgomentoVariabileFunzione implements R {
 
 	private String nomeVariabile;
