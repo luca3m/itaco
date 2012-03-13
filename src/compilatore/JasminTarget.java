@@ -189,7 +189,6 @@ public class JasminTarget extends ScrittoreTarget {
 	@Override
 	public void minore(Espressione parteSinistra, Espressione parteDestra) throws SemanticException {
 		maggiore(parteDestra, parteSinistra);
-
 	}
 
 	@Override
@@ -388,7 +387,11 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void leggiElementoVettore(String identificatore, Espressione indice) throws SemanticException {
-		bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
+		try {
+			bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
+		} catch (SemanticException ex) {
+			throw new SemanticException("Il vettore " + identificatore + " non è stato definito");
+		}
 		indice.scriviCodice(this);
 		bufferOutput.println("invokestatic " + className + "/readInt()I");
 		bufferOutput.println("iastore");
@@ -396,7 +399,11 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void caricaElementoVettore(String identificatore, Espressione indice) throws SemanticException {
-		bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
+		try {
+			bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
+		} catch (SemanticException ex) {
+			throw new SemanticException("Il vettore " + identificatore + " non è stato definito");
+		}
 		indice.scriviCodice(this);
 		bufferOutput.println("iaload");
 	}
@@ -404,7 +411,11 @@ public class JasminTarget extends ScrittoreTarget {
 	@Override
 	public void storeElementoVettore(String identificatore, Espressione indice,
 			Espressione elemento) throws SemanticException {
-		bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
+		try {
+			bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
+		} catch (SemanticException ex) {
+			throw new SemanticException("Il vettore " + identificatore + " non è stato definito");
+		}
 		indice.scriviCodice(this);
 		elemento.scriviCodice(this);
 		bufferOutput.println("iastore");
