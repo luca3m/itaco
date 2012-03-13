@@ -39,16 +39,39 @@ import edu.tum.cup2.spec.CUP2Specification;
 import static main.ParserSpec.Terminals.*;
 import static main.ParserSpec.NonTerminals.*;
 
+/**
+ * Classe racchiudente tutte le specifiche per Java CUP 2
+ * 
+ * @author Alessandro, Luca, Saro
+ * 
+ */
 public class ParserSpec extends CUP2Specification {
 
+	/**
+	 * Lista dei terminali passati dallo scanner
+	 * 
+	 * @author Alessandro, Luca, Saro
+	 */
 	public enum Terminals implements Terminal {
 		SE, ALTRIMENTI, FINCHE, INTERO, PARENTESI_QUADRA_APERTA, PARENTESI_QUADRA_CHIUSA, DUE_PUNTI, PUNTO, VIRGOLA, PARENTESI_TONDA_APERTA, PARENTESI_TONDA_CHIUSA, UGUALE, LEGGI, SCRIVI, IDENTIFICATORE, NUMERO_INTERO, SOMMA, SOTTRAZIONE, PRODOTTO, DIVISIONE, ASSEGNAZIONE, STRINGA, MINORE, MAGGIORE, VETTORE, FUNZIONE, PIPE, PUNTO_VIRGOLA;
 	}
 
-	// non-terminals
+	/**
+	 * Lista dei non terminali
+	 * 
+	 * @author Alessandro, Luca, Saro
+	 * 
+	 */
 	public enum NonTerminals implements NonTerminal {
 		S, Z, N, I, E, T, F, B, C, A, A2, R, W, W2, U;
 	}
+
+	/**
+	 * Dichiarazione classi per i non terminali
+	 * 
+	 * @author Alessandro, Luca, Saro
+	 * 
+	 */
 
 	public class S extends SymbolValue<istruzioni.S> {
 	};
@@ -106,7 +129,6 @@ public class ParserSpec extends CUP2Specification {
 
 	@SuppressWarnings("unused")
 	public ParserSpec() {
-
 		/*
 		 * Definisco la grammatica la funzione grammar() è definita nella classe
 		 * madre, accetta un numero variabile di argomenti che sono le
@@ -121,6 +143,9 @@ public class ParserSpec extends CUP2Specification {
 		 */
 		grammar(
 
+		/**
+		 * produzioni per l'assioma S
+		 */
 		prod(S, rhs(Z, S), new Action() {
 			public istruzioni.S a(istruzioni.Z z, istruzioni.S s) {
 				return new SuccessioneIstruzioni(z, s);
@@ -130,6 +155,9 @@ public class ParserSpec extends CUP2Specification {
 				return new DefinizioneMain(n);
 			}
 		}),
+				/**
+				 * produzini per il non terminale Z
+				 */
 				prod(Z,
 						rhs(FUNZIONE, IDENTIFICATORE, PARENTESI_TONDA_APERTA,
 								A, PARENTESI_TONDA_CHIUSA, ASSEGNAZIONE,
@@ -152,7 +180,9 @@ public class ParserSpec extends CUP2Specification {
 										n);
 							}
 						}),
-
+				/**
+				 * produzini per il non terminale A
+				 */
 				prod(A, rhs(), new Action() {
 					public istruzioni.funzioni.A a() {
 						return null;
@@ -163,6 +193,9 @@ public class ParserSpec extends CUP2Specification {
 					}
 				}),
 
+				/**
+				 * produzini per il non terminale A2
+				 */
 				prod(A2,
 
 				rhs(R), new Action() {
@@ -175,7 +208,9 @@ public class ParserSpec extends CUP2Specification {
 						return new ArgomentiDefinizioneFunzione(r, a2);
 					}
 				}),
-
+				/**
+				 * produzini per il non terminale R
+				 */
 				prod(R,
 						rhs(INTERO, IDENTIFICATORE),
 						new Action() {
@@ -190,7 +225,9 @@ public class ParserSpec extends CUP2Specification {
 								return new ArgomentoVettoreFunzione(id, dim);
 							}
 						}),
-
+				/**
+				 * produzini per il non terminale N
+				 */
 				prod(N, rhs(I), new Action() {
 					public istruzioni.N a(istruzioni.I i) {
 						return i;
@@ -208,6 +245,9 @@ public class ParserSpec extends CUP2Specification {
 						return c;
 					}
 				}),
+				/**
+				 * produzini per il non terminale I
+				 */
 				prod(I,
 						rhs(E, ASSEGNAZIONE, INTERO, IDENTIFICATORE),
 						new Action() {
@@ -282,6 +322,9 @@ public class ParserSpec extends CUP2Specification {
 								return new ChiamaFunzioneSenzaRitorno(id, w);
 							}
 						}),
+				/**
+				 * produzini per il non terminale C
+				 */
 				prod(C, rhs(SE, B, DUE_PUNTI, N, PUNTO), new Action() {
 					public istruzioni.C a(istruzioni.logiche.B b, istruzioni.N n) {
 						return new CondizionaleSe(b, n);
@@ -299,7 +342,9 @@ public class ParserSpec extends CUP2Specification {
 								return new CicloFinche(b, n);
 							}
 						}),
-				// Espressioni
+				/**
+				 * produzini per il non terminale B
+				 */
 				prod(B, rhs(E, MAGGIORE, E), new Action() {
 					public istruzioni.logiche.B a(istruzioni.espressioni.E e,
 							istruzioni.espressioni.E e2) {
@@ -316,6 +361,9 @@ public class ParserSpec extends CUP2Specification {
 						return new Uguaglianza(e, e2);
 					}
 				}),
+				/**
+				 * produzini per il non terminale E
+				 */
 				prod(E, rhs(E, SOMMA, T), new Action() {
 					public istruzioni.espressioni.E a(
 							istruzioni.espressioni.E e,
@@ -333,6 +381,9 @@ public class ParserSpec extends CUP2Specification {
 						return t;
 					}
 				}),
+				/**
+				 * produzini per il non terminale T
+				 */
 				prod(T, rhs(T, PRODOTTO, F), new Action() {
 					public istruzioni.espressioni.T a(
 							istruzioni.espressioni.T t,
@@ -350,6 +401,9 @@ public class ParserSpec extends CUP2Specification {
 						return f;
 					}
 				}),
+				/**
+				 * produzini per il non terminale F
+				 */
 				prod(F,
 						rhs(IDENTIFICATORE),
 						new Action() {
@@ -384,9 +438,10 @@ public class ParserSpec extends CUP2Specification {
 									istruzioni.espressioni.W w) {
 								return new ChiamaFunzione(id, w);
 							}
-
 						}),
-
+				/**
+				 * produzini per il non terminale W
+				 */
 				prod(W, rhs(), new Action() {
 					public istruzioni.espressioni.W a() {
 						return null;
@@ -396,7 +451,11 @@ public class ParserSpec extends CUP2Specification {
 							istruzioni.espressioni.W2 w2) {
 						return w2;
 					}
-				}), prod(W2, rhs(U, PIPE, W2), new Action() {
+				}),
+				/**
+				 * produzini per il non terminale W2
+				 */
+				prod(W2, rhs(U, PIPE, W2), new Action() {
 					public istruzioni.espressioni.W2 a(
 							istruzioni.espressioni.U u,
 							istruzioni.espressioni.W2 w2) {
@@ -407,22 +466,20 @@ public class ParserSpec extends CUP2Specification {
 							istruzioni.espressioni.U u) {
 						return u;
 					}
-				}), prod(
-
-				U,
-
-				rhs(E), new Action() {
+				}),
+				/**
+				 * produzini per il non terminale U
+				 */
+				prod(U, rhs(E), new Action() {
 					public istruzioni.espressioni.U a(istruzioni.espressioni.E e) {
 						return e;
 					}
 				},
-
 						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA,
 								PARENTESI_QUADRA_CHIUSA), new Action() {
 							public istruzioni.espressioni.U a(String id) {
 								return new ArgomentoFunzioneVettore(id);
 							}
 						}));
-
 	}
 }
