@@ -517,7 +517,8 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void eseguiFunzioneSenzaRitorno(String nome, Espressione parametri) throws SemanticException {
-		parametri.scriviCodice(this);
+		if (parametri != null)
+			parametri.scriviCodice(this);
 		bufferOutput.printf("invokestatic %s/%s%s\n", className, nome, parametriFunzioni.get(nome));
 		if (! parametriFunzioni.get(nome).endsWith("V")) {
 			bufferOutput.println("pop");
