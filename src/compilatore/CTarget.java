@@ -419,7 +419,7 @@ public class CTarget extends ScrittoreTarget {
 	@Override
 	public void scriviMain(Blocco codice) throws SemanticException {
 		// TODO Auto-generated method stub
-		ps.print("main() throws SemanticException {\n");
+		ps.print("main() {\n");
 		codice.scriviCodice(this);
 		ps.print("\n}");
 	}
