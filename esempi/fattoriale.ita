@@ -1,6 +1,26 @@
-intero n <- 0,
+#Questo programma di esempio mostra l'utilizzo
+#di una funzione ricorsiva per calcolare il fattoriale
+#e il fattoriale iterativo
+
+funzione fattoriale_ricorsivo(intero x) -> intero y:
+	se x < 1:
+		1 -> y;
+	altrimenti:
+		x*fattoriale_ricorsivo(x-1) -> y.
+.
+
+
+0 -> intero n,
+scrivi "Inserisci il numero da cui calcolare il fattoriale\n",
 leggi n,
-intero fattoriale <- 1,
+fattoriale_ricorsivo(n) -> intero fattoriale_ricorsivo,
+1 -> intero fattoriale_iterativo,
 finche n > 0:
-	fattoriale <- n * fattoriale,
-	n <- n - 1.
+	n * fattoriale_iterativo -> fattoriale_iterativo,
+	n-1 -> n.
+se fattoriale_ricorsivo = fattoriale_iterativo:
+	scrivi "fattoriale calcolato correttamente:\n",
+	scrivi fattoriale_ricorsivco;
+altrimenti:
+	scrivi "errore nel calcolo del fattoriale".
+.

@@ -1,0 +1,11 @@
+#Questo programma di esempio mostra l'utilizzo
+#dell'algoritmo di bubble sort
+
+
+procedure BubbleSort( A : lista degli elementi da ordinare ) defined as:
+  while scambio
+    scambio ← false
+    for each i in 0 to length(A) - 2 inclusive do:
+      if A[i] > A[i+1] then
+        swap( A[i], A[i+1] )
+        scambio ← true

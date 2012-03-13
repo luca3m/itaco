@@ -18,6 +18,8 @@ import javax.swing.JCheckBox;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
 
 public class FinestraPrincipale extends JFrame {
 
@@ -98,5 +100,13 @@ public class FinestraPrincipale extends JFrame {
 		JButton btnCompila = new JButton("Salva Log su File");
 		btnCompila.setBounds(410, 667, 367, 44);
 		contentPane.add(btnCompila);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(28, 39, 129, 21);
+		contentPane.add(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("New menu");
+		mnNewMenu.setBounds(28, 41, 95, 19);
+		contentPane.add(mnNewMenu);
 	}
 }
