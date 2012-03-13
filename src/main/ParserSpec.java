@@ -150,8 +150,14 @@ public class ParserSpec extends CUP2Specification {
 										n);
 							}
 						}),
-
-				prod(A, rhs(), rhs(A2), new Action() {
+	
+				prod(A, 
+					rhs(), new Action() { 
+					public istruzioni.funzioni.A a() {
+						return null;
+						}
+				}, 	
+					rhs(A2), new Action() {
 					public istruzioni.funzioni.A a(istruzioni.funzioni.A2 a2) {
 						return a2;
 					}
