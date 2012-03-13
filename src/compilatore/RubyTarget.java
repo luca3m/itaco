@@ -46,7 +46,6 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void registraVariabile(String nome) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print(nome + "=0\n");
 	}
 
@@ -57,7 +56,6 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void caricaVariabile(String nome) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print(nome);
 	}
 
@@ -70,7 +68,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void storeInVariabile(String identificatore, Espressione valore)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		String linea = identificatore + " = ";
 		ps.printf(linea);
 		valore.scriviCodice(this);
@@ -94,7 +91,6 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void costante(String stringa) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print("\"" + stringa.replaceAll("\n", "\\\\n") + "\"");
 	}
 
@@ -107,7 +103,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void somma(Espressione addendo1, Espressione addendo2)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		addendo1.scriviCodice(this);
 		ps.print(" + ");
 		addendo2.scriviCodice(this);
@@ -122,7 +117,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void sottrazione(Espressione minuendo, Espressione sottraendo)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		minuendo.scriviCodice(this);
 		ps.print(" - ");
 		sottraendo.scriviCodice(this);
@@ -137,7 +131,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void prodotto(Espressione fattore1, Espressione fattore2)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		fattore1.scriviCodice(this);
 		ps.print(" * ");
 		fattore2.scriviCodice(this);
@@ -152,7 +145,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void divisione(Espressione dividendo, Espressione divisore)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		dividendo.scriviCodice(this);
 		ps.print(" / ");
 		divisore.scriviCodice(this);
@@ -167,7 +159,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void maggiore(Espressione parteSinistra, Espressione parteDestra)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		parteSinistra.scriviCodice(this);
 		ps.print(" > ");
 		parteDestra.scriviCodice(this);
@@ -182,7 +173,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void minore(Espressione parteSinistra, Espressione parteDestra)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		parteSinistra.scriviCodice(this);
 		ps.print(" < ");
 		parteDestra.scriviCodice(this);
@@ -197,7 +187,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		parteSinistra.scriviCodice(this);
 		ps.print(" == ");
 		parteDestra.scriviCodice(this);
@@ -213,7 +202,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void espressioneInParentesi(Espressione ex)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print("(");
 		ex.scriviCodice(this);
 		ps.print(")");
@@ -226,7 +214,7 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void stampa(Espressione espressione) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
+		//TODO: sistemare stampa
 		//ps.print("puts \"");
 		//espressione.scriviCodice(this);
 		//ps.print("\"\n");
@@ -239,7 +227,7 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void stampa(String stringa) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
+		//TODO: sistemare stampa
 		//ps.print("puts \"");
 		//costante(stringa);
 		//ps.print("\"\n");
@@ -252,7 +240,6 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void leggi(String identificatore) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print(identificatore+" = gets\n");
 	}
 
@@ -265,7 +252,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void leggiElementoVettore(String identificatore, Espressione indice)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print(identificatore+"[");
 		indice.scriviCodice(this);
 		ps.print("] = gets\n");
@@ -279,7 +265,6 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void se(Espressione ex, Blocco codice) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print("if ");
 		ex.scriviCodice(this);
 		ps.print("\n");
@@ -296,7 +281,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void seAltrimenti(Espressione ex, Blocco codice,
 			Blocco codiceAltrimenti) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print("if");
 		ex.scriviCodice(this);
 		ps.print("\n");
@@ -314,7 +298,6 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void finche(Espressione ex, Blocco codice) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print("while ");
 		ex.scriviCodice(this);
 		ps.print(" do \n");
@@ -331,7 +314,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void definisciVettore(String identificatore, Integer dimensione)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		mappaDimensioneVettori.put(identificatore, dimensione);
 		ps.print(identificatore + "= [" + dimensione + "]\n");
 	}
@@ -345,7 +327,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void caricaElementoVettore(String identificatore, Espressione indice)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print(identificatore + "[");
 		indice.scriviCodice(this);
 		ps.print("]");
@@ -360,7 +341,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void storeElementoVettore(String identificatore, Espressione indice,
 			Espressione elemento) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print(identificatore + "[");
 		indice.scriviCodice(this);
 		ps.print("] = ");
@@ -377,7 +357,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void definisciFunzione(String nome, String[] ingressi,
 			String uscita, Blocco codice) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print("def "+nome);
 		if (uscita != null) {
 			ps.print(uscita+"=0\n");
@@ -414,7 +393,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void eseguiFunzione(String nome, Espressione parametri)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print(nome + "(");
 		PrintStream psSaved = ps;
 		ps = new AggiungiVirgola(psSaved);
@@ -446,7 +424,6 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void eseguiFunzioneSenzaRitorno(String nome, Espressione parametri)
 			throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		eseguiFunzione(nome, parametri);
 		ps.print("\n");
 	}
@@ -458,7 +435,6 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void scriviMain(Blocco codice) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		codice.scriviCodice(this);
 		stampa("\n");
 	}
@@ -470,7 +446,6 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void caricaVettore(String nome) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		ps.print(nome);
 	}
 
@@ -482,7 +457,6 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void caricaDimensioneVettore(String nome) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		int dimensione = mappaDimensioneVettori.get(nome);
 		ps.print(dimensione);
 	}
