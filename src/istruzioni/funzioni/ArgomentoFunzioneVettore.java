@@ -2,6 +2,7 @@ package istruzioni.funzioni;
 
 import istruzioni.espressioni.U;
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
 public class ArgomentoFunzioneVettore implements U {
 	
@@ -11,7 +12,7 @@ public class ArgomentoFunzioneVettore implements U {
 	}
 	
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.caricaVettore(nome);
 		sc.caricaDimensioneVettore(nome);
 	}

@@ -1,4 +1,4 @@
-package istruzioni;
+package istruzioni;import compilatore.SemanticException;
 
 import compilatore.ScrittoreTarget;
 
@@ -17,7 +17,7 @@ public class CondizionaleAltrimenti implements C {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.seAltrimenti(condizione, blocco1, blocco2);
 	}
 }

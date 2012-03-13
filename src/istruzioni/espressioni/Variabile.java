@@ -1,6 +1,7 @@
 package istruzioni.espressioni;
 
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
 public class Variabile implements F {
 	
@@ -10,7 +11,7 @@ public class Variabile implements F {
 	}
 	
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.caricaVariabile(nome);
 	}
 	

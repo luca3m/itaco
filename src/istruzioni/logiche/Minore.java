@@ -2,6 +2,7 @@ package istruzioni.logiche;
 
 import istruzioni.espressioni.E;
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
 public class Minore implements B {
 	private E parteSinistra;
@@ -12,7 +13,7 @@ public class Minore implements B {
 		this.parteDestra = parteDestra;
 	}
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.minore(parteSinistra, parteDestra);
 	}
 }

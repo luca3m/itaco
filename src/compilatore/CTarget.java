@@ -27,7 +27,7 @@ public class CTarget extends ScrittoreTarget {
 	private HashMap<String, Integer> mappaDimensioneVettori= new HashMap<String, Integer>();
 	private PrintStream ps;
 
-	public CTarget(OutputStream o) {
+	public CTarget(OutputStream o) throws SemanticException {
 		this.ps = new PrintStream(o);
 		ps.println("#include <stdio.h>\n#include <stdlib.h>\n");
 	}
@@ -38,7 +38,7 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#registraVariabile(java.lang.String)
 	 */
 	@Override
-	public boolean registraVariabile(String nome) {
+	public boolean registraVariabile(String nome) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print("int "+nome+";\n");
 		return true;
@@ -50,7 +50,7 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#caricaVariabile(java.lang.String)
 	 */
 	@Override
-	public void caricaVariabile(String nome) {
+	public void caricaVariabile(String nome) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print(nome);
 	}
@@ -62,7 +62,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void storeInVariabile(String identificatore, Espressione valore) {
+	public void storeInVariabile(String identificatore, Espressione valore) throws SemanticException {
 		// TODO Auto-generated method stub
 		String linea = identificatore + " = ";
 		ps.printf(linea);
@@ -76,8 +76,7 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#costante(int)
 	 */
 	@Override
-	public void costante(int costante) {
-		// TODO Auto-generated method stub
+	public void costante(int costante) throws SemanticException {
 		ps.print(costante);
 	}
 
@@ -87,7 +86,7 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#costante(java.lang.String)
 	 */
 	@Override
-	public void costante(String stringa) {
+	public void costante(String stringa) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print("\"" + stringa + "\"");
 	}
@@ -99,7 +98,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void somma(Espressione addendo1, Espressione addendo2) {
+	public void somma(Espressione addendo1, Espressione addendo2) throws SemanticException {
 		// TODO Auto-generated method stub
 		addendo1.scriviCodice(this);
 		ps.print(" + ");
@@ -113,7 +112,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void sottrazione(Espressione minuendo, Espressione sottraendo) {
+	public void sottrazione(Espressione minuendo, Espressione sottraendo) throws SemanticException {
 		// TODO Auto-generated method stub
 		minuendo.scriviCodice(this);
 		ps.print(" - ");
@@ -127,7 +126,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void prodotto(Espressione fattore1, Espressione fattore2) {
+	public void prodotto(Espressione fattore1, Espressione fattore2) throws SemanticException {
 		// TODO Auto-generated method stub
 		fattore1.scriviCodice(this);
 		ps.print(" * ");
@@ -141,7 +140,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void divisione(Espressione dividendo, Espressione divisore) {
+	public void divisione(Espressione dividendo, Espressione divisore) throws SemanticException {
 		// TODO Auto-generated method stub
 		dividendo.scriviCodice(this);
 		ps.print(" / ");
@@ -155,7 +154,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void maggiore(Espressione parteSinistra, Espressione parteDestra) {
+	public void maggiore(Espressione parteSinistra, Espressione parteDestra) throws SemanticException {
 		// TODO Auto-generated method stub
 		parteSinistra.scriviCodice(this);
 		ps.print(" > ");
@@ -169,7 +168,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void minore(Espressione parteSinistra, Espressione parteDestra) {
+	public void minore(Espressione parteSinistra, Espressione parteDestra) throws SemanticException {
 		// TODO Auto-generated method stub
 		parteSinistra.scriviCodice(this);
 		ps.print(" < ");
@@ -183,7 +182,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra) {
+	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra) throws SemanticException {
 		// TODO Auto-generated method stub
 		parteSinistra.scriviCodice(this);
 		ps.print(" == ");
@@ -198,7 +197,7 @@ public class CTarget extends ScrittoreTarget {
 	 * )
 	 */
 	@Override
-	public void espressioneInParentesi(Espressione ex) {
+	public void espressioneInParentesi(Espressione ex) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print("(");
 		ex.scriviCodice(this);
@@ -211,7 +210,7 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#stampa(compilatore.Espressione)
 	 */
 	@Override
-	public void stampa(Espressione espressione) {
+	public void stampa(Espressione espressione) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print("printf(\"%d\",");
 		espressione.scriviCodice(this);
@@ -224,7 +223,7 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#stampa(java.lang.String)
 	 */
 	@Override
-	public void stampa(String stringa) {
+	public void stampa(String stringa) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print("printf(\"" + stringa + "\");\n");
 	}
@@ -235,7 +234,7 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#leggi(java.lang.String)
 	 */
 	@Override
-	public void leggi(String identificatore) {
+	public void leggi(String identificatore) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print("scanf(\"%d\", &" + identificatore + ");\n");
 	}
@@ -247,7 +246,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void leggiElementoVettore(String identificatore, Espressione indice) {
+	public void leggiElementoVettore(String identificatore, Espressione indice) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print("scanf(\"%d\", " + identificatore + "+");
 		indice.scriviCodice(this);
@@ -261,7 +260,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Blocco)
 	 */
 	@Override
-	public void se(Espressione ex, Blocco codice) {
+	public void se(Espressione ex, Blocco codice) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print("if(");
 		ex.scriviCodice(this);
@@ -278,7 +277,7 @@ public class CTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void seAltrimenti(Espressione ex, Blocco codice,
-			Blocco codiceAltrimenti) {
+			Blocco codiceAltrimenti) throws SemanticException {
 		// TODO Auto-generated method stub
 		se(ex, codice);
 		ps.print("else {\n");
@@ -293,7 +292,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Blocco)
 	 */
 	@Override
-	public void finche(Espressione ex, Blocco codice) {
+	public void finche(Espressione ex, Blocco codice) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print("while(");
 		ex.scriviCodice(this);
@@ -309,7 +308,7 @@ public class CTarget extends ScrittoreTarget {
 	 * java.lang.Integer)
 	 */
 	@Override
-	public void definisciVettore(String identificatore, Integer dimensione) {
+	public void definisciVettore(String identificatore, Integer dimensione) throws SemanticException {
 		// TODO Auto-generated method stub
 		mappaDimensioneVettori.put(identificatore, dimensione);
 		ps.print("int " + identificatore + "[" + dimensione + "];\n");
@@ -322,7 +321,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void caricaElementoVettore(String identificatore, Espressione indice) {
+	public void caricaElementoVettore(String identificatore, Espressione indice) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print(identificatore + "[");
 		indice.scriviCodice(this);
@@ -337,7 +336,7 @@ public class CTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void storeElementoVettore(String identificatore, Espressione indice,
-			Espressione elemento) {
+			Espressione elemento) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print(identificatore + "[");
 		indice.scriviCodice(this);
@@ -354,7 +353,7 @@ public class CTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void definisciFunzione(String nome, String[] ingressi,
-			String uscita, Blocco codice) {
+			String uscita, Blocco codice) throws SemanticException {
 		// TODO Auto-generated method stub
 		if (uscita == null) {
 			ps.print("void ");
@@ -391,7 +390,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void eseguiFunzione(String nome, Espressione parametri) {
+	public void eseguiFunzione(String nome, Espressione parametri) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print(nome+"(");
 		parametri.scriviCodice(this);
@@ -407,7 +406,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.Espressione)
 	 */
 	@Override
-	public void eseguiFunzioneSenzaRitorno(String nome, Espressione parametri) {
+	public void eseguiFunzioneSenzaRitorno(String nome, Espressione parametri) throws SemanticException {
 		// TODO Auto-generated method stub
 		eseguiFunzione(nome, parametri);
 		ps.print(";\n");
@@ -419,9 +418,9 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#scriviMain(compilatore.Blocco)
 	 */
 	@Override
-	public void scriviMain(Blocco codice) {
+	public void scriviMain(Blocco codice) throws SemanticException {
 		// TODO Auto-generated method stub
-		ps.print("main() {\n");
+		ps.print("main() throws SemanticException {\n");
 		codice.scriviCodice(this);
 		ps.print("\n}");
 	}
@@ -432,7 +431,7 @@ public class CTarget extends ScrittoreTarget {
 	 * @see compilatore.ScrittoreTarget#caricaVettore(java.lang.String)
 	 */
 	@Override
-	public void caricaVettore(String nome) {
+	public void caricaVettore(String nome) throws SemanticException {
 		// TODO Auto-generated method stub
 		ps.print(nome);
 	}
@@ -444,7 +443,7 @@ public class CTarget extends ScrittoreTarget {
 	 * compilatore.ScrittoreTarget#caricaDimensioneVettore(java.lang.String)
 	 */
 	@Override
-	public void caricaDimensioneVettore(String nome) {
+	public void caricaDimensioneVettore(String nome) throws SemanticException {
 		// TODO Auto-generated method stub
 		int dimensione = mappaDimensioneVettori.get(nome);
 		ps.print(dimensione);
@@ -484,7 +483,7 @@ public class CTarget extends ScrittoreTarget {
 
 	// Genero il bytecode
 //	String percorsoFileClass;
-//	if (sorgenteFile.getParent() != null) {
+//	if (sorgenteFile.getParent() != null) throws SemanticException {
 //		percorsoFileClass = sorgenteFile.getParent() + File.separator
 //				+ nomeClasse + ".class";
 //	} else {

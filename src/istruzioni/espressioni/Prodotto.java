@@ -1,6 +1,7 @@
 package istruzioni.espressioni;
 
 import compilatore.ScrittoreTarget;
+import compilatore.SemanticException;
 
 public class Prodotto implements T {
 	private T fattoreSinistro;
@@ -12,7 +13,7 @@ public class Prodotto implements T {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.prodotto(fattoreSinistro, fattoreDestro);
 	}
 }

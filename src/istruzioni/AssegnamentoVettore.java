@@ -1,4 +1,4 @@
-package istruzioni;
+package istruzioni;import compilatore.SemanticException;
 
 import compilatore.ScrittoreTarget;
 
@@ -16,7 +16,7 @@ public class AssegnamentoVettore implements I {
 	}
 
 	@Override
-	public void scriviCodice(ScrittoreTarget sc) {
+	public void scriviCodice(ScrittoreTarget sc) throws SemanticException {
 		sc.storeElementoVettore(identificatore, indice, espressione);
 	}
 	
