@@ -13,5 +13,4 @@ sommaAlVettore(numeri[]|5),
 0 -> i,
 finche i < 4:
 	scrivi numeri[i],
-
 	i + 1 -> i..
