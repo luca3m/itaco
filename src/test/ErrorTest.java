@@ -54,7 +54,12 @@ public class ErrorTest {
 	}
 
 	@Test
+	public void testDoppiaDefinizioneVariabile() {
+		testFallimentoCompilazione("doppiaDefinizioneVariabile");
+	}
+	@Test
 	public void testUsoVariabileNonAssegnata() {
 		testFallimentoCompilazione("usoVariabileNonAssegnata");
 	}
+	
 }
