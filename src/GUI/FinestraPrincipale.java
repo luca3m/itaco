@@ -24,6 +24,8 @@ import compilatore.JasminTarget;
 
 import edu.tum.cup2.generator.exceptions.GeneratorException;
 import edu.tum.cup2.parser.exceptions.LRParserException;
+import javax.swing.JMenuItem;
+import javax.swing.JSeparator;
 
 @SuppressWarnings("serial")
 public class FinestraPrincipale extends JFrame {
@@ -141,11 +143,50 @@ public class FinestraPrincipale extends JFrame {
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 		
-		JMenu mnNewMenu = new JMenu("Compila");
-		menuBar.add(mnNewMenu);
+		JMenuItem file_Nuovo = new JMenuItem("Nuovo");
+		mnFile.add(file_Nuovo);
+		
+		JMenuItem file_Apri = new JMenuItem("Apri...");
+		mnFile.add(file_Apri);
+		
+		JMenuItem file_SalvaConNome = new JMenuItem("Salva con nome...");
+		mnFile.add(file_SalvaConNome);
+		
+		JSeparator separator_1 = new JSeparator();
+		mnFile.add(separator_1);
+		
+		JMenuItem file_Esci = new JMenuItem("Esci");
+		mnFile.add(file_Esci);
+		
+		JMenu mnCompila = new JMenu("Compila");
+		menuBar.add(mnCompila);
+		
+		JMenuItem compila_compilaEsegui = new JMenuItem("Compila ed Esegui");
+		mnCompila.add(compila_compilaEsegui);
+		
+		JMenuItem compila_compila = new JMenuItem("Compila");
+		mnCompila.add(compila_compila);
+		
+		JSeparator separator = new JSeparator();
+		mnCompila.add(separator);
+		
+		JMenuItem compila_esportaC = new JMenuItem("Esporta in C");
+		mnCompila.add(compila_esportaC);
+		
+		JMenuItem compila_EsportaInRuby = new JMenuItem("Esporta in Ruby");
+		mnCompila.add(compila_EsportaInRuby);
+		
+		JMenuItem Compila_esportaJasmin = new JMenuItem("Esporta in Jasmin");
+		mnCompila.add(Compila_esportaJasmin);
 		
 		JMenu mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
+		
+		JMenuItem help_sintassi = new JMenuItem("Sintassi");
+		mnHelp.add(help_sintassi);
+		
+		JMenuItem help_autori = new JMenuItem("Autori");
+		mnHelp.add(help_autori);
 		
 		JLabel lblImg = new JLabel("");
 		lblImg.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/22222.jpg")));
