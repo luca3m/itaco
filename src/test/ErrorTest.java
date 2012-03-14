@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import compilatore.JasminException;
 import compilatore.JasminTarget;
-import compilatore.EccezioneSemantica;
 
 import edu.tum.cup2.generator.exceptions.GeneratorException;
 import edu.tum.cup2.parser.exceptions.LRParserException;
