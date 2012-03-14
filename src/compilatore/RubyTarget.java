@@ -215,9 +215,9 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void stampa(Espressione espressione) throws EccezioneSemantica {
 		//TODO: sistemare stampa
-		//ps.print("puts \"");
-		//espressione.scriviCodice(this);
-		//ps.print("\"\n");
+		ps.print("printf(\"%d\",");
+		espressione.scriviCodice(this);
+		ps.print(");\n");
 	}
 
 	/*
@@ -228,9 +228,9 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void stampa(String stringa) throws EccezioneSemantica {
 		//TODO: sistemare stampa
-		//ps.print("puts \"");
-		//costante(stringa);
-		//ps.print("\"\n");
+		ps.print("printf(");
+		costante(stringa);
+		ps.print(");\n");
 	}
 
 	/*

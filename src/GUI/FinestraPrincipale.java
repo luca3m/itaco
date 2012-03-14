@@ -1,46 +1,36 @@
 package GUI;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
-import compilatore.EccezioneSemantica;
-import compilatore.JasminException;
-import compilatore.JasminTarget;
-import edu.tum.cup2.generator.exceptions.GeneratorException;
-import edu.tum.cup2.parser.exceptions.LRParserException;
-
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-
-import java.awt.Color;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.ImageIcon;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
+
+import compilatore.EccezioneSemantica;
+import compilatore.JasminException;
+import compilatore.JasminTarget;
+
+import edu.tum.cup2.generator.exceptions.GeneratorException;
+import edu.tum.cup2.parser.exceptions.LRParserException;
+
+@SuppressWarnings("serial")
 public class FinestraPrincipale extends JFrame {
 
 	private JPanel contentPane;
 	String percorsoFile = "prova.ita";
+	
 	/**
 	 * Launch the application.
 	 */
