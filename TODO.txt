@@ -1,4 +1,3 @@
 1- Completare gui
 2- Logger
 3- Sistemare codice e commenti
-4- Sistemare puts in scrittoreRuby per stampa

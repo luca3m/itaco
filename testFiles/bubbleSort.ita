@@ -2,17 +2,17 @@
 #dell'algoritmo di bubble sort
 
 
-funzione BubbleSort( vettore A[dim] ):
+funzione BubbleSort( vettore a[dim] ):
   1 -> intero scambio,
   finche scambio > 0:
     0 -> scambio, 
     0 -> intero i,
     finche i < (dim-1):
-      se A[i] > A[i+1]:
-        A[i] -> intero tmp,
-        A[i+1] -> intero tmp2,
-        tmp -> A[i+1],
-        tmp2 -> A[i],
+      se a[i] > a[i+1]:
+        a[i] -> intero tmp,
+        a[i+1] -> intero tmp2,
+        tmp -> a[i+1],
+        tmp2 -> a[i],
         1 -> scambio
       .
     i+1 -> i
