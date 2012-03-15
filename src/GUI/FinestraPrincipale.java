@@ -54,7 +54,7 @@ public class FinestraPrincipale extends JFrame {
 	public FinestraPrincipale() {
 		setTitle("ITAco");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1031, 861);
+		setBounds(100, 100, 1026, 730);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -62,7 +62,8 @@ public class FinestraPrincipale extends JFrame {
 		
 		
 		final JTextPane Panecodice = new JTextPane();
-		Panecodice.setBounds(200, 126, 795, 454);
+		Panecodice.setText("## Definire una variabile:\n# intero nome,\n# Definire un vettore:\n# vettore nome[dimensione],\n\n## Assegnamento di una variabile o di un elemento vettore:\n# 3+1 -> nome, ## 4+2 -> nome[0],\n\n## Istruzione condizionale se:\n# se variabile > 0:\n#   scrivi \"Positiva\";\n# altrimenti:\n#  scrivi \"Negativa\".\n\n## Istruzione iterativa finché:\n# finche i > 0:\n#   scrivi i,\n#   i-1 -> i.\n\n## Definire una funzione:\n# funzione somma(intero addendo1|intero addendo2) -> intero risultato:\n#  addendo1 + addendo2 -> risultato.\n\n## Eseguire una funzione:\n# somma(3|4) -> risultato,\n## Tutte le istruzioni terminano con una virgola, l'ultima invece termina con punto\nscrivi \"Ciao Mondo!\".");
+		Panecodice.setBounds(199, 113, 795, 435);
 		contentPane.add(Panecodice);
 	
 		
@@ -82,7 +83,7 @@ public class FinestraPrincipale extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setBounds(717, 45, 179, 69);
+		btnNewButton.setBounds(717, 33, 179, 69);
 		contentPane.add(btnNewButton);
 		
 		JButton btnGeneraFile = new JButton("Apri File");
@@ -100,7 +101,7 @@ public class FinestraPrincipale extends JFrame {
 		btnGeneraFile.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/opengiusto.png")));
 		btnGeneraFile.setBorderPainted(false);
 		btnGeneraFile.setVerifyInputWhenFocusTarget(false);
-		btnGeneraFile.setBounds(457, 45, 179, 69);
+		btnGeneraFile.setBounds(457, 33, 179, 69);
 		contentPane.add(btnGeneraFile);
 		
 		JButton btnPulisci = new JButton("");
@@ -121,15 +122,12 @@ public class FinestraPrincipale extends JFrame {
 				}
 			}
 		});
-		btnPulisci.setBounds(31, 35, 90, 97);
+		btnPulisci.setBounds(31, 23, 90, 97);
 		contentPane.add(btnPulisci);
 		
-		JLabel lblLog = new JLabel("Log:");
-		lblLog.setBounds(200, 600, 27, 16);
-		contentPane.add(lblLog);
-		
 		final JTextPane PaneLogger = new JTextPane();
-		PaneLogger.setBounds(199, 628, 795, 154);
+		PaneLogger.setText("Log:");
+		PaneLogger.setBounds(199, 570, 795, 126);
 		contentPane.add(PaneLogger);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -140,39 +138,146 @@ public class FinestraPrincipale extends JFrame {
 		menuBar.add(mnFile);
 		
 		JMenuItem file_Nuovo = new JMenuItem("Nuovo");
+		file_Nuovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fileItaco = new FileItaco();
+				Panecodice.setText("");
+			}
+		});
 		mnFile.add(file_Nuovo);
 		
-		JMenuItem file_Apri = new JMenuItem("Apri...");
+		JMenuItem file_Apri = new JMenuItem("Apri");
+		file_Apri.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(null);
+				if (chooser.getSelectedFile() != null) {
+					java.io.File fileSelezionato = chooser.getSelectedFile();
+					fileItaco = new FileItaco(fileSelezionato.getAbsolutePath());
+					Panecodice.setText(fileItaco.getContenuto());
+				}
+			}
+		});
 		mnFile.add(file_Apri);
 		
-		JMenuItem file_SalvaConNome = new JMenuItem("Salva con nome...");
+		JMenuItem file_SalvaConNome = new JMenuItem("Salva");
+		file_SalvaConNome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (fileItaco.isSaved()) {
+					fileItaco.salvaFile(Panecodice.getText());
+				} else {
+					JFileChooser chooser = new JFileChooser();
+					chooser.showSaveDialog(null);
+					if (chooser.getSelectedFile() != null) {
+						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
+					}
+				}
+			}
+		});
 		mnFile.add(file_SalvaConNome);
 		
 		JSeparator separator_1 = new JSeparator();
 		mnFile.add(separator_1);
 		
 		JMenuItem file_Esci = new JMenuItem("Esci");
+		file_Esci.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				System.exit(0);
+			}
+		});
 		mnFile.add(file_Esci);
 		
 		JMenu mnCompila = new JMenu("Compila");
 		menuBar.add(mnCompila);
 		
 		JMenuItem compila_compilaEsegui = new JMenuItem("Compila ed Esegui");
+		compila_compilaEsegui.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (fileItaco.isSaved()) {
+					fileItaco.salvaFile(Panecodice.getText());
+					fileItaco.esegui();
+				} else {
+					JFileChooser chooser = new JFileChooser();
+					chooser.showSaveDialog(null);
+					if (chooser.getSelectedFile() != null) {
+						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
+					}
+					fileItaco.esegui();
+				}
+			}
+		});
 		mnCompila.add(compila_compilaEsegui);
 		
 		JMenuItem compila_compila = new JMenuItem("Compila");
+		compila_compila.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (fileItaco.isSaved()) {
+					fileItaco.salvaFile(Panecodice.getText());
+				} else {
+					JFileChooser chooser = new JFileChooser();
+					chooser.showSaveDialog(null);
+					if (chooser.getSelectedFile() != null) {
+						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
+					}
+				}
+				fileItaco.compila(ElencoLinguaggi.CLASS);
+			}
+		});
 		mnCompila.add(compila_compila);
 		
 		JSeparator separator = new JSeparator();
 		mnCompila.add(separator);
 		
 		JMenuItem compila_esportaC = new JMenuItem("Esporta in C");
+		compila_esportaC.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (fileItaco.isSaved()) {
+					fileItaco.salvaFile(Panecodice.getText());
+				} else {
+					JFileChooser chooser = new JFileChooser();
+					chooser.showSaveDialog(null);
+					if (chooser.getSelectedFile() != null) {
+						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
+					}
+				}
+				fileItaco.compila(ElencoLinguaggi.C);
+			}
+		});
 		mnCompila.add(compila_esportaC);
 		
 		JMenuItem compila_EsportaInRuby = new JMenuItem("Esporta in Ruby");
+		compila_EsportaInRuby.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (fileItaco.isSaved()) {
+					fileItaco.salvaFile(Panecodice.getText());
+				} else {
+					JFileChooser chooser = new JFileChooser();
+					chooser.showSaveDialog(null);
+					if (chooser.getSelectedFile() != null) {
+						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
+					}
+				}
+				fileItaco.compila(ElencoLinguaggi.RUBY);
+			}
+		});
 		mnCompila.add(compila_EsportaInRuby);
 		
 		JMenuItem Compila_esportaJasmin = new JMenuItem("Esporta in Jasmin");
+		Compila_esportaJasmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (fileItaco.isSaved()) {
+					fileItaco.salvaFile(Panecodice.getText());
+				} else {
+					JFileChooser chooser = new JFileChooser();
+					chooser.showSaveDialog(null);
+					if (chooser.getSelectedFile() != null) {
+						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
+					}
+				}
+				fileItaco.compila(ElencoLinguaggi.JASMIN);
+			}
+		});
 		mnCompila.add(Compila_esportaJasmin);
 		
 		JMenu mnHelp = new JMenu("Aiuto");
@@ -186,7 +291,7 @@ public class FinestraPrincipale extends JFrame {
 		
 		JLabel lblImg = new JLabel("");
 		lblImg.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/itacosenzasfondoblu.png")));
-		lblImg.setBounds(18, 571, 168, 211);
+		lblImg.setBounds(18, 485, 168, 211);
 		contentPane.add(lblImg);
 		
 		JButton btnNuovoFile = new JButton("Nuovo File");
@@ -198,7 +303,7 @@ public class FinestraPrincipale extends JFrame {
 		});
 		btnNuovoFile.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/newgiusto.png")));
 		btnNuovoFile.setBorderPainted(false);
-		btnNuovoFile.setBounds(200, 45, 179, 69);
+		btnNuovoFile.setBounds(200, 33, 179, 69);
 		contentPane.add(btnNuovoFile);
 		
 		JButton btnNewButton_1 = new JButton("");
@@ -218,7 +323,7 @@ public class FinestraPrincipale extends JFrame {
 		});
 		btnNewButton_1.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/jasmin_icon.png")));
 		btnNewButton_1.setBorderPainted(false);
-		btnNewButton_1.setBounds(18, 358, 117, 69);
+		btnNewButton_1.setBounds(18, 308, 117, 69);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("");
@@ -238,7 +343,7 @@ public class FinestraPrincipale extends JFrame {
 		});
 		btnNewButton_2.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/javagiusto.png")));
 		btnNewButton_2.setBorderPainted(false);
-		btnNewButton_2.setBounds(18, 198, 117, 69);
+		btnNewButton_2.setBounds(18, 148, 117, 69);
 		contentPane.add(btnNewButton_2);
 		
 		JButton button = new JButton("");
@@ -258,7 +363,7 @@ public class FinestraPrincipale extends JFrame {
 		});
 		button.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/linguaggioC.png")));
 		button.setBorderPainted(false);
-		button.setBounds(18, 279, 117, 67);
+		button.setBounds(18, 229, 117, 67);
 		contentPane.add(button);
 		
 		JButton btnNewButton_3 = new JButton("");
@@ -278,12 +383,16 @@ public class FinestraPrincipale extends JFrame {
 		});
 		btnNewButton_3.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/ruby.png")));
 		btnNewButton_3.setBorderPainted(false);
-		btnNewButton_3.setBounds(18, 439, 117, 84);
+		btnNewButton_3.setBounds(18, 389, 117, 84);
 		contentPane.add(btnNewButton_3);
 		
 		JLabel lblNewLabel = new JLabel("Esporta in:");
-		lblNewLabel.setBounds(31, 158, 103, 16);
+		lblNewLabel.setBounds(41, 132, 103, 16);
 		contentPane.add(lblNewLabel);
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(199, 552, 795, 12);
+		contentPane.add(separator_2);
 		
 		Logger.getLogger("Itaco").addHandler(new Handler() {
 			
@@ -293,7 +402,7 @@ public class FinestraPrincipale extends JFrame {
 					
 					@Override
 					public void run() {
-						PaneLogger.setText(PaneLogger.getText() + record.getMessage());
+						PaneLogger.setText(PaneLogger.getText() + "\n" + record.getMessage());
 					}
 				});
 			}
