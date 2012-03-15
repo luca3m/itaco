@@ -52,7 +52,8 @@ public class FileItaco {
 			file1.close();
 			return true;
 		} catch (IOException e) {
-			itacoLogger.severe(String.format("Errore nel salvare il file: %s\n", e));
+			itacoLogger.severe(String.format(
+					"Errore nel salvare il file: %s\n", e));
 			return false;
 		}
 	}
@@ -104,6 +105,7 @@ public class FileItaco {
 
 	/**
 	 * Esegui il programma .ita
+	 * 
 	 * @param testo
 	 *            sorgente del programma da eseguire
 	 * 
@@ -118,32 +120,36 @@ public class FileItaco {
 					e.toString()));
 		}
 
-		String nomeSistemaOperativo = System.getProperty("os.name").split(" ")[0];
-		String comando = null;
-		if (nomeSistemaOperativo.equals("Mac")) {
-			comando = String
-					.format("osascript -e 'tell app \"Terminal\" to do script \"cd %s; java %s\"'",
-							directory, baseNomeFile);
-		}
-		if (nomeSistemaOperativo.equals("Windows")) {
-			comando = String.format("cmd /c start cmd /k \"cd %s && java %s\"",
-					directory, baseNomeFile);
-		}
-		if (nomeSistemaOperativo.equals("Linux")) {
-			comando = String.format("gnome-terminal -e \"cd %s && java %s", directory, baseNomeFile);
-		}
-		if (comando != null) {
-			try {
-				System.out.println(comando);
+		try {
+			String nomeSistemaOperativo = System.getProperty("os.name").split(
+					" ")[0];
+			if (nomeSistemaOperativo.equals("Mac")) {
+				String[] comando = {
+						"osascript",
+						"-e",
+						String.format(
+								"tell app \"Terminal\" to do script \"cd %s; java %s\"",
+								directory, baseNomeFile) };
 				Runtime.getRuntime().exec(comando);
-			} catch (IOException e) {
-				Logger.getLogger("Itaco")
-						.severe(String.format("Errore di esecuzione: %s",
-								e.toString()));
+			}
+			if (nomeSistemaOperativo.equals("Windows")) {
+				String comando = String.format(
+						"cmd /c start cmd /k \"cd %s && java %s\"", directory,
+						baseNomeFile);
+				Runtime.getRuntime().exec(comando);
+			}
+			if (nomeSistemaOperativo.equals("Linux")) {
+				String comando = String.format(
+						"gnome-terminal -e \"cd %s && java %s", directory,
+						baseNomeFile);
+				Runtime.getRuntime().exec(comando);
 			}
 			return true;
-		} else
+		} catch (IOException e) {
+			Logger.getLogger("Itaco").severe(
+					String.format("Errore di esecuzione: %s", e.toString()));
 			return false;
+		}
 	}
 
 	private String getPercorsoFile() {
