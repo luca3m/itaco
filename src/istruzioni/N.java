@@ -1,10 +1,12 @@
-package istruzioni;import compilatore.Blocco;
+package istruzioni;
+
+import compilatore.Blocco;
 
 /**
  * 
  * @author Alessandro, Luca, Saro
- *
+ * 
  */
-public interface N extends Blocco, Z  {
+public interface N extends Blocco, Z {
 
 }

@@ -214,7 +214,7 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void stampa(Espressione espressione) throws EccezioneSemantica {
-		//TODO: sistemare stampa
+		// TODO: sistemare stampa
 		ps.print("printf(\"%d\",");
 		espressione.scriviCodice(this);
 		ps.print(");\n");
@@ -227,7 +227,7 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void stampa(String stringa) throws EccezioneSemantica {
-		//TODO: sistemare stampa
+		// TODO: sistemare stampa
 		ps.print("printf(");
 		costante(stringa);
 		ps.print(");\n");
@@ -240,7 +240,7 @@ public class RubyTarget extends ScrittoreTarget {
 	 */
 	@Override
 	public void leggi(String identificatore) throws EccezioneSemantica {
-		ps.print(identificatore+" = gets\n");
+		ps.print(identificatore + " = gets\n");
 	}
 
 	/*
@@ -252,7 +252,7 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void leggiElementoVettore(String identificatore, Espressione indice)
 			throws EccezioneSemantica {
-		ps.print(identificatore+"[");
+		ps.print(identificatore + "[");
 		indice.scriviCodice(this);
 		ps.print("] = gets\n");
 	}
@@ -357,10 +357,10 @@ public class RubyTarget extends ScrittoreTarget {
 	@Override
 	public void definisciFunzione(String nome, String[] ingressi,
 			String uscita, Blocco codice) throws EccezioneSemantica {
-		ps.print("def "+nome);
+		ps.print("def " + nome);
 		if (uscita != null) {
-			ps.print(uscita+"=0\n");
-		} 
+			ps.print(uscita + "=0\n");
+		}
 		StringBuilder stringaParametri = new StringBuilder("(");
 		for (String variabile : ingressi) {
 			String[] nomeEtipo = variabile.split(":");
@@ -369,16 +369,16 @@ public class RubyTarget extends ScrittoreTarget {
 			if (tipo.equals("intero")) {
 				stringaParametri.append(nomeParametro + ", ");
 			} else {
-				stringaParametri.append(nomeParametro + ", "
-						+ nomeEtipo[2] + ", ");
-			} 
+				stringaParametri.append(nomeParametro + ", " + nomeEtipo[2]
+						+ ", ");
+			}
 		}
 		stringaParametri.delete(stringaParametri.length() - 2,
 				stringaParametri.length());
 		ps.print(stringaParametri);
 		ps.print(")\n");
 		if (uscita != null) {
-			ps.print("\nreturn "+uscita);
+			ps.print("\nreturn " + uscita);
 		}
 		codice.scriviCodice(this);
 		ps.print("\nend\n");

@@ -17,8 +17,7 @@ import edu.tum.cup2.parser.tables.LRParsingTable;
 
 /**
  * Classe che genera codice C dato un AST La classe viene usata tramite il
- * metodo 
- * public static void compilaFile(String percorsoFile)
+ * metodo public static void compilaFile(String percorsoFile)
  * 
  * @author Alessandro, Luca, Saro
  * 

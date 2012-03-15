@@ -1,4 +1,6 @@
-package istruzioni;import compilatore.EccezioneSemantica;
+package istruzioni;
+
+import compilatore.EccezioneSemantica;
 
 import compilatore.Produzione;
 import compilatore.ScrittoreTarget;
@@ -6,7 +8,7 @@ import compilatore.ScrittoreTarget;
 /**
  * 
  * @author Alessandro, Luca, Saro
- *
+ * 
  */
 public class SuccessioneIstruzioni implements N {
 

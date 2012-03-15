@@ -1,4 +1,6 @@
-package istruzioni;import compilatore.EccezioneSemantica;
+package istruzioni;
+
+import compilatore.EccezioneSemantica;
 
 import compilatore.ScrittoreTarget;
 
@@ -6,12 +8,12 @@ import istruzioni.espressioni.E;
 
 /**
  * @author Alessandro, Luca, Saro
- *
+ * 
  */
 public class AssegnamentoVariabile implements I {
 	private String identificatore;
 	private E espressione;
-	
+
 	public AssegnamentoVariabile(String identificatore, E espressione) {
 		this.identificatore = identificatore;
 		this.espressione = espressione;
@@ -21,5 +23,5 @@ public class AssegnamentoVariabile implements I {
 	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
 		sc.storeInVariabile(identificatore, espressione);
 	}
-	
+
 }

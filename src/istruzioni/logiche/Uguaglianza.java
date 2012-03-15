@@ -7,12 +7,12 @@ import compilatore.EccezioneSemantica;
 /**
  * 
  * @author Alessandro, Luca, Saro
- *
+ * 
  */
 public class Uguaglianza implements B {
 	private E parteSinistra;
 	private E parteDestra;
-	
+
 	public Uguaglianza(E parteSinistra, E parteDestra) {
 		this.parteSinistra = parteSinistra;
 		this.parteDestra = parteDestra;

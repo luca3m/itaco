@@ -1,4 +1,6 @@
-package istruzioni;import compilatore.EccezioneSemantica;
+package istruzioni;
+
+import compilatore.EccezioneSemantica;
 
 import compilatore.ScrittoreTarget;
 
@@ -7,13 +9,13 @@ import istruzioni.espressioni.E;
 /**
  * 
  * @author Alessandro, Luca, Saro
- *
+ * 
  */
 public class AssegnamentoVettore implements I {
 	private String identificatore;
 	private E indice;
 	private E espressione;
-	
+
 	public AssegnamentoVettore(String identificatore, E indice, E espressione) {
 		this.identificatore = identificatore;
 		this.indice = indice;
@@ -24,5 +26,5 @@ public class AssegnamentoVettore implements I {
 	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
 		sc.storeElementoVettore(identificatore, indice, espressione);
 	}
-	
+
 }

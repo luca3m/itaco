@@ -1,4 +1,6 @@
-package istruzioni;import compilatore.EccezioneSemantica;
+package istruzioni;
+
+import compilatore.EccezioneSemantica;
 
 import compilatore.ScrittoreTarget;
 
@@ -7,12 +9,12 @@ import istruzioni.logiche.B;
 /**
  * 
  * @author Alessandro, Luca, Saro
- *
+ * 
  */
 public class CondizionaleSe implements C {
 	private B condizione;
 	private N blocco;
-	
+
 	public CondizionaleSe(B condizione, N blocco) {
 		this.condizione = condizione;
 		this.blocco = blocco;

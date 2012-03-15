@@ -29,7 +29,7 @@ public class JasminTarget extends ScrittoreTarget {
 
 	private Map<String, Integer> tabellaSimboliCorrente = new HashMap<String, Integer>();
 	private Map<String, Integer> tabellaSimboliGlobale = tabellaSimboliCorrente;
-	
+
 	/**
 	 * Inizio del contatore per identificare le variabili
 	 */
@@ -40,7 +40,8 @@ public class JasminTarget extends ScrittoreTarget {
 
 	public void registraVariabile(String nome) throws EccezioneSemantica {
 		if (tabellaSimboliCorrente.containsKey(nome)) {
-			throw new EccezioneSemantica(String.format("La variabile %s è già stata definita", nome));
+			throw new EccezioneSemantica(String.format(
+					"La variabile %s è già stata definita", nome));
 		}
 		tabellaSimboliCorrente.put(nome, contatoreVariabiliCorrente++);
 	}
@@ -49,7 +50,8 @@ public class JasminTarget extends ScrittoreTarget {
 		if (tabellaSimboliCorrente.containsKey(nome)) {
 			return tabellaSimboliCorrente.get(nome);
 		} else
-			throw new EccezioneSemantica(String.format("La variabile %s non è stata definita", nome));
+			throw new EccezioneSemantica(String.format(
+					"La variabile %s non è stata definita", nome));
 	}
 
 	protected int numeroVariabili() throws EccezioneSemantica {
@@ -61,18 +63,19 @@ public class JasminTarget extends ScrittoreTarget {
 		contatoreVariabiliGlobali = contatoreVariabiliCorrente;
 		contatoreVariabiliCorrente = 0;
 	}
-	
+
 	protected void popScope() throws EccezioneSemantica {
 		tabellaSimboliCorrente = tabellaSimboliGlobale;
 		contatoreVariabiliCorrente = contatoreVariabiliGlobali;
 	}
-	
+
 	PrintStream outputFile;
 	String className;
 	ByteArrayOutputStream buffer;
 	PrintStream bufferOutput;
-	
+
 	OutputStream fileOut;
+
 	public JasminTarget(String className, OutputStream output)
 			throws IOException {
 		this.fileOut = output;
@@ -86,13 +89,13 @@ public class JasminTarget extends ScrittoreTarget {
 		buffer = new ByteArrayOutputStream();
 		bufferOutput = new PrintStream(buffer);
 	}
-	
+
 	private void svuotaBuffer() {
 		byte[] ret = buffer.toByteArray();
 		outputFile.write(ret, 0, ret.length);
 		initBuffer();
 	}
-	
+
 	private void writeContentOfStub(String stubFileName, String replacePattern,
 			String replaceString) throws IOException {
 		// Copio il contenuto dello stub nel file di output
@@ -131,7 +134,8 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void somma(Espressione addendo1, Espressione addendo2) throws EccezioneSemantica {
+	public void somma(Espressione addendo1, Espressione addendo2)
+			throws EccezioneSemantica {
 		addendo1.scriviCodice(this);
 		addendo2.scriviCodice(this);
 		bufferOutput.println("iadd");
@@ -149,28 +153,32 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void sottrazione(Espressione minuendo, Espressione sottraendo) throws EccezioneSemantica {
+	public void sottrazione(Espressione minuendo, Espressione sottraendo)
+			throws EccezioneSemantica {
 		minuendo.scriviCodice(this);
 		sottraendo.scriviCodice(this);
 		bufferOutput.println("isub");
 	}
 
 	@Override
-	public void prodotto(Espressione fattore1, Espressione fattore2) throws EccezioneSemantica {
+	public void prodotto(Espressione fattore1, Espressione fattore2)
+			throws EccezioneSemantica {
 		fattore1.scriviCodice(this);
 		fattore2.scriviCodice(this);
 		bufferOutput.println("imul");
 	}
 
 	@Override
-	public void divisione(Espressione dividendo, Espressione divisore) throws EccezioneSemantica {
+	public void divisione(Espressione dividendo, Espressione divisore)
+			throws EccezioneSemantica {
 		dividendo.scriviCodice(this);
 		divisore.scriviCodice(this);
 		bufferOutput.println("idiv");
 	}
 
 	@Override
-	public void maggiore(Espressione parteSinistra, Espressione parteDestra) throws EccezioneSemantica {
+	public void maggiore(Espressione parteSinistra, Espressione parteDestra)
+			throws EccezioneSemantica {
 		sottrazione(parteSinistra, parteDestra);
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
@@ -187,12 +195,14 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void minore(Espressione parteSinistra, Espressione parteDestra) throws EccezioneSemantica {
+	public void minore(Espressione parteSinistra, Espressione parteDestra)
+			throws EccezioneSemantica {
 		maggiore(parteDestra, parteSinistra);
 	}
 
 	@Override
-	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra) throws EccezioneSemantica {
+	public void uguaglianza(Espressione parteSinistra, Espressione parteDestra)
+			throws EccezioneSemantica {
 		sottrazione(parteSinistra, parteDestra);
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
@@ -236,7 +246,8 @@ public class JasminTarget extends ScrittoreTarget {
 		bufferOutput.println(labelMaggiore2 + ": ");
 	}
 
-	public void seAltrimenti(Espressione ex, Blocco b1, Blocco b2) throws EccezioneSemantica {
+	public void seAltrimenti(Espressione ex, Blocco b1, Blocco b2)
+			throws EccezioneSemantica {
 		ex.scriviCodice(this);
 		String labelMaggiore1 = generaLabel();
 		String labelMaggiore2 = generaLabel();
@@ -253,19 +264,22 @@ public class JasminTarget extends ScrittoreTarget {
 
 	}
 
-	private void storeInVariabile(String identificatore) throws EccezioneSemantica {
+	private void storeInVariabile(String identificatore)
+			throws EccezioneSemantica {
 		int idVar = this.idVariabile(identificatore);
 		bufferOutput.println("istore " + idVar);
 	}
 
 	@Override
-	public void storeInVariabile(String identificatore, Espressione ex) throws EccezioneSemantica {
+	public void storeInVariabile(String identificatore, Espressione ex)
+			throws EccezioneSemantica {
 		ex.scriviCodice(this);
 		storeInVariabile(identificatore);
 	}
 
 	@Override
-	public void espressioneInParentesi(Espressione ex) throws EccezioneSemantica {
+	public void espressioneInParentesi(Espressione ex)
+			throws EccezioneSemantica {
 		ex.scriviCodice(this);
 	}
 
@@ -286,7 +300,9 @@ public class JasminTarget extends ScrittoreTarget {
 		bufferOutput.println(labelMaggiore3 + ": ");
 	}
 
-	public static void compilaFile(String percorsoFile, boolean salvaAssembly) throws GeneratorException, FileNotFoundException, LRParserException, IOException, JasminException, EccezioneSemantica {
+	public static void compilaFile(String percorsoFile, boolean salvaAssembly)
+			throws GeneratorException, FileNotFoundException,
+			LRParserException, IOException, JasminException, EccezioneSemantica {
 
 		File sorgenteFile = new File(percorsoFile);
 
@@ -358,7 +374,8 @@ public class JasminTarget extends ScrittoreTarget {
 
 	@Override
 	public void costante(String stringa) throws EccezioneSemantica {
-		bufferOutput.print("ldc \"" + stringa.replaceAll("\n","\\\\n") + "\"\n");
+		bufferOutput.print("ldc \"" + stringa.replaceAll("\n", "\\\\n")
+				+ "\"\n");
 	}
 
 	@Override
@@ -370,13 +387,15 @@ public class JasminTarget extends ScrittoreTarget {
 
 	// Operazioni sui vettori
 	private Map<String, Integer> dimensioneVettori = new HashMap<String, Integer>();
-	
+
 	@Override
-	public void definisciVettore(String identificatore, Integer dimensione) throws EccezioneSemantica {
+	public void definisciVettore(String identificatore, Integer dimensione)
+			throws EccezioneSemantica {
 		try {
 			registraVariabile(identificatore + "[]");
 		} catch (EccezioneSemantica ex) {
-			throw new EccezioneSemantica(String.format("Il vettore %s è già stato definito", identificatore));
+			throw new EccezioneSemantica(String.format(
+					"Il vettore %s è già stato definito", identificatore));
 		}
 		int id = idVariabile(identificatore + "[]");
 		dimensioneVettori.put(identificatore, dimensione);
@@ -386,11 +405,13 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void leggiElementoVettore(String identificatore, Espressione indice) throws EccezioneSemantica {
+	public void leggiElementoVettore(String identificatore, Espressione indice)
+			throws EccezioneSemantica {
 		try {
 			bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
 		} catch (EccezioneSemantica ex) {
-			throw new EccezioneSemantica("Il vettore " + identificatore + " non è stato definito");
+			throw new EccezioneSemantica("Il vettore " + identificatore
+					+ " non è stato definito");
 		}
 		indice.scriviCodice(this);
 		bufferOutput.println("invokestatic " + className + "/readInt()I");
@@ -398,11 +419,13 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void caricaElementoVettore(String identificatore, Espressione indice) throws EccezioneSemantica {
+	public void caricaElementoVettore(String identificatore, Espressione indice)
+			throws EccezioneSemantica {
 		try {
 			bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
 		} catch (EccezioneSemantica ex) {
-			throw new EccezioneSemantica("Il vettore " + identificatore + " non è stato definito");
+			throw new EccezioneSemantica("Il vettore " + identificatore
+					+ " non è stato definito");
 		}
 		indice.scriviCodice(this);
 		bufferOutput.println("iaload");
@@ -414,7 +437,8 @@ public class JasminTarget extends ScrittoreTarget {
 		try {
 			bufferOutput.println("aload " + idVariabile(identificatore + "[]"));
 		} catch (EccezioneSemantica ex) {
-			throw new EccezioneSemantica("Il vettore " + identificatore + " non è stato definito");
+			throw new EccezioneSemantica("Il vettore " + identificatore
+					+ " non è stato definito");
 		}
 		indice.scriviCodice(this);
 		elemento.scriviCodice(this);
@@ -431,12 +455,12 @@ public class JasminTarget extends ScrittoreTarget {
 	@Override
 	public void scriviMain(Blocco codice) throws EccezioneSemantica {
 		outputFile.println(".method public static main([Ljava/lang/String;)V");
-	    outputFile.println(".limit stack 30");
-	   
-	    codice.scriviCodice(this);
-	    outputFile.println(".limit locals " + (numeroVariabili() + 2));
-	    
-	    try {
+		outputFile.println(".limit stack 30");
+
+		codice.scriviCodice(this);
+		outputFile.println(".limit locals " + (numeroVariabili() + 2));
+
+		try {
 			writeContentOfStub("preMainStub.j", "%className", className);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -446,23 +470,24 @@ public class JasminTarget extends ScrittoreTarget {
 		outputFile.println("return");
 		outputFile.println(".end method");
 	}
-	
+
 	// Operazioni sulle funzioni
-	
+
 	private Map<String, String> parametriFunzioni = new HashMap<String, String>();
-	
+
 	@Override
 	public void definisciFunzione(String nome, String[] ingressi,
 			String uscita, Blocco codice) throws EccezioneSemantica {
 		// Se la funzione è stata definita già in precedenza
 		// lanciamo un'eccezione
 		if (parametriFunzioni.containsKey(nome)) {
-			throw new EccezioneSemantica(String.format("Funzione %s è già stata definita", nome));
+			throw new EccezioneSemantica(String.format(
+					"Funzione %s è già stata definita", nome));
 		}
 		pushScope();
 		outputFile.printf(".method public static %s", nome);
 		StringBuilder stringaParametri = new StringBuilder("(");
-		for ( String variabile : ingressi) {
+		for (String variabile : ingressi) {
 			String[] nomeEtipo = variabile.split(":");
 			String nomeParametro = nomeEtipo[0];
 			String tipo = nomeEtipo[1];
@@ -482,43 +507,48 @@ public class JasminTarget extends ScrittoreTarget {
 		} else {
 			stringaParametri.append("V");
 		}
-		
+
 		parametriFunzioni.put(nome, stringaParametri.toString());
-		
+
 		outputFile.println(stringaParametri.toString());
-		
+
 		outputFile.println(".limit stack 9");
 		codice.scriviCodice(this);
 		outputFile.println(".limit locals " + numeroVariabili());
-		
-		if (uscita != null)  {
+
+		if (uscita != null) {
 			caricaVariabile(uscita);
 			bufferOutput.println("ireturn");
 		} else {
 			bufferOutput.println("return");
 		}
 		svuotaBuffer();
-		
+
 		outputFile.println(".end method");
 		popScope();
 	}
 
 	@Override
-	public void eseguiFunzione(String nome, Espressione parametri) throws EccezioneSemantica {
+	public void eseguiFunzione(String nome, Espressione parametri)
+			throws EccezioneSemantica {
 		if (parametriFunzioni.get(nome).endsWith("V")) {
-			throw new EccezioneSemantica(String.format("È stata usata in una espressione la funzione %s che non ritorna valori", nome));
+			throw new EccezioneSemantica(
+					String.format(
+							"È stata usata in una espressione la funzione %s che non ritorna valori",
+							nome));
 		}
 		parametri.scriviCodice(this);
-		bufferOutput.printf("invokestatic %s/%s%s\n", className, nome, parametriFunzioni.get(nome));
+		bufferOutput.printf("invokestatic %s/%s%s\n", className, nome,
+				parametriFunzioni.get(nome));
 	}
-
 
 	@Override
 	public void caricaVettore(String nome) throws EccezioneSemantica {
 		try {
 			bufferOutput.println("aload " + idVariabile(nome + "[]"));
 		} catch (EccezioneSemantica ex) {
-			throw new EccezioneSemantica(String.format("Il vettore %s non è stato definito", nome));
+			throw new EccezioneSemantica(String.format(
+					"Il vettore %s non è stato definito", nome));
 		}
 	}
 
@@ -528,11 +558,13 @@ public class JasminTarget extends ScrittoreTarget {
 	}
 
 	@Override
-	public void eseguiFunzioneSenzaRitorno(String nome, Espressione parametri) throws EccezioneSemantica {
+	public void eseguiFunzioneSenzaRitorno(String nome, Espressione parametri)
+			throws EccezioneSemantica {
 		if (parametri != null)
 			parametri.scriviCodice(this);
-		bufferOutput.printf("invokestatic %s/%s%s\n", className, nome, parametriFunzioni.get(nome));
-		if (! parametriFunzioni.get(nome).endsWith("V")) {
+		bufferOutput.printf("invokestatic %s/%s%s\n", className, nome,
+				parametriFunzioni.get(nome));
+		if (!parametriFunzioni.get(nome).endsWith("V")) {
 			bufferOutput.println("pop");
 		}
 	}

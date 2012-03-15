@@ -10,9 +10,9 @@ import istruzioni.espressioni.W;
 /**
  * 
  * @author Alessandro, Luca, Saro
- *
+ * 
  */
-public class ChiamaFunzione implements F,I {
+public class ChiamaFunzione implements F, I {
 
 	private String id;
 	private W argomenti;

@@ -8,10 +8,11 @@ import compilatore.EccezioneSemantica;
 
 import istruzioni.N;
 import istruzioni.Z;
+
 /**
  * 
  * @author Alessandro, Luca, Saro
- *
+ * 
  */
 public class DefinizioneFunzione implements Z {
 
@@ -41,10 +42,12 @@ public class DefinizioneFunzione implements Z {
 		// mettere il controllo se il valore di ritorno è null la f non ritorna
 		// valori
 		List<String> listaArgomenti = new LinkedList<String>();
-		if (argomenti!= null) {
+		if (argomenti != null) {
 			argomenti.aggiungiALista(listaArgomenti);
 		}
-		sc.definisciFunzione(nomeFunzione,listaArgomenti.toArray(new String[0]), idValoreRitorno, codiceFunzione);
+		sc.definisciFunzione(nomeFunzione,
+				listaArgomenti.toArray(new String[0]), idValoreRitorno,
+				codiceFunzione);
 	}
 
 }

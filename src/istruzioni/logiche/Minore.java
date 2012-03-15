@@ -7,16 +7,17 @@ import compilatore.EccezioneSemantica;
 /**
  * 
  * @author Alessandro, Luca, Saro
- *
+ * 
  */
 public class Minore implements B {
 	private E parteSinistra;
 	private E parteDestra;
-	
+
 	public Minore(E parteSinistra, E parteDestra) {
 		this.parteSinistra = parteSinistra;
 		this.parteDestra = parteDestra;
 	}
+
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
 		sc.minore(parteSinistra, parteDestra);

@@ -26,13 +26,18 @@ import edu.tum.cup2.generator.exceptions.GeneratorException;
 import edu.tum.cup2.parser.exceptions.LRParserException;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
+import javax.swing.JTabbedPane;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class FinestraPrincipale extends JFrame {
 
 	private JPanel contentPane;
 	String percorsoFile = "prova.ita";
-	
+
 	/**
 	 * Launch the application.
 	 */

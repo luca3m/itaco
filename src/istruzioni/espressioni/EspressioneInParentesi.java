@@ -6,7 +6,7 @@ import compilatore.EccezioneSemantica;
 /**
  * 
  * @author Alessandro, Luca, Saro
- *
+ * 
  */
 public class EspressioneInParentesi implements F {
 	private E espressione;
@@ -19,5 +19,5 @@ public class EspressioneInParentesi implements F {
 	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
 		sc.espressioneInParentesi(espressione);
 	}
-	
+
 }

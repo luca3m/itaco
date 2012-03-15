@@ -25,20 +25,21 @@ public class ErrorTest {
 	 * @param nomeFileSorgente
 	 *            nome del file sorgente inserito nella cartella testFiles/,
 	 *            senza estensione .ita
-	 * @throws JasminException 
-	 * @throws IOException 
-	 * @throws LRParserException 
-	 * @throws GeneratorException 
-	 * @throws FileNotFoundException 
+	 * @throws JasminException
+	 * @throws IOException
+	 * @throws LRParserException
+	 * @throws GeneratorException
+	 * @throws FileNotFoundException
 	 */
 	private void testFallimentoCompilazione(String nomeFileSorgente) {
 		// Compilo il file .ita
 		try {
-			JasminTarget.compilaFile(cartellaFileTest + nomeFileSorgente + ".ita",false);
+			JasminTarget.compilaFile(cartellaFileTest + nomeFileSorgente
+					+ ".ita", false);
 		} catch (Exception ex) {
 			return;
 		}
-		
+
 		// Elimino il file class generato in modo da non creare spazzatura
 		File classFile = new File(cartellaFileTest + nomeFileSorgente
 				+ ".class");
@@ -56,12 +57,12 @@ public class ErrorTest {
 	public void testDoppiaDefinizioneVariabile() {
 		testFallimentoCompilazione("doppiaDefinizioneVariabile");
 	}
-	
+
 	@Test
 	public void testUsoVariabileNonAssegnata() {
 		testFallimentoCompilazione("usoVariabileNonAssegnata");
 	}
-	
+
 	@Test
 	public void testAssegnamentoValoreDiUnaFunzioneVoid() {
 		testFallimentoCompilazione("assegnamentoValoreDiUnaFunzioneVoid");
