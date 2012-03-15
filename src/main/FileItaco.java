@@ -1,19 +1,18 @@
 package main;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.logging.Logger;
 
 import compilatore.CTarget;
-import compilatore.EccezioneSemantica;
-import compilatore.JasminException;
 import compilatore.JasminTarget;
-import edu.tum.cup2.generator.exceptions.GeneratorException;
-import edu.tum.cup2.parser.exceptions.LRParserException;
+import compilatore.RubyTarget;
 
 public class FileItaco {
-	
+
+	Logger itacoLogger = Logger.getLogger("Itaco");
 	private String baseNomeFile = null;
 	private String directory = null;
 
@@ -31,6 +30,10 @@ public class FileItaco {
 	 *            nome del file da aprire
 	 */
 	public FileItaco(String nomeFile) {
+		setPercorsoFile(nomeFile);
+	}
+
+	private void setPercorsoFile(String nomeFile) {
 		File fileDescriptor = new File(nomeFile);
 		directory = fileDescriptor.getParent();
 		baseNomeFile = fileDescriptor.getName().split("\\.")[0];
@@ -41,8 +44,17 @@ public class FileItaco {
 	 * 
 	 * @return esito del salvataggio
 	 */
-	public boolean salvaFile() {
-		return false;
+	public boolean salvaFile(String contenuto) {
+		try {
+			FileOutputStream file1 = new FileOutputStream(getPercorsoFile());
+			PrintStream Output = new PrintStream(file1);
+			Output.print(contenuto);
+			file1.close();
+			return true;
+		} catch (IOException e) {
+			itacoLogger.severe(String.format("Errore nel salvare il file: %s\n", e));
+			return false;
+		}
 	}
 
 	/**
@@ -52,7 +64,9 @@ public class FileItaco {
 	 *            nome del file in cui salvare
 	 * @return esito del salvataggio
 	 */
-	public boolean salvaFile(String nomeFile) {
+	public boolean salvaFile(String contenuto, String nomeFile) {
+		setPercorsoFile(nomeFile);
+
 		return false;
 	}
 
@@ -68,16 +82,21 @@ public class FileItaco {
 				+ ".ita";
 		try {
 			switch (linguaggio) {
-				case C:
-					CTarget.compilaFile(percorsoFile);
-					break;
-				case JASMIN:
-					JasminTarget.compilaFile(percorsoFile, true);
-					break;
+			case C:
+				CTarget.compilaFile(percorsoFile);
+				break;
+			case JASMIN:
+				JasminTarget.compilaFile(percorsoFile, true);
+				break;
+			case RUBY:
+				RubyTarget.compilaFile(percorsoFile);
+				break;
+			case CLASS:
+				JasminTarget.compilaFile(percorsoFile, false);
+				break;
 			}
 		} catch (Exception e) {
-			Logger.getLogger("Itaco")
-			.severe(String.format("Errore di compilazione: %s",
+			itacoLogger.severe(String.format("Errore di compilazione: %s",
 					e.toString()));
 		}
 		return false;
@@ -86,8 +105,11 @@ public class FileItaco {
 	/**
 	 * Esegui il programma .ita
 	 * 
+	 * @param itacoLogger
+	 *            TODO
 	 * @param testo
 	 *            sorgente del programma da eseguire
+	 * 
 	 * @return esito dell'esecuzione
 	 */
 	public boolean esegui() {
@@ -95,11 +117,10 @@ public class FileItaco {
 		try {
 			JasminTarget.compilaFile(getPercorsoFile(), false);
 		} catch (Exception e) {
-			Logger.getLogger("Itaco")
-			.severe(String.format("Errore di compilazione: %s",
+			itacoLogger.severe(String.format("Errore di compilazione: %s",
 					e.toString()));
 		}
-		
+
 		String nomeSistemaOperativo = System.getProperty("os.name").split(" ")[0];
 		String comando = null;
 		if (nomeSistemaOperativo.equals("Mac")) {
@@ -108,7 +129,8 @@ public class FileItaco {
 							directory, baseNomeFile);
 		}
 		if (nomeSistemaOperativo.equals("Windows")) {
-			comando = String.format("cmd /c start cmd /k \"cd %s && java %s\"", directory, baseNomeFile);
+			comando = String.format("cmd /c start cmd /k \"cd %s && java %s\"",
+					directory, baseNomeFile);
 		}
 		if (nomeSistemaOperativo.equals("Linux")) {
 		}
@@ -125,9 +147,8 @@ public class FileItaco {
 		} else
 			return false;
 	}
-	
+
 	private String getPercorsoFile() {
-		return directory + File.separator + baseNomeFile
-				+ ".ita";
+		return directory + File.separator + baseNomeFile + ".ita";
 	}
 }
