@@ -16,7 +16,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
@@ -60,11 +62,14 @@ public class FinestraPrincipale extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		
-		final JTextPane Panecodice = new JTextPane();
+		JScrollPane scroller = new JScrollPane();
+		scroller.setBounds(199, 113, 795, 435);
+		contentPane.add(scroller);
+		final JTextArea Panecodice = new JTextArea();
 		Panecodice.setText("## Definire una variabile:\n# intero nome,\n# Definire un vettore:\n# vettore nome[dimensione],\n\n## Assegnamento di una variabile o di un elemento vettore:\n# 3+1 -> nome, ## 4+2 -> nome[0],\n\n## Istruzione condizionale se:\n# se variabile > 0:\n#   scrivi \"Positiva\";\n# altrimenti:\n#  scrivi \"Negativa\".\n\n## Istruzione iterativa finché:\n# finche i > 0:\n#   scrivi i,\n#   i-1 -> i.\n\n## Definire una funzione:\n# funzione somma(intero addendo1|intero addendo2) -> intero risultato:\n#  addendo1 + addendo2 -> risultato.\n\n## Eseguire una funzione:\n# somma(3|4) -> risultato,\n## Tutte le istruzioni terminano con una virgola, l'ultima invece termina con punto\nscrivi \"Ciao Mondo!\".");
-		Panecodice.setBounds(199, 113, 795, 435);
-		contentPane.add(Panecodice);
+		//Panecodice.setBounds(199, 113, 795, 435);
+		scroller.setViewportView(Panecodice);
+		//contentPane.add(Panecodice);
 	
 		
 		JButton btnNewButton = new JButton("Salva File");
@@ -105,6 +110,7 @@ public class FinestraPrincipale extends JFrame {
 		contentPane.add(btnGeneraFile);
 		
 		JButton btnPulisci = new JButton("");
+		btnPulisci.setToolTipText("Compila ed esegui");
 		btnPulisci.setBorderPainted(false);
 		btnPulisci.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/tastoplay0.png")));
 		btnPulisci.addActionListener(new ActionListener() {
@@ -125,10 +131,14 @@ public class FinestraPrincipale extends JFrame {
 		btnPulisci.setBounds(31, 23, 90, 97);
 		contentPane.add(btnPulisci);
 		
-		final JTextPane PaneLogger = new JTextPane();
+		JScrollPane scroller2 = new JScrollPane();
+		scroller2.setBounds(199, 570, 795, 126);
+		contentPane.add(scroller2);
+		final JTextArea PaneLogger = new JTextArea();
 		PaneLogger.setText("Log:");
-		PaneLogger.setBounds(199, 570, 795, 126);
-		contentPane.add(PaneLogger);
+		scroller2.setViewportView(PaneLogger);
+		//PaneLogger.setBounds(199, 570, 795, 126);
+		//contentPane.add(PaneLogger);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 1024, 23);
@@ -284,6 +294,12 @@ public class FinestraPrincipale extends JFrame {
 		menuBar.add(mnHelp);
 		
 		JMenuItem help_sintassi = new JMenuItem("Sintassi");
+		help_sintassi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FinestraSintassi sintassi = new FinestraSintassi();
+				sintassi.setVisible(true);
+			}
+		});
 		mnHelp.add(help_sintassi);
 		
 		JMenuItem help_autori = new JMenuItem("Autori");
