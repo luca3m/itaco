@@ -26,6 +26,11 @@ import edu.tum.cup2.generator.exceptions.GeneratorException;
 import edu.tum.cup2.parser.exceptions.LRParserException;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
+import javax.swing.JTabbedPane;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class FinestraPrincipale extends JFrame {
@@ -128,14 +133,6 @@ public class FinestraPrincipale extends JFrame {
 		btnPulisci.setBounds(29, 55, 104, 104);
 		contentPane.add(btnPulisci);
 		
-		JLabel lblLog = new JLabel("Log:");
-		lblLog.setBounds(199, 532, 27, 16);
-		contentPane.add(lblLog);
-		
-		JTextPane PaneLogger = new JTextPane();
-		PaneLogger.setBounds(199, 555, 795, 154);
-		contentPane.add(PaneLogger);
-		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 1024, 23);
 		contentPane.add(menuBar);
@@ -196,5 +193,21 @@ public class FinestraPrincipale extends JFrame {
 		JButton btnNuovoFile = new JButton("Nuovo File");
 		btnNuovoFile.setBounds(29, 171, 104, 35);
 		contentPane.add(btnNuovoFile);
+		
+		final JTextPane logExecPane = new JTextPane();
+		logExecPane.setEditable(false);
+		logExecPane.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				
+			}
+		});
+		logExecPane.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				logExecPane.setCaretPosition(logExecPane.getText().length());
+			}
+		});
+		logExecPane.setBounds(209, 521, 560, 144);
+		contentPane.add(logExecPane);
 	}
 }
