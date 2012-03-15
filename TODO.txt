@@ -1,3 +1,1 @@
-1- Completare gui
-2- Logger
-3- Sistemare codice e commenti
+Sistemare codice e commenti
