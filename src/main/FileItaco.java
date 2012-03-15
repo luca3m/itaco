@@ -1,11 +1,16 @@
 package main;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Logger;
 
 import compilatore.CTarget;
+import compilatore.EccezioneSemantica;
+import compilatore.JasminException;
 import compilatore.JasminTarget;
+import edu.tum.cup2.generator.exceptions.GeneratorException;
+import edu.tum.cup2.parser.exceptions.LRParserException;
 
 public class FileItaco {
 	
@@ -72,7 +77,7 @@ public class FileItaco {
 			}
 		} catch (Exception e) {
 			Logger.getLogger("Itaco")
-			.severe(String.format("Errore di esecuzione: %s",
+			.severe(String.format("Errore di compilazione: %s",
 					e.toString()));
 		}
 		return false;
@@ -87,22 +92,29 @@ public class FileItaco {
 	 */
 	public boolean esegui() {
 		// Compilo il codice
-		JasminTarget.compilaFile(percorsoFile, true);
+		try {
+			JasminTarget.compilaFile(getPercorsoFile(), false);
+		} catch (Exception e) {
+			Logger.getLogger("Itaco")
+			.severe(String.format("Errore di compilazione: %s",
+					e.toString()));
+		}
 		
-		String nomeSistemaOperativo = System.getProperty("os.name");
+		String nomeSistemaOperativo = System.getProperty("os.name").split(" ")[0];
 		String comando = null;
-		if (nomeSistemaOperativo.equals("Mac OS X")) {
+		if (nomeSistemaOperativo.equals("Mac")) {
 			comando = String
-					.format("osascript -e 'tell app \"Terminal\" to do script \"cd %s; java %s\"",
+					.format("osascript -e 'tell app \"Terminal\" to do script \"cd %s; java %s\"'",
 							directory, baseNomeFile);
 		}
 		if (nomeSistemaOperativo.equals("Windows")) {
-
+			comando = String.format("cmd /c start cmd /k \"cd %s && java %s\"", directory, baseNomeFile);
 		}
 		if (nomeSistemaOperativo.equals("Linux")) {
 		}
 		if (comando != null) {
 			try {
+				System.out.println(comando);
 				Runtime.getRuntime().exec(comando);
 			} catch (IOException e) {
 				Logger.getLogger("Itaco")

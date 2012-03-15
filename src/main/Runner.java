@@ -12,11 +12,9 @@ public class Runner {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-		String file ="prova.ita";
-		generaCodiceC(file);
-		generaCodiceJasmin(file);
-		generaByteCodeJava(file);
-		generaCodiceRuby(file);
+		String file = "/Users/luca/Sviluppo/itaco/prova.ita";
+		FileItaco fi = new FileItaco(file);
+		fi.esegui();
 	}
 	
 	/**
