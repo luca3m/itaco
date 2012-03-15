@@ -1,14 +1,13 @@
 package GUI;
 
-import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.SystemColor;
 
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import javax.swing.ImageIcon;
-import java.awt.SystemColor;
-import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class DialogoAutori extends JDialog {
 
 	/**

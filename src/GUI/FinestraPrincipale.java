@@ -19,11 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
-
-import sun.swing.SwingUtilities2;
 
 import main.ElencoLinguaggi;
 import main.FileItaco;
@@ -66,7 +63,7 @@ public class FinestraPrincipale extends JFrame {
 		scroller.setBounds(199, 113, 795, 435);
 		contentPane.add(scroller);
 		final JTextArea Panecodice = new JTextArea();
-		Panecodice.setText("## Definire una variabile:\n# intero nome,\n# Definire un vettore:\n# vettore nome[dimensione],\n\n## Assegnamento di una variabile o di un elemento vettore:\n# 3+1 -> nome, ## 4+2 -> nome[0],\n\n## Istruzione condizionale se:\n# se variabile > 0:\n#   scrivi \"Positiva\";\n# altrimenti:\n#  scrivi \"Negativa\".\n\n## Istruzione iterativa finché:\n# finche i > 0:\n#   scrivi i,\n#   i-1 -> i.\n\n## Definire una funzione:\n# funzione somma(intero addendo1|intero addendo2) -> intero risultato:\n#  addendo1 + addendo2 -> risultato.\n\n## Eseguire una funzione:\n# somma(3|4) -> risultato,\n## Tutte le istruzioni terminano con una virgola, l'ultima invece termina con punto\nscrivi \"Ciao Mondo!\".");
+		Panecodice.setText("scrivi \"Ciao Mondo!\".");
 		//Panecodice.setBounds(199, 113, 795, 435);
 		scroller.setViewportView(Panecodice);
 		//contentPane.add(Panecodice);

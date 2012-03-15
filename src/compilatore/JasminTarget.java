@@ -117,6 +117,7 @@ public class JasminTarget extends ScrittoreTarget {
 		outputFile.print(stubReplaced);
 	}
 
+	@SuppressWarnings("unused")
 	private void writeContentOfStub(String stubFileName) throws IOException {
 		// Copio il contenuto dello stub nel file di output
 		File stubFile = new File(stubFileName);
