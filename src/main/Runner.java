@@ -1,5 +1,7 @@
 package main;
 
+import java.io.File;
+
 import compilatore.CTarget;
 import compilatore.JasminTarget;
 import compilatore.RubyTarget;
@@ -12,7 +14,7 @@ public class Runner {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-		String file = "/Users/luca/Sviluppo/itaco/prova.ita";
+		String file = "."+File.separator+"prova.ita";
 		FileItaco fi = new FileItaco(file);
 		fi.esegui();
 	}
