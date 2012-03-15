@@ -104,9 +104,6 @@ public class FileItaco {
 
 	/**
 	 * Esegui il programma .ita
-	 * 
-	 * @param itacoLogger
-	 *            TODO
 	 * @param testo
 	 *            sorgente del programma da eseguire
 	 * 
