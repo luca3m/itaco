@@ -140,7 +140,7 @@ public class FileItaco {
 			}
 			if (nomeSistemaOperativo.equals("Linux")) {
 				String comando = String.format(
-						"gnome-terminal -x bash -c \"cd %s && java %s && echo \"Premi invio per chiudere..\" && read", directory,
+						"gnome-terminal -x bash -c \"cd %s && java %s && echo 'Premi invio per chiudere..' && read\"", directory,
 						baseNomeFile);
 				Runtime.getRuntime().exec(comando);
 			}
