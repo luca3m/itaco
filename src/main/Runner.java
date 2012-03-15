@@ -16,7 +16,7 @@ public class Runner {
 	public static void main(String[] args) throws Exception {
 		String file = "."+File.separator+"prova.ita";
 		FileItaco fi = new FileItaco(file);
-		fi.esegui(Logger.getLogger("Itaco"));
+		fi.esegui();
 	}
 	
 	/**

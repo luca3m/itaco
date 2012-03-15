@@ -130,6 +130,7 @@ public class FileItaco {
 					directory, baseNomeFile);
 		}
 		if (nomeSistemaOperativo.equals("Linux")) {
+			comando = String.format("gnome-terminal -e \"cd %s && java %s", directory, baseNomeFile);
 		}
 		if (comando != null) {
 			try {
