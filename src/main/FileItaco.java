@@ -54,7 +54,8 @@ public class FileItaco {
 			PrintStream Output = new PrintStream(file1);
 			Output.print(contenuto);
 			file1.close();
-			itacoLogger.info("File salvato");
+			itacoLogger.info("File salvato, percorso file:" + directory + File.separator + baseNomeFile
+						+ ".ita");
 			return true;
 		} catch (IOException e) {
 			itacoLogger.severe(String.format(
@@ -90,19 +91,23 @@ public class FileItaco {
 			switch (linguaggio) {
 			case C:
 				CTarget.compilaFile(percorsoFile);
-				itacoLogger.info("Esportazione in C completata");
+				itacoLogger.info("Esportazione in C completata, percorso file:" + directory + File.separator + baseNomeFile
+						+ ".c");
 				break;
 			case JASMIN:
 				JasminTarget.compilaFile(percorsoFile, true);
-				itacoLogger.info("Esportazione in Jasmin completata");
+				itacoLogger.info("Esportazione in Jasmin completata, percorso file:" + directory + File.separator + baseNomeFile
+						+ ".j");
 				break;
 			case RUBY:
 				RubyTarget.compilaFile(percorsoFile);
-				itacoLogger.info("Esportazione in Ruby completata");
+				itacoLogger.info("Esportazione in Ruby completata, percorso file:" + directory + File.separator + baseNomeFile
+						+ ".rb");
 				break;
 			case CLASS:
 				JasminTarget.compilaFile(percorsoFile, false);
-				itacoLogger.info("Esportazione in Java .class completata");
+				itacoLogger.info("Esportazione in Java .class completata, percorso file:" + directory + File.separator + baseNomeFile
+						+ ".class");
 				break;
 			}
 		} catch (Exception e) {

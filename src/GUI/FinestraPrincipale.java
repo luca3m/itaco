@@ -303,6 +303,12 @@ public class FinestraPrincipale extends JFrame {
 		mnHelp.add(help_sintassi);
 		
 		JMenuItem help_autori = new JMenuItem("Autori");
+		help_autori.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DialogoAutori autori = new DialogoAutori();
+				autori.setVisible(true);
+			}
+		});
 		mnHelp.add(help_autori);
 		
 		JLabel lblImg = new JLabel("");
