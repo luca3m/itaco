@@ -110,8 +110,9 @@ public class FileItaco {
 	 *            sorgente del programma da eseguire
 	 * 
 	 * @return esito dell'esecuzione
+	 * @throws InterruptedException 
 	 */
-	public boolean esegui() {
+	public boolean esegui() throws InterruptedException {
 		// Compilo il codice
 		try {
 			JasminTarget.compilaFile(getPercorsoFile(), false);
@@ -139,10 +140,14 @@ public class FileItaco {
 				Runtime.getRuntime().exec(comando);
 			}
 			if (nomeSistemaOperativo.equals("Linux")) {
-				String comando = String.format(
-						"gnome-terminal -x bash -c \"cd %s && java %s && echo 'Premi invio per chiudere..' && read\"", directory,
-						baseNomeFile);
+				String comando[] = new String[5];
+				comando[0] = "gnome-terminal";
+				comando[1] = "-x";
+				comando[2] = "bash";
+				comando[3] = "-c";
+				comando[4] = String.format("cd %s ; java %s ; echo; echo Premi invio per chiudere.. ; read", directory, baseNomeFile);
 				Runtime.getRuntime().exec(comando);
+				System.out.print(comando);
 			}
 			return true;
 		} catch (IOException e) {
