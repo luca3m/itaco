@@ -55,7 +55,7 @@ public class FinestraPrincipale extends JFrame {
 	public FinestraPrincipale() {
 		setTitle("ITAco");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1024, 750);
+		setBounds(100, 100, 1031, 861);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -63,11 +63,13 @@ public class FinestraPrincipale extends JFrame {
 		
 		
 		final JTextPane Panecodice = new JTextPane();
-		Panecodice.setBounds(199, 55, 795, 454);
+		Panecodice.setBounds(200, 126, 795, 454);
 		contentPane.add(Panecodice);
 	
 		
 		JButton btnNewButton = new JButton("Salva File");
+		btnNewButton.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/salva copia.png")));
+		btnNewButton.setBorderPainted(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String file = "";
@@ -83,14 +85,19 @@ public class FinestraPrincipale extends JFrame {
 				        }
 			}
 		});
-		btnNewButton.setBounds(29, 250, 104, 35);
+		btnNewButton.setBounds(717, 45, 179, 69);
 		contentPane.add(btnNewButton);
 		
-		JButton btnGeneraFile = new JButton("Open File");
-		btnGeneraFile.setBounds(29, 208, 104, 41);
+		JButton btnGeneraFile = new JButton("Apri File");
+		btnGeneraFile.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/opengiusto.png")));
+		btnGeneraFile.setBorderPainted(false);
+		btnGeneraFile.setVerifyInputWhenFocusTarget(false);
+		btnGeneraFile.setBounds(457, 45, 179, 69);
 		contentPane.add(btnGeneraFile);
 		
-		JButton btnPulisci = new JButton("Compila");
+		JButton btnPulisci = new JButton("");
+		btnPulisci.setBorderPainted(false);
+		btnPulisci.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/tastoplay0.png")));
 		btnPulisci.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String file = "";
@@ -125,15 +132,15 @@ public class FinestraPrincipale extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		btnPulisci.setBounds(29, 55, 104, 104);
+		btnPulisci.setBounds(31, 35, 90, 97);
 		contentPane.add(btnPulisci);
 		
 		JLabel lblLog = new JLabel("Log:");
-		lblLog.setBounds(199, 532, 27, 16);
+		lblLog.setBounds(200, 600, 27, 16);
 		contentPane.add(lblLog);
 		
 		JTextPane PaneLogger = new JTextPane();
-		PaneLogger.setBounds(199, 555, 795, 154);
+		PaneLogger.setBounds(199, 628, 795, 154);
 		contentPane.add(PaneLogger);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -179,7 +186,7 @@ public class FinestraPrincipale extends JFrame {
 		JMenuItem Compila_esportaJasmin = new JMenuItem("Esporta in Jasmin");
 		mnCompila.add(Compila_esportaJasmin);
 		
-		JMenu mnHelp = new JMenu("Help");
+		JMenu mnHelp = new JMenu("Aiuto");
 		menuBar.add(mnHelp);
 		
 		JMenuItem help_sintassi = new JMenuItem("Sintassi");
@@ -189,12 +196,42 @@ public class FinestraPrincipale extends JFrame {
 		mnHelp.add(help_autori);
 		
 		JLabel lblImg = new JLabel("");
-		lblImg.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/22222.jpg")));
-		lblImg.setBounds(19, 498, 168, 211);
+		lblImg.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/itacosenzasfondoblu.png")));
+		lblImg.setBounds(18, 571, 168, 211);
 		contentPane.add(lblImg);
 		
 		JButton btnNuovoFile = new JButton("Nuovo File");
-		btnNuovoFile.setBounds(29, 171, 104, 35);
+		btnNuovoFile.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/newgiusto.png")));
+		btnNuovoFile.setBorderPainted(false);
+		btnNuovoFile.setBounds(200, 45, 179, 69);
 		contentPane.add(btnNuovoFile);
+		
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/jasmin_icon.png")));
+		btnNewButton_1.setBorderPainted(false);
+		btnNewButton_1.setBounds(18, 358, 117, 69);
+		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("");
+		btnNewButton_2.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/javagiusto.png")));
+		btnNewButton_2.setBorderPainted(false);
+		btnNewButton_2.setBounds(18, 198, 117, 69);
+		contentPane.add(btnNewButton_2);
+		
+		JButton button = new JButton("");
+		button.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/linguaggioC.png")));
+		button.setBorderPainted(false);
+		button.setBounds(18, 279, 117, 67);
+		contentPane.add(button);
+		
+		JButton btnNewButton_3 = new JButton("");
+		btnNewButton_3.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/ruby.png")));
+		btnNewButton_3.setBorderPainted(false);
+		btnNewButton_3.setBounds(18, 439, 117, 84);
+		contentPane.add(btnNewButton_3);
+		
+		JLabel lblNewLabel = new JLabel("Esporta in:");
+		lblNewLabel.setBounds(31, 158, 103, 16);
+		contentPane.add(lblNewLabel);
 	}
 }
