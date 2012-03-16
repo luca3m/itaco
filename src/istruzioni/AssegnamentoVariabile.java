@@ -7,6 +7,8 @@ import compilatore.ScrittoreTarget;
 import istruzioni.espressioni.E;
 
 /**
+ * Classe che implementa l'assegnazione di una variabile
+ * 
  * @author Alessandro, Luca, Saro
  * 
  */

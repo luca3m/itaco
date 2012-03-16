@@ -3,9 +3,9 @@ package istruzioni;
 import compilatore.Produzione;
 
 /**
- * 
- * @author Alessandro, Luca, Saro
- * 
+ * Interfaccia che implementa la prodizione I
+ * @author Alessandro Luca Rosario
+ *
  */
 public interface I extends N, Produzione {
 

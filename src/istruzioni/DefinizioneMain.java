@@ -5,7 +5,7 @@ import compilatore.EccezioneSemantica;
 import compilatore.ScrittoreTarget;
 
 /**
- * 
+ * Classe che implementa la produzione principale dell'assioma S -> N.
  * @author Alessandro, Luca, Saro
  * 
  */

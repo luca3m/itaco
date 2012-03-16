@@ -7,6 +7,7 @@ import compilatore.ScrittoreTarget;
 import istruzioni.logiche.B;
 
 /**
+ * Classe che implementa la condizione "se"
  * 
  * @author Alessandro, Luca, Saro
  * 

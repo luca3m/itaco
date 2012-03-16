@@ -7,6 +7,8 @@ import compilatore.ScrittoreTarget;
 import istruzioni.espressioni.E;
 
 /**
+ * Classe che implementa la lettura da standard input e la sua assegnazione a un
+ * elemento di un vettore
  * 
  * @author Alessandro, Luca, Saro
  * 

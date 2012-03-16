@@ -7,6 +7,8 @@ import compilatore.ScrittoreTarget;
 import istruzioni.espressioni.E;
 
 /**
+ * Classe che implementa la stampa su standard output
+ * 
  * @author Alessandro, Luca, Saro
  * 
  */

@@ -5,6 +5,8 @@ import compilatore.EccezioneSemantica;
 import compilatore.ScrittoreTarget;
 
 /**
+ * Classe che implementa la lettura da standard input di un intero e
+ * l'assegnazione a una variabile
  * 
  * @author Alessandro, Luca, Saro
  * 
@@ -18,7 +20,6 @@ public class LetturaDaTastiera implements I {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		sc.leggi(identificatore);
 	}
 }

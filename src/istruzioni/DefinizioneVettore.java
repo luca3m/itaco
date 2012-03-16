@@ -5,8 +5,9 @@ import compilatore.EccezioneSemantica;
 import compilatore.ScrittoreTarget;
 
 /**
+ * Classe che implementa la definizione di un vettore
  * 
- * @author Alessandro, Luca, Saro
+ * @author Alessandro Luca Rosario
  * 
  */
 public class DefinizioneVettore implements I {

@@ -6,6 +6,7 @@ import compilatore.Produzione;
 import compilatore.ScrittoreTarget;
 
 /**
+ * Classe che implementa una sequenza di istruzioni
  * 
  * @author Alessandro, Luca, Saro
  * 
@@ -23,7 +24,6 @@ public class SuccessioneIstruzioni implements N {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
 		istruzionePrecedente.scriviCodice(sc);
 		istruzioneSuccessiva.scriviCodice(sc);
 	}

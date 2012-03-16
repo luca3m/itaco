@@ -5,6 +5,7 @@ import compilatore.EccezioneSemantica;
 import compilatore.ScrittoreTarget;
 
 /**
+ * Classe che implementa la scrittura su standard output di una stringa
  * 
  * @author Alessandro, Luca, Saro
  * 

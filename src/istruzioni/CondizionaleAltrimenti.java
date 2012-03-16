@@ -6,6 +6,7 @@ import compilatore.ScrittoreTarget;
 import compilatore.EccezioneSemantica;
 
 /**
+ * Classe che implementa la condizione "se ... altrimenti ..."
  * 
  * @author Alessandro, Luca, Saro
  * 

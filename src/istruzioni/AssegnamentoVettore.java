@@ -7,6 +7,7 @@ import compilatore.ScrittoreTarget;
 import istruzioni.espressioni.E;
 
 /**
+ * Classe che implementa l'assegnazione di un vettore
  * 
  * @author Alessandro, Luca, Saro
  * 

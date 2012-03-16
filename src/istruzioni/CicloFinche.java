@@ -7,6 +7,7 @@ import compilatore.ScrittoreTarget;
 import istruzioni.logiche.B;
 
 /**
+ * Classe che implementa il ciclo "finche"
  * 
  * @author Alessandro, Luca, Saro
  * 
