@@ -4,6 +4,7 @@ import compilatore.ScrittoreTarget;
 import compilatore.EccezioneSemantica;
 
 /**
+ * Classe che implementa la sottrazione
  * 
  * @author Alessandro, Luca, Saro
  * 

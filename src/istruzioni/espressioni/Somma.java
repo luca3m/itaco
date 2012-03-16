@@ -4,6 +4,7 @@ import compilatore.ScrittoreTarget;
 import compilatore.EccezioneSemantica;
 
 /**
+ * Classe che implementa la somma
  * 
  * @author Alessandro, Luca, Saro
  * 

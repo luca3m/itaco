@@ -4,6 +4,8 @@ import compilatore.ScrittoreTarget;
 import compilatore.EccezioneSemantica;
 
 /**
+ * Classe che implementa la selezione dell'elemento di un vettore e la sua
+ * preparazione all'uso
  * 
  * @author Alessandro, Luca, Saro
  * 

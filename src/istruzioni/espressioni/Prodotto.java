@@ -4,6 +4,7 @@ import compilatore.ScrittoreTarget;
 import compilatore.EccezioneSemantica;
 
 /**
+ * Classe che implementa il prodotto
  * 
  * @author Alessandro, Luca, Saro
  * 

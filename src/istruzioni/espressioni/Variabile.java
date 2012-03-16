@@ -4,6 +4,7 @@ import compilatore.ScrittoreTarget;
 import compilatore.EccezioneSemantica;
 
 /**
+ * Classe che implementa una variabile
  * 
  * @author Alessandro, Luca, Saro
  * 
