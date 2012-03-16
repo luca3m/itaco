@@ -401,6 +401,12 @@ public class RubyTarget extends ScrittoreTarget {
 		ps.print(")");
 	}
 
+	/**
+	 * Classe che gestisce la concatenazione degli argomenti con la virgola
+	 * 
+	 * @author Alessandro Luca Rosario
+	 * 
+	 */
 	private static class AggiungiVirgola extends PrintStream {
 
 		AggiungiVirgola(PrintStream ps) {

@@ -25,8 +25,19 @@ import edu.tum.cup2.parser.LRParser;
 import edu.tum.cup2.parser.exceptions.LRParserException;
 import edu.tum.cup2.parser.tables.LRParsingTable;
 
+/**
+ * Classe che genera codice Jasmin dato un AST. La classe viene usata tramite il
+ * metodo public static void compilaFile(String percorsoFile)
+ * 
+ * @author Alessandro, Luca, Saro
+ * 
+ */
 public class JasminTarget extends ScrittoreTarget {
 
+	/*
+	 * Tabelle dei simboli utilizzate. Due tabelle sono utilizzate per garantire
+	 * diversi scope
+	 */
 	private Map<String, Integer> tabellaSimboliCorrente = new HashMap<String, Integer>();
 	private Map<String, Integer> tabellaSimboliGlobale = tabellaSimboliCorrente;
 
@@ -38,6 +49,14 @@ public class JasminTarget extends ScrittoreTarget {
 	private int contatoreVariabiliCorrente = START_ID;
 	private int contatoreVariabiliGlobali = contatoreVariabiliCorrente;
 
+	/**
+	 * Metodo per aggiungere una variabile alla tabella dei simboli
+	 * 
+	 * @param nome
+	 *            nome della variabile da inserire
+	 * @throws EccezioneSemantica
+	 *             lancia eccezione se la variabile è già presente
+	 */
 	public void registraVariabile(String nome) throws EccezioneSemantica {
 		if (tabellaSimboliCorrente.containsKey(nome)) {
 			throw new EccezioneSemantica(String.format(
@@ -69,22 +88,33 @@ public class JasminTarget extends ScrittoreTarget {
 		contatoreVariabiliCorrente = contatoreVariabiliGlobali;
 	}
 
-	PrintStream outputFile;
-	String className;
-	ByteArrayOutputStream buffer;
-	PrintStream bufferOutput;
+	private PrintStream outputFile;
+	private String className;
+	private ByteArrayOutputStream buffer;
+	private PrintStream bufferOutput;
 
-	OutputStream fileOut;
-
+	/**
+	 * Costruttore che accetta il nome della classe e lo stream di output in cui
+	 * si dovrà salvare il codice target
+	 * 
+	 * @param className
+	 * @param output
+	 * @throws IOException
+	 */
 	public JasminTarget(String className, OutputStream output)
 			throws IOException {
-		this.fileOut = output;
 		this.outputFile = new PrintStream(output);
 		this.className = className;
 		initBuffer();
-		writeContentOfStub("initStub.j", "%className", className);
+		scriviContenutoStub("initStub.j", "%className", className);
 	}
 
+	/*
+	 * Utility per inizializzare e svuotare un buffer. Tutto il codice viene
+	 * prima scritto in questo buffer per consentire il calcolo del numero di
+	 * variabili da utilizzare nel programma e quindi settare correttamente i
+	 * valori di .limit e .stack
+	 */
 	private void initBuffer() {
 		buffer = new ByteArrayOutputStream();
 		bufferOutput = new PrintStream(buffer);
@@ -96,9 +126,15 @@ public class JasminTarget extends ScrittoreTarget {
 		initBuffer();
 	}
 
-	private void writeContentOfStub(String stubFileName, String replacePattern,
-			String replaceString) throws IOException {
-		// Copio il contenuto dello stub nel file di output
+	/*
+	 * Scrive nel linguaggio target delle parti di codice indipendenti dallo
+	 * specifico programma
+	 */
+	private void scriviContenutoStub(String stubFileName,
+			String replacePattern, String replaceString) throws IOException {
+		/*
+		 * Copio il contenuto dello stub nel file di output
+		 */
 		File stubFile = new File(stubFileName);
 		FileReader stub = new FileReader(stubFile);
 		StringBuilder sb = new StringBuilder();
@@ -117,9 +153,15 @@ public class JasminTarget extends ScrittoreTarget {
 		outputFile.print(stubReplaced);
 	}
 
+	/*
+	 * Scrive nel linguaggio target delle parti di codice indipendenti dallo
+	 * specifico programma
+	 */
 	@SuppressWarnings("unused")
-	private void writeContentOfStub(String stubFileName) throws IOException {
-		// Copio il contenuto dello stub nel file di output
+	private void scriviContenutoStub(String stubFileName) throws IOException {
+		/*
+		 * Copio il contenuto dello stub nel file di output
+		 */
 		File stubFile = new File(stubFileName);
 		FileInputStream stub = new FileInputStream(stubFile);
 		int copiedBytes = 0;
@@ -247,6 +289,7 @@ public class JasminTarget extends ScrittoreTarget {
 		bufferOutput.println(labelMaggiore2 + ": ");
 	}
 
+	@Override
 	public void seAltrimenti(Espressione ex, Blocco b1, Blocco b2)
 			throws EccezioneSemantica {
 		ex.scriviCodice(this);
@@ -265,6 +308,9 @@ public class JasminTarget extends ScrittoreTarget {
 
 	}
 
+	/*
+	 * Salva una variabile in memoria
+	 */
 	private void storeInVariabile(String identificatore)
 			throws EccezioneSemantica {
 		int idVar = this.idVariabile(identificatore);
@@ -301,30 +347,39 @@ public class JasminTarget extends ScrittoreTarget {
 		bufferOutput.println(labelMaggiore3 + ": ");
 	}
 
+	/**
+	 * Esegue tutte le operazioni per generare il file conetenete il codice C e
+	 * salva il codice sul file specificato
+	 * 
+	 * @param percorsoFile
+	 *            percorso del file che conterrà il codice sorgente
+	 * @throws Exception
+	 */
 	public static void compilaFile(String percorsoFile, boolean salvaAssembly)
 			throws GeneratorException, FileNotFoundException,
 			LRParserException, IOException, JasminException, EccezioneSemantica {
 
 		File sorgenteFile = new File(percorsoFile);
-
-		// Genero l'AST
-		LALR1Generator generator = new LALR1Generator(new ParserSpec()); // we
-																			// want
-																			// to
-																			// use
-																			// LALR(1)
-		LRParsingTable table = generator.getParsingTable(); // get the resulting
-															// parsing table
-		LRParser parser = new LRParser(table); // create a new LR parser using
-												// our table
-		S result = (S) parser.parse(new Scanner(new FileReader(sorgenteFile))); // apply
-																				// parser
-																				// to
-																				// a
-																				// token
-																				// stream
-
-		// Genero il codice assembly Jasmin
+		/**
+		 * Creo un parser LALR1
+		 */
+		LALR1Generator generator = new LALR1Generator(new ParserSpec());
+		/**
+		 * Prendi la parsing table generata
+		 */
+		LRParsingTable table = generator.getParsingTable();
+		/**
+		 * Crea un parser LR dalla tabella generata
+		 */
+		LRParser parser = new LRParser(table);
+		/**
+		 * Usa il parser per generare l'AST dallo stream di token passati dallo
+		 * scanner
+		 */
+		S result = (S) parser.parse(new Scanner(new FileReader(sorgenteFile)));
+		/**
+		 * Genero il codice Jasmin
+		 */
 		String nomeClasse = sorgenteFile.getName().split("\\.")[0];
 		ByteArrayOutputStream jasminAssemblyBytes = new ByteArrayOutputStream();
 		JasminTarget jt = new JasminTarget(nomeClasse, jasminAssemblyBytes);
@@ -342,8 +397,9 @@ public class JasminTarget extends ScrittoreTarget {
 			fileOut.write(jasminAssemblyBytes.toByteArray());
 			fileOut.close();
 		}
-
-		// Genero il bytecode
+		/*
+		 * Genero il bytecode
+		 */
 		String percorsoFileClass;
 		if (sorgenteFile.getParent() != null) {
 			percorsoFileClass = sorgenteFile.getParent() + File.separator
@@ -351,12 +407,15 @@ public class JasminTarget extends ScrittoreTarget {
 		} else {
 			percorsoFileClass = nomeClasse + ".class";
 		}
-		// Oggetto della libreria Jasmin che si occupa di generare il file
-		// .class
+		/*
+		 * Oggetto della libreria Jasmin che si occupa di generare il file
+		 * .class
+		 */
 		ClassFile classFile = new ClassFile();
-		// Questa chiamata rocambolesca converte l'output a byte del nostro
-		// codice Jasmin in input a caratteri
-		// necessario per la libreria Jasmin
+		/**
+		 * Questa chiamata rocambolesca converte l'output a byte del nostro
+		 * codice Jasmin in input a caratteri necessario per la libreria Jasmin
+		 */
 		CharArrayReader assemblyInput = new CharArrayReader(new String(
 				jasminAssemblyBytes.toByteArray()).toCharArray());
 		try {
@@ -386,7 +445,9 @@ public class JasminTarget extends ScrittoreTarget {
 				+ "/writeString(Ljava/lang/String;)V");
 	}
 
-	// Operazioni sui vettori
+	/*
+	 * Operazioni sui vettori
+	 */
 	private Map<String, Integer> dimensioneVettori = new HashMap<String, Integer>();
 
 	@Override
@@ -446,6 +507,11 @@ public class JasminTarget extends ScrittoreTarget {
 		bufferOutput.println("iastore");
 	}
 
+	/**
+	 * Metodo che genera label sempre diverse
+	 * @return nuova label
+	 * @throws EccezioneSemantica
+	 */
 	public String generaLabel() throws EccezioneSemantica {
 		String labelCorrente = "L";
 		labelCorrente = labelCorrente + label;
@@ -462,7 +528,7 @@ public class JasminTarget extends ScrittoreTarget {
 		outputFile.println(".limit locals " + (numeroVariabili() + 2));
 
 		try {
-			writeContentOfStub("preMainStub.j", "%className", className);
+			scriviContenutoStub("preMainStub.j", "%className", className);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -472,8 +538,10 @@ public class JasminTarget extends ScrittoreTarget {
 		outputFile.println(".end method");
 	}
 
-	// Operazioni sulle funzioni
-
+	/**
+	 * Metodi per le funzioni
+	 */
+	
 	private Map<String, String> parametriFunzioni = new HashMap<String, String>();
 
 	@Override

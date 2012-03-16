@@ -16,7 +16,7 @@ import edu.tum.cup2.parser.LRParser;
 import edu.tum.cup2.parser.tables.LRParsingTable;
 
 /**
- * Classe che genera codice C dato un AST La classe viene usata tramite il
+ * Classe che genera codice C dato un AST. La classe viene usata tramite il
  * metodo public static void compilaFile(String percorsoFile)
  * 
  * @author Alessandro, Luca, Saro
@@ -29,7 +29,7 @@ public class CTarget extends ScrittoreTarget {
 
 	/**
 	 * Costruttore che richiede un stream di uscita per salvare il codice
-	 * generato Il costruttore è privato per evitare istanziazioni esterne
+	 * generato. Il costruttore è privato per evitare istanziazioni esterne
 	 * 
 	 * @param o
 	 *            stream in cui il codice è salvato
@@ -429,6 +429,9 @@ public class CTarget extends ScrittoreTarget {
 		ps.print(")");
 	}
 
+	/*
+	 * Classe di aiuto per concatenare gli argomenti di una funzione in C
+	 */
 	private static class AggiungiVirgola extends PrintStream {
 
 		AggiungiVirgola(PrintStream ps) {
@@ -505,7 +508,6 @@ public class CTarget extends ScrittoreTarget {
 	 */
 	public static void compilaFile(String percorsoFile) throws Exception {
 		File sorgenteFile = new File(percorsoFile);
-
 		/**
 		 * Creo un parser LALR1
 		 */
