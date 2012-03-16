@@ -3,18 +3,20 @@ package istruzioni.funzioni;
 import java.util.List;
 
 /**
+ * Classe che implementa il passaggio di una variabile come argomento di una
+ * funzione. Per la chiamata di una funzione viene usata una normale espressione
  * 
  * @author Alessandro, Luca, Saro
  * 
  */
-public class ArgomentoVariabileFunzione implements R {
+public class ArgomentoVariabileDefinizioneFunzione implements R {
 
 	private String nomeVariabile;
 
 	/**
 	 * @param nomeVariabile
 	 */
-	public ArgomentoVariabileFunzione(String nomeVariabile) {
+	public ArgomentoVariabileDefinizioneFunzione(String nomeVariabile) {
 		this.nomeVariabile = nomeVariabile;
 	}
 

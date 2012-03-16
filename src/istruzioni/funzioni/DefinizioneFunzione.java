@@ -10,6 +10,7 @@ import istruzioni.N;
 import istruzioni.Z;
 
 /**
+ * Classe che implementa la definizione di una funzione
  * 
  * @author Alessandro, Luca, Saro
  * 
@@ -38,9 +39,6 @@ public class DefinizioneFunzione implements Z {
 
 	@Override
 	public void scriviCodice(ScrittoreTarget sc) throws EccezioneSemantica {
-		// TODO Auto-generated method stub
-		// mettere il controllo se il valore di ritorno è null la f non ritorna
-		// valori
 		List<String> listaArgomenti = new LinkedList<String>();
 		if (argomenti != null) {
 			argomenti.aggiungiALista(listaArgomenti);

@@ -3,11 +3,13 @@ package istruzioni.funzioni;
 import java.util.List;
 
 /**
+ * Classe che implementa il passaggio di un vettore a una funzione come
+ * argomento nella sua definizione.
  * 
  * @author Alessandro, Luca, Saro
  * 
  */
-public class ArgomentoVettoreFunzione implements R {
+public class ArgomentoVettoreDefinizioneFunzione implements R {
 
 	private String nomeVettore;
 	private String dimVettore;
@@ -16,7 +18,7 @@ public class ArgomentoVettoreFunzione implements R {
 	 * @param nomeVettore
 	 * @param dimVettore
 	 */
-	public ArgomentoVettoreFunzione(String nomeVettore, String dimVettore) {
+	public ArgomentoVettoreDefinizioneFunzione(String nomeVettore, String dimVettore) {
 		this.nomeVettore = nomeVettore;
 		this.dimVettore = dimVettore;
 	}

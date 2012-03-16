@@ -23,10 +23,10 @@ import istruzioni.espressioni.Prodotto;
 import istruzioni.espressioni.Somma;
 import istruzioni.espressioni.Sottrazione;
 import istruzioni.funzioni.ArgomentiDefinizioneFunzione;
-import istruzioni.funzioni.ArgomentiFunzione;
-import istruzioni.funzioni.ArgomentoFunzioneVettore;
-import istruzioni.funzioni.ArgomentoVariabileFunzione;
-import istruzioni.funzioni.ArgomentoVettoreFunzione;
+import istruzioni.funzioni.ArgomentiChiamataFunzione;
+import istruzioni.funzioni.ArgomentoVettoreChiamataFunzione;
+import istruzioni.funzioni.ArgomentoVariabileDefinizioneFunzione;
+import istruzioni.funzioni.ArgomentoVettoreDefinizioneFunzione;
 import istruzioni.funzioni.ChiamaFunzione;
 import istruzioni.funzioni.ChiamaFunzioneSenzaRitorno;
 import istruzioni.funzioni.DefinizioneFunzione;
@@ -215,14 +215,14 @@ public class ParserSpec extends CUP2Specification {
 						rhs(INTERO, IDENTIFICATORE),
 						new Action() {
 							public istruzioni.funzioni.R a(String id) {
-								return new ArgomentoVariabileFunzione(id);
+								return new ArgomentoVariabileDefinizioneFunzione(id);
 							}
 						},
 						rhs(VETTORE, IDENTIFICATORE, PARENTESI_QUADRA_APERTA,
 								IDENTIFICATORE, PARENTESI_QUADRA_CHIUSA),
 						new Action() {
 							public istruzioni.funzioni.R a(String id, String dim) {
-								return new ArgomentoVettoreFunzione(id, dim);
+								return new ArgomentoVettoreDefinizioneFunzione(id, dim);
 							}
 						}),
 				/**
@@ -459,7 +459,7 @@ public class ParserSpec extends CUP2Specification {
 					public istruzioni.espressioni.W2 a(
 							istruzioni.espressioni.U u,
 							istruzioni.espressioni.W2 w2) {
-						return new ArgomentiFunzione(u, w2);
+						return new ArgomentiChiamataFunzione(u, w2);
 					}
 				}, rhs(U), new Action() {
 					public istruzioni.espressioni.W2 a(
@@ -478,7 +478,7 @@ public class ParserSpec extends CUP2Specification {
 						rhs(IDENTIFICATORE, PARENTESI_QUADRA_APERTA,
 								PARENTESI_QUADRA_CHIUSA), new Action() {
 							public istruzioni.espressioni.U a(String id) {
-								return new ArgomentoFunzioneVettore(id);
+								return new ArgomentoVettoreChiamataFunzione(id);
 							}
 						}));
 	}

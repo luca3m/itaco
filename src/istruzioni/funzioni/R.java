@@ -1,6 +1,7 @@
 package istruzioni.funzioni;
 
 /**
+ * Interfaccia che implementa la produzione R
  * 
  * @author Alessandro, Luca, Saro
  * 

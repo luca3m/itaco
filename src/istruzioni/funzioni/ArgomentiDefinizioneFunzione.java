@@ -3,6 +3,7 @@ package istruzioni.funzioni;
 import java.util.List;
 
 /**
+ * Classe che implementa gli argomenti nella definizione di una funzione
  * 
  * @author Alessandro, Luca, Saro
  * 

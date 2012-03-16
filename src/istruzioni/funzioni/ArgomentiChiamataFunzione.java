@@ -7,16 +7,17 @@ import istruzioni.espressioni.U;
 import istruzioni.espressioni.W2;
 
 /**
+ * Classe che implementa gli argomenti di una funzione quando viene invocata
  * 
  * @author Alessandro, Luca, Saro
  * 
  */
-public class ArgomentiFunzione implements W2 {
+public class ArgomentiChiamataFunzione implements W2 {
 
 	private U argomentoPrecedente;
 	private W2 argomentiSuccessivi;
 
-	public ArgomentiFunzione(U argomentoPrecedente, W2 argomentiSuccessivi) {
+	public ArgomentiChiamataFunzione(U argomentoPrecedente, W2 argomentiSuccessivi) {
 		this.argomentoPrecedente = argomentoPrecedente;
 		this.argomentiSuccessivi = argomentiSuccessivi;
 	}

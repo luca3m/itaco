@@ -8,6 +8,7 @@ import istruzioni.espressioni.F;
 import istruzioni.espressioni.W;
 
 /**
+ * Classe che implementa la chiamata di una funzione che ritorna un valore
  * 
  * @author Alessandro, Luca, Saro
  * 
