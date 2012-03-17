@@ -75,7 +75,7 @@ public class FinestraPrincipale extends JFrame {
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (fileItaco.isSaved()) {
+				if (fileItaco.fileSalvato()) {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
@@ -113,7 +113,7 @@ public class FinestraPrincipale extends JFrame {
 		btnPulisci.setIcon(new ImageIcon(FinestraPrincipale.class.getResource("/img/tastoplay0.png")));
 		btnPulisci.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (fileItaco.isSaved()) {
+				if (fileItaco.fileSalvato()) {
 					fileItaco.salvaFile(Panecodice.getText());
 					fileItaco.esegui();
 				} else {
@@ -171,7 +171,7 @@ public class FinestraPrincipale extends JFrame {
 		JMenuItem file_SalvaConNome = new JMenuItem("Salva");
 		file_SalvaConNome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (fileItaco.isSaved()) {
+				if (fileItaco.fileSalvato()) {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
@@ -202,7 +202,7 @@ public class FinestraPrincipale extends JFrame {
 		JMenuItem compila_compilaEsegui = new JMenuItem("Compila ed Esegui");
 		compila_compilaEsegui.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (fileItaco.isSaved()) {
+				if (fileItaco.fileSalvato()) {
 					fileItaco.salvaFile(Panecodice.getText());
 					fileItaco.esegui();
 				} else {
@@ -220,7 +220,7 @@ public class FinestraPrincipale extends JFrame {
 		JMenuItem compila_compila = new JMenuItem("Compila");
 		compila_compila.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (fileItaco.isSaved()) {
+				if (fileItaco.fileSalvato()) {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
@@ -240,7 +240,7 @@ public class FinestraPrincipale extends JFrame {
 		JMenuItem compila_esportaC = new JMenuItem("Esporta in C");
 		compila_esportaC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (fileItaco.isSaved()) {
+				if (fileItaco.fileSalvato()) {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
@@ -257,7 +257,7 @@ public class FinestraPrincipale extends JFrame {
 		JMenuItem compila_EsportaInRuby = new JMenuItem("Esporta in Ruby");
 		compila_EsportaInRuby.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (fileItaco.isSaved()) {
+				if (fileItaco.fileSalvato()) {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
@@ -274,7 +274,7 @@ public class FinestraPrincipale extends JFrame {
 		JMenuItem Compila_esportaJasmin = new JMenuItem("Esporta in Jasmin");
 		Compila_esportaJasmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (fileItaco.isSaved()) {
+				if (fileItaco.fileSalvato()) {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
@@ -329,7 +329,7 @@ public class FinestraPrincipale extends JFrame {
 		JButton btnNewButton_1 = new JButton("");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (fileItaco.isSaved()) {
+				if (fileItaco.fileSalvato()) {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
@@ -349,7 +349,7 @@ public class FinestraPrincipale extends JFrame {
 		JButton btnNewButton_2 = new JButton("");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (fileItaco.isSaved()) {
+				if (fileItaco.fileSalvato()) {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
@@ -369,7 +369,7 @@ public class FinestraPrincipale extends JFrame {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (fileItaco.isSaved()) {
+				if (fileItaco.fileSalvato()) {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
@@ -389,7 +389,7 @@ public class FinestraPrincipale extends JFrame {
 		JButton btnNewButton_3 = new JButton("");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (fileItaco.isSaved()) {
+				if (fileItaco.fileSalvato()) {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();

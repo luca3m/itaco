@@ -5,6 +5,7 @@ import compilatore.ScrittoreTarget;
 import compilatore.EccezioneSemantica;
 
 /**
+ * Classe che implementa l'operazione di uguaglianza
  * 
  * @author Alessandro, Luca, Saro
  * 

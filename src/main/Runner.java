@@ -6,10 +6,16 @@ import compilatore.CTarget;
 import compilatore.JasminTarget;
 import compilatore.RubyTarget;
 
+/**
+ * Classe di avvio per eseguire la compilazione
+ * 
+ * @author Alessandro Luca Rosario
+ * 
+ */
 public class Runner {
 
 	/**
-	 * Classe di avvio per eseguire la compilazione
+	 * Main per la generazione del codice
 	 * 
 	 * @param args
 	 * @throws Exception

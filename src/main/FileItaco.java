@@ -11,6 +11,13 @@ import compilatore.CTarget;
 import compilatore.JasminTarget;
 import compilatore.RubyTarget;
 
+/**
+ * Classe che rappresenta una istanza di un file sorgente .ita e la gestisce in
+ * compilazione e gestione come file
+ * 
+ * @author Alessandro Luca Rosario
+ * 
+ */
 public class FileItaco {
 
 	Logger itacoLogger = Logger.getLogger("Itaco");
@@ -18,7 +25,8 @@ public class FileItaco {
 	private String directory = null;
 
 	/**
-	 * Costruttore senza file specificato
+	 * Costruttore senza file specificato: crea una istanza della classe per
+	 * accogliere un nuovo sorgente .ita
 	 */
 	public FileItaco() {
 		directory = System.getenv("USER.DIR");
@@ -40,9 +48,16 @@ public class FileItaco {
 		baseNomeFile = fileDescriptor.getName().split("\\.")[0];
 	}
 
-	public boolean isSaved() {
+	/**
+	 * Controlla se al file .ita è stato già assegnato un nome, ad esempio nel
+	 * caso sia stato aperto da file
+	 * 
+	 * @return vero se il nome è impostato
+	 */
+	public boolean fileSalvato() {
 		return baseNomeFile != null;
 	}
+
 	/**
 	 * Salva il file .ita in un file con nome di default
 	 * 
@@ -54,8 +69,8 @@ public class FileItaco {
 			PrintStream Output = new PrintStream(file1);
 			Output.print(contenuto);
 			file1.close();
-			itacoLogger.info("File salvato, percorso file:" + directory + File.separator + baseNomeFile
-						+ ".ita");
+			itacoLogger.info("File salvato, percorso file:" + directory
+					+ File.separator + baseNomeFile + ".ita");
 			return true;
 		} catch (IOException e) {
 			itacoLogger.severe(String.format(
@@ -91,23 +106,33 @@ public class FileItaco {
 			switch (linguaggio) {
 			case C:
 				CTarget.compilaFile(percorsoFile);
-				itacoLogger.info("Esportazione in C completata, percorso file:" + directory + File.separator + baseNomeFile
-						+ ".c");
+				itacoLogger.info("Esportazione in C completata, percorso file:"
+						+ directory + File.separator + baseNomeFile + ".c");
 				break;
 			case JASMIN:
 				JasminTarget.compilaFile(percorsoFile, true);
-				itacoLogger.info("Esportazione in Jasmin completata, percorso file:" + directory + File.separator + baseNomeFile
-						+ ".j");
+				itacoLogger
+						.info("Esportazione in Jasmin completata, percorso file:"
+								+ directory
+								+ File.separator
+								+ baseNomeFile
+								+ ".j");
 				break;
 			case RUBY:
 				RubyTarget.compilaFile(percorsoFile);
-				itacoLogger.info("Esportazione in Ruby completata, percorso file:" + directory + File.separator + baseNomeFile
-						+ ".rb");
+				itacoLogger
+						.info("Esportazione in Ruby completata, percorso file:"
+								+ directory + File.separator + baseNomeFile
+								+ ".rb");
 				break;
 			case CLASS:
 				JasminTarget.compilaFile(percorsoFile, false);
-				itacoLogger.info("Esportazione in Java .class completata, percorso file:" + directory + File.separator + baseNomeFile
-						+ ".class");
+				itacoLogger
+						.info("Esportazione in Java .class completata, percorso file:"
+								+ directory
+								+ File.separator
+								+ baseNomeFile
+								+ ".class");
 				break;
 			}
 		} catch (Exception e) {
@@ -119,9 +144,6 @@ public class FileItaco {
 
 	/**
 	 * Esegui il programma .ita
-	 * 
-	 * @param testo
-	 *            sorgente del programma da eseguire
 	 * 
 	 * @return esito dell'esecuzione
 	 * @throws InterruptedException
@@ -169,8 +191,8 @@ public class FileItaco {
 			}
 			return true;
 		} catch (IOException e) {
-			itacoLogger.severe(
-					String.format("Errore di esecuzione: %s", e.toString()));
+			itacoLogger.severe(String.format("Errore di esecuzione: %s",
+					e.toString()));
 			return false;
 		}
 	}
@@ -179,9 +201,16 @@ public class FileItaco {
 		return directory + File.separator + baseNomeFile + ".ita";
 	}
 
+	/**
+	 * Metodo che restituisce un sorgente da file. Il path del file è impostato
+	 * nella classe poiché ogni classe rappresenta un codice sorgente
+	 * 
+	 * @return stringa contenente il sorgente aperto, stringa vuota altrimenti
+	 */
 	public String getContenuto() {
 		try {
-			java.util.Scanner scanner = new java.util.Scanner(new FileInputStream(getPercorsoFile()));
+			java.util.Scanner scanner = new java.util.Scanner(
+					new FileInputStream(getPercorsoFile()));
 			StringBuilder sb = new StringBuilder();
 			while (scanner.hasNextLine()) {
 				sb.append(scanner.nextLine());
@@ -189,7 +218,8 @@ public class FileItaco {
 			}
 			return sb.toString();
 		} catch (Exception e) {
-			itacoLogger.severe(String.format("Impossibile aprire il file %s:%s", getPercorsoFile(), e));
+			itacoLogger.severe(String.format(
+					"Impossibile aprire il file %s:%s", getPercorsoFile(), e));
 		}
 		return "";
 	}
