@@ -102,6 +102,7 @@ public class FileItaco {
 	public boolean compila(ElencoLinguaggi linguaggio) {
 		if (!fileSalvato()) {
 			itacoLogger.severe("Per compilare, prima bisogna salvare il file");
+			return false;
 		}
 		String percorsoFile = directory + File.separator + baseNomeFile
 				+ ".ita";
@@ -154,6 +155,7 @@ public class FileItaco {
 	public boolean esegui() {
 		if (!fileSalvato()) {
 			itacoLogger.severe("Per eseguire, prima bisogna salvare il file");
+			return false;
 		}
 		// Compilo il codice
 		try {
