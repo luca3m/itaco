@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -89,6 +90,7 @@ public class FinestraPrincipale extends JFrame {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
+					chooser.setFileFilter(new FileNameExtensionFilter("Sorgente ITAco", "ita", "ITA"));
 					chooser.showSaveDialog(null);
 					if (chooser.getSelectedFile() != null) {
 						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
@@ -104,6 +106,7 @@ public class FinestraPrincipale extends JFrame {
 		btnGeneraFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser chooser = new JFileChooser();
+				chooser.setFileFilter(new FileNameExtensionFilter("Sorgente ITAco", "ita", "ITA"));
 				chooser.showOpenDialog(null);
 				if (chooser.getSelectedFile() != null) {
 					java.io.File fileSelezionato = chooser.getSelectedFile();
@@ -130,6 +133,7 @@ public class FinestraPrincipale extends JFrame {
 					fileItaco.esegui();
 				} else {
 					JFileChooser chooser = new JFileChooser();
+					chooser.setFileFilter(new FileNameExtensionFilter("Sorgente ITAco", "ita", "ITA"));
 					chooser.showSaveDialog(null);
 					if (chooser.getSelectedFile() != null) {
 						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
@@ -145,6 +149,8 @@ public class FinestraPrincipale extends JFrame {
 		scroller2.setBounds(199, 570, 795, 126);
 		contentPane.add(scroller2);
 		final JTextArea PaneLogger = new JTextArea();
+		PaneLogger.setLineWrap(true);
+		PaneLogger.setEditable(false);
 		PaneLogger.setText("Log:");
 		scroller2.setViewportView(PaneLogger);
 		//PaneLogger.setBounds(199, 570, 795, 126);
@@ -170,6 +176,7 @@ public class FinestraPrincipale extends JFrame {
 		file_Apri.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
+				chooser.setFileFilter(new FileNameExtensionFilter("Sorgente ITAco", "ita", "ITA"));
 				chooser.showOpenDialog(null);
 				if (chooser.getSelectedFile() != null) {
 					java.io.File fileSelezionato = chooser.getSelectedFile();
@@ -187,6 +194,7 @@ public class FinestraPrincipale extends JFrame {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
+					chooser.setFileFilter(new FileNameExtensionFilter("Sorgente ITAco", "ita", "ITA"));
 					chooser.showSaveDialog(null);
 					if (chooser.getSelectedFile() != null) {
 						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
@@ -236,6 +244,7 @@ public class FinestraPrincipale extends JFrame {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
+					chooser.setFileFilter(new FileNameExtensionFilter("Sorgente ITAco", "ita", "ITA"));
 					chooser.showSaveDialog(null);
 					if (chooser.getSelectedFile() != null) {
 						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
@@ -256,6 +265,7 @@ public class FinestraPrincipale extends JFrame {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
+					chooser.setFileFilter(new FileNameExtensionFilter("Sorgente ITAco", "ita", "ITA"));
 					chooser.showSaveDialog(null);
 					if (chooser.getSelectedFile() != null) {
 						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
@@ -273,6 +283,7 @@ public class FinestraPrincipale extends JFrame {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
+					chooser.setFileFilter(new FileNameExtensionFilter("Sorgente ITAco", "ita", "ITA"));
 					chooser.showSaveDialog(null);
 					if (chooser.getSelectedFile() != null) {
 						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
@@ -290,6 +301,7 @@ public class FinestraPrincipale extends JFrame {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
+					chooser.setFileFilter(new FileNameExtensionFilter("Sorgente ITAco", "ita", "ITA"));
 					chooser.showSaveDialog(null);
 					if (chooser.getSelectedFile() != null) {
 						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
@@ -347,6 +359,7 @@ public class FinestraPrincipale extends JFrame {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
+					chooser.setFileFilter(new FileNameExtensionFilter("Sorgente ITAco", "ita", "ITA"));
 					chooser.showSaveDialog(null);
 					if (chooser.getSelectedFile() != null) {
 						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
@@ -368,6 +381,7 @@ public class FinestraPrincipale extends JFrame {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
+					chooser.setFileFilter(new FileNameExtensionFilter("Sorgente ITAco", "ita", "ITA"));
 					chooser.showSaveDialog(null);
 					if (chooser.getSelectedFile() != null) {
 						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
@@ -389,6 +403,7 @@ public class FinestraPrincipale extends JFrame {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
+					chooser.setFileFilter(new FileNameExtensionFilter("Sorgente ITAco", "ita", "ITA"));
 					chooser.showSaveDialog(null);
 					if (chooser.getSelectedFile() != null) {
 						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());
@@ -410,6 +425,7 @@ public class FinestraPrincipale extends JFrame {
 					fileItaco.salvaFile(Panecodice.getText());
 				} else {
 					JFileChooser chooser = new JFileChooser();
+					chooser.setFileFilter(new FileNameExtensionFilter("Sorgente ITAco", "ita", "ITA"));
 					chooser.showSaveDialog(null);
 					if (chooser.getSelectedFile() != null) {
 						fileItaco.salvaFile(Panecodice.getText(), chooser.getSelectedFile().getAbsolutePath());

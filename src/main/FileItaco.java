@@ -100,6 +100,9 @@ public class FileItaco {
 	 * @return esito compilazione
 	 */
 	public boolean compila(ElencoLinguaggi linguaggio) {
+		if (!fileSalvato()) {
+			itacoLogger.severe("Per compilare, prima bisogna salvare il file");
+		}
 		String percorsoFile = directory + File.separator + baseNomeFile
 				+ ".ita";
 		try {
@@ -149,6 +152,9 @@ public class FileItaco {
 	 * @throws InterruptedException
 	 */
 	public boolean esegui() {
+		if (!fileSalvato()) {
+			itacoLogger.severe("Per eseguire, prima bisogna salvare il file");
+		}
 		// Compilo il codice
 		try {
 			JasminTarget.compilaFile(getPercorsoFile(), false);
