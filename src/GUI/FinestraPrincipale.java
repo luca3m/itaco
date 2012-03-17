@@ -25,6 +25,7 @@ import javax.swing.border.EmptyBorder;
 
 import main.ElencoLinguaggi;
 import main.FileItaco;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class FinestraPrincipale extends JFrame {
@@ -74,6 +75,7 @@ public class FinestraPrincipale extends JFrame {
 		scroller.setBounds(199, 113, 795, 435);
 		contentPane.add(scroller);
 		final JTextArea Panecodice = new JTextArea();
+		Panecodice.setFont(new Font("Monospaced", Panecodice.getFont().getStyle(), 14));
 		Panecodice.setText("scrivi \"Ciao Mondo!\".");
 		//Panecodice.setBounds(199, 113, 795, 435);
 		scroller.setViewportView(Panecodice);

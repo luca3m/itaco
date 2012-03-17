@@ -7,11 +7,12 @@ import jasmin.ClassFile;
 import java.io.ByteArrayOutputStream;
 import java.io.CharArrayReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
@@ -135,18 +136,14 @@ public class JasminTarget extends ScrittoreTarget {
 		/*
 		 * Copio il contenuto dello stub nel file di output
 		 */
-		File stubFile = new File(JasminTarget.class.getResource("/compilatore/stub/"+stubFileName).getPath());
-		FileReader stub = new FileReader(stubFile);
+		InputStreamReader stub = new InputStreamReader(JasminTarget.class.getResourceAsStream("/compilatore/stub/"+stubFileName));
 		StringBuilder sb = new StringBuilder();
-		int copiedBytes = 0;
-		long fileSizeInBytes = stubFile.length();
 		int charsRead = 0;
 		char[] fileData = new char[1024];
 
-		while (copiedBytes < fileSizeInBytes) {
+		while (stub.ready()) {
 			charsRead = stub.read(fileData);
 			sb.append(fileData, 0, charsRead);
-			copiedBytes += charsRead;
 		}
 		String stubReplaced = sb.toString().replaceAll(replacePattern,
 				replaceString);
@@ -162,14 +159,12 @@ public class JasminTarget extends ScrittoreTarget {
 		/*
 		 * Copio il contenuto dello stub nel file di output
 		 */
-		File stubFile = new File(JasminTarget.class.getResource("/compilatore/stub/"+stubFileName).getPath());
-		FileInputStream stub = new FileInputStream(stubFile);
+		InputStream stub = JasminTarget.class.getResourceAsStream("/compilatore/stub/"+stubFileName);
 		int copiedBytes = 0;
-		long fileSizeInBytes = stubFile.length();
 		int bytesRead = 0;
 		byte[] fileData = new byte[1024];
 
-		while (copiedBytes < fileSizeInBytes) {
+		while (stub.available() > 0) {
 			bytesRead = stub.read(fileData);
 			outputFile.write(fileData, 0, bytesRead);
 			copiedBytes += bytesRead;
