@@ -135,7 +135,7 @@ public class JasminTarget extends ScrittoreTarget {
 		/*
 		 * Copio il contenuto dello stub nel file di output
 		 */
-		File stubFile = new File(stubFileName);
+		File stubFile = new File(JasminTarget.class.getResource("/compilatore/stub/"+stubFileName).getPath());
 		FileReader stub = new FileReader(stubFile);
 		StringBuilder sb = new StringBuilder();
 		int copiedBytes = 0;
@@ -162,7 +162,7 @@ public class JasminTarget extends ScrittoreTarget {
 		/*
 		 * Copio il contenuto dello stub nel file di output
 		 */
-		File stubFile = new File(stubFileName);
+		File stubFile = new File(JasminTarget.class.getResource("/compilatore/stub/"+stubFileName).getPath());
 		FileInputStream stub = new FileInputStream(stubFile);
 		int copiedBytes = 0;
 		long fileSizeInBytes = stubFile.length();
