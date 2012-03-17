@@ -144,7 +144,7 @@ public class FinestraPrincipale extends JFrame {
 				}
 			}
 		});
-		btnPulisci.setBounds(31, 23, 128, 97);
+		btnPulisci.setBounds(10, 23, 128, 97);
 		contentPane.add(btnPulisci);
 		
 		JScrollPane scroller2 = new JScrollPane();
