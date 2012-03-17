@@ -14,6 +14,7 @@ public class DialogoAutori extends JDialog {
 	 * Create the dialog.
 	 */
 	public DialogoAutori() {
+		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Autori ITAco");
 		setBounds(100, 100, 326, 409);
