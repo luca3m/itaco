@@ -6,6 +6,7 @@ import java.awt.SystemColor;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class DialogoAutori extends JDialog {
@@ -26,19 +27,19 @@ public class DialogoAutori extends JDialog {
 		
 		JLabel lblLucaMarturana = new JLabel("Luca Marturana");
 		lblLucaMarturana.setFont(new Font("Lucida Grande", Font.ITALIC, 13));
-		lblLucaMarturana.setForeground(SystemColor.controlHighlight);
+		lblLucaMarturana.setForeground(Color.BLACK);
 		lblLucaMarturana.setBounds(110, 282, 120, 16);
 		getContentPane().add(lblLucaMarturana);
 		
 		JLabel lblAlessandroGallotta = new JLabel("Alessandro Gallotta");
 		lblAlessandroGallotta.setFont(new Font("Lucida Grande", Font.ITALIC, 13));
-		lblAlessandroGallotta.setForeground(SystemColor.controlHighlight);
+		lblAlessandroGallotta.setForeground(Color.BLACK);
 		lblAlessandroGallotta.setBounds(110, 254, 135, 16);
 		getContentPane().add(lblAlessandroGallotta);
 		
 		JLabel lblNewLabel = new JLabel("Rosario Villari");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.ITALIC, 13));
-		lblNewLabel.setForeground(SystemColor.controlHighlight);
+		lblNewLabel.setForeground(Color.BLACK);
 		lblNewLabel.setBounds(110, 314, 125, 16);
 		getContentPane().add(lblNewLabel);
 		
