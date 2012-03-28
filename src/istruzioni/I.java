@@ -7,6 +7,6 @@ import compilatore.Produzione;
  * @author Alessandro Luca Rosario
  *
  */
-public interface I extends N, Produzione {
+public interface I extends N {
 
 }
